@@ -11,7 +11,6 @@
     [runners.cache.gcs]
     [runners.cache.azure]
 ↑↑↑ Select until here (do not select this line) ↑↑↑
----
 
 Copy and paste the text above and put it in the config.toml file in your GitLab Runner installation folder.
 
