@@ -1,13 +1,13 @@
-package com.g3.feedbackApp.Models;
+package com.g3.feedbackApp.Models.DTOS;
 
-public class CommentModel {
+public class CommentDTO {
 
     private Integer commentId;
     private Integer versionId;
     private String text;
     private boolean isSolution;
 
-    public CommentModel(Integer commentId, Integer versionId, String text){
+    public CommentDTO(Integer commentId, Integer versionId, String text){
         this.commentId = commentId;
         this.versionId = versionId;
         this.text = text;
