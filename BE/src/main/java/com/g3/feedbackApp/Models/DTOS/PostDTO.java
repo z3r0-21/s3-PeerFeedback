@@ -1,6 +1,9 @@
 package com.g3.feedbackApp.Models.DTOS;
 
+import com.g3.feedbackApp.Models.VersionModel;
+
 import java.time.LocalDate;
+import java.util.List;
 
 public class PostDTO {
 
@@ -12,8 +15,9 @@ public class PostDTO {
     private LocalDate postDate;
     private LocalDate resolveDate;
     private String filePath;
+    private List<VersionModel> versions;
 
-    public PostDTO(int postID, int idOP ,String title, String category, String description, LocalDate postDate, LocalDate resolveDate, String filePath){
+    public PostDTO(int postID, int idOP ,String title, String category, String description, LocalDate postDate, LocalDate resolveDate){
         this.postId = postID;
         this.idOP = idOP;
         this.title = title;
@@ -21,7 +25,6 @@ public class PostDTO {
         this.description = description;
         this.postDate = postDate;
         this.resolveDate = resolveDate;
-        this.filePath = filePath;
     }
 
     public int getPostId(){return this.postId;}
@@ -40,4 +43,7 @@ public class PostDTO {
     public void setResolveDate(LocalDate resolveDate){this.resolveDate = resolveDate;}
     public String getFilePath(){return this.filePath;}
     public void setFilePath(String filePath){this.filePath = filePath;}
+    public List<VersionModel> getVersions() {return versions;}
+    public void setVersions(List<VersionModel> versions){this.versions = versions;}
+
 }

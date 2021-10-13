@@ -15,13 +15,17 @@ public class FakeDataSourcePost implements IDataSourcePost {
     private static int postIdCounter = 4;
     List<PostModel> postModelList = new ArrayList<>();
 
-    private static int versionIdCounter = 1;
+    private static int versionIdCounter = 4;
     List<VersionModel> versionModelList = new ArrayList<>();
 
     public FakeDataSourcePost(){
         postModelList.add(new PostModel(1, 1,"First Post", "code", "my first code post", LocalDate.now(), null));
         postModelList.add(new PostModel(2, 1,"Second Post", "Assay", "Please check my assay", LocalDate.now(), null));
         postModelList.add(new PostModel(3, 1,"Third Post", "DB Diagrams", "The first draft", LocalDate.now(), null));
+
+        versionModelList.add(new VersionModel(1, 1, "testFilePathVersion1"));
+        versionModelList.add(new VersionModel(2, 1, "testFilePathVersion2"));
+        versionModelList.add(new VersionModel(3, 1, "testFilePathVersion3"));
     }
 
     @Override
@@ -36,11 +40,38 @@ public class FakeDataSourcePost implements IDataSourcePost {
     @Override
     public boolean createVersion(int postId, String filePath) {
         versionModelList.add(new VersionModel(versionIdCounter, postId, filePath));
+        versionIdCounter++;
         return true;
     }
 
     @Override
-    public PostModel getPostWithID(int ID) {
+    public PostModel getPostWithId(int Id) {
+        for(PostModel p: postModelList){
+            if(p.getPostId() == Id){
+                return p;
+            }
+        }
         return null;
+    }
+
+    @Override
+    public VersionModel getVersionWithId(int versionId) {
+        for(VersionModel v: versionModelList){
+            if(v.getVersionId() == versionId){
+                return v;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public List<VersionModel> getVersionsForPost(int postId) {
+        List<VersionModel> listOfIds = new ArrayList<>();
+        for(VersionModel v: versionModelList){
+            if(v.getPostId() == postId){
+                listOfIds.add(v);
+            }
+        }
+        return listOfIds;
     }
 }
