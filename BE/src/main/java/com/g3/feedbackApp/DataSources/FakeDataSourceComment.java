@@ -39,13 +39,14 @@ public class FakeDataSourceComment implements IDataSourceComment {
     }
 
     @Override
-    public CommentModel getCommentWithVersionID(int id) {
+    public List<CommentModel> getCommentsWithVersionID(int id) {
+        List<CommentModel> comments = new ArrayList<>();
         for(CommentModel c: commentModelList){
             if(c.getVersionId() == id){
-                return c;
+                comments.add(c);
             }
         }
-        return null;
+        return comments;
     }
 
     @Override

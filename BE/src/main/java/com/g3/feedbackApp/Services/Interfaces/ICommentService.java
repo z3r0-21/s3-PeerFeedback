@@ -9,5 +9,5 @@ public interface ICommentService {
     boolean createComment(CommentModel commentModel);
     List<CommentModel> getComments();
     CommentModel getCommentWithId(int commentId);
-    CommentModel getCommentWithVersionId(int versionId);
+    List<CommentModel> getCommentsWithVersionId(int versionId);
 }

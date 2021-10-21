@@ -51,12 +51,12 @@ public class CommentController {
     }
 
     @GetMapping("/version/{id}")
-    public ResponseEntity<CommentDTO> getCommentWithVersionId(@PathVariable(value = "id") int id) {
-        CommentModel modelToGet = commentService.getCommentWithVersionId(id);
-        CommentDTO dtoToReturn = commentConverter.convertCommentModelToCommentDTO(modelToGet);
+    public ResponseEntity<List<CommentModel>> getCommentWithVersionId(@PathVariable(value = "id") int id) {
+        List<CommentModel> comments = commentService.getCommentsWithVersionId(id);
 
-        if (modelToGet != null) {
-            return ResponseEntity.ok().body(dtoToReturn);
+
+        if (comments != null) {
+            return ResponseEntity.ok().body(comments);
         } else {
             return ResponseEntity.notFound().build();
         }

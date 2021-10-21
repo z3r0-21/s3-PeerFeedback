@@ -8,6 +8,6 @@ public interface IDataSourceComment {
 
     boolean createComment(CommentModel commentModel);
     CommentModel getCommentWithID(int ID);
-    CommentModel getCommentWithVersionID(int ID);
+    List<CommentModel> getCommentsWithVersionID(int ID);
     List<CommentModel> getComments();
 }

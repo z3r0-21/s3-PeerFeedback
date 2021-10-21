@@ -30,8 +30,8 @@ public class CommentService implements ICommentService{
     }
 
     @Override
-    public CommentModel getCommentWithVersionId(int versionId){
-        return datasource.getCommentWithVersionID(versionId);
+    public List<CommentModel> getCommentsWithVersionId(int versionId){
+        return datasource.getCommentsWithVersionID(versionId);
     }
 
     @Override
