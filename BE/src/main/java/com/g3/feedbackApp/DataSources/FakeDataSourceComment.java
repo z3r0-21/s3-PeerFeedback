@@ -26,10 +26,34 @@ public class FakeDataSourceComment implements IDataSourceComment {
         commentModelList.add(commentModel);
         commentIdCounter++;
         return true;
-
-
     }
 
     @Override
-    public CommentModel getCommentWithID(int ID) { return null; }
+    public CommentModel getCommentWithID(int id) {
+        for(CommentModel c: commentModelList){
+            if(c.getCommentId() == id){
+                return c;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public CommentModel getCommentWithVersionID(int id) {
+        for(CommentModel c: commentModelList){
+            if(c.getVersionId() == id){
+                return c;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public List<CommentModel> getComments() {
+        List<CommentModel> comments = new ArrayList<>();
+        for(CommentModel c: commentModelList){
+            comments.add(c);
+        }
+        return comments;
+    }
 }

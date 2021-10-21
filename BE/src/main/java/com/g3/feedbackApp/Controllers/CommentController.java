@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 
-
+import java.util.List;
 
 
 @RestController
@@ -30,11 +30,47 @@ public class CommentController {
     //POST at http://localhost:XXXX/comments/
     public ResponseEntity<CommentDTO> createMember(@RequestBody CommentDTO commentDTO) {
         CommentModel commentModel = commentConverter.convertCommentDTOToCommentModel(commentDTO);
-        if(commentService.createComment(commentModel)){
+        if (commentService.createComment(commentModel)) {
             CommentDTO commentDTO1 = commentConverter.convertCommentModelToCommentDTO(commentModel);
             return ResponseEntity.ok().body(commentDTO1);
         }
         String message = "Something went wrong, comment not created";
         return new ResponseEntity(message, HttpStatus.CONFLICT);
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<CommentDTO> getCommentWithId(@PathVariable(value = "id") int id) {
+        CommentModel modelToGet = commentService.getCommentWithId(id);
+        CommentDTO dtoToReturn = commentConverter.convertCommentModelToCommentDTO(modelToGet);
+
+        if (modelToGet != null) {
+            return ResponseEntity.ok().body(dtoToReturn);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/version/{id}")
+    public ResponseEntity<CommentDTO> getCommentWithVersionId(@PathVariable(value = "id") int id) {
+        CommentModel modelToGet = commentService.getCommentWithVersionId(id);
+        CommentDTO dtoToReturn = commentConverter.convertCommentModelToCommentDTO(modelToGet);
+
+        if (modelToGet != null) {
+            return ResponseEntity.ok().body(dtoToReturn);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    //at /comments
+    @GetMapping()
+    public ResponseEntity<List<CommentModel>> getComments() {
+        List<CommentModel> comments = commentService.getComments();
+
+        if(comments != null){
+        return ResponseEntity.ok().body(comments);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

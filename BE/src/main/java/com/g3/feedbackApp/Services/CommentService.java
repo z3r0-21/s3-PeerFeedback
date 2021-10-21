@@ -5,6 +5,8 @@ import com.g3.feedbackApp.Models.CommentModel;
 import com.g3.feedbackApp.Services.Interfaces.ICommentService;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class CommentService implements ICommentService{
 
@@ -22,4 +24,18 @@ public class CommentService implements ICommentService{
         return false;
     }
 
+    @Override
+    public CommentModel getCommentWithId(int commentId){
+        return datasource.getCommentWithID(commentId);
+    }
+
+    @Override
+    public CommentModel getCommentWithVersionId(int versionId){
+        return datasource.getCommentWithVersionID(versionId);
+    }
+
+    @Override
+    public List<CommentModel> getComments(){
+        return datasource.getComments();
+    }
 }
