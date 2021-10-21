@@ -1,10 +1,15 @@
 package com.g3.feedbackApp.Models.DTOS;
 
 import com.g3.feedbackApp.Models.VersionModel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.List;
 
+@Setter
+@Getter
 public class PostDTO {
 
     private int postId;
@@ -16,6 +21,7 @@ public class PostDTO {
     private LocalDate resolveDate;
     private String filePath;
     private List<VersionModel> versions;
+    private List<Integer> reviewersIds;
 
     public PostDTO(int postID, int idOP ,String title, String category, String description, LocalDate postDate, LocalDate resolveDate){
         this.postId = postID;
@@ -26,24 +32,4 @@ public class PostDTO {
         this.postDate = postDate;
         this.resolveDate = resolveDate;
     }
-
-    public int getPostId(){return this.postId;}
-    public void setPostId(int postId){this.postId = postId;}
-    public int getIdOP(){return this.idOP;}
-    public void setIdOP(int idOP){this.idOP = idOP;}
-    public String getTitle(){return this.title;}
-    public void setTitle(String title){this.title = title;}
-    public String getDescription(){return this.description;}
-    public void setDescription(String description){this.description = description;}
-    public String getCategory(){return this.category;}
-    public void setCategory(String category){this.category = category;}
-    public LocalDate getPostDate(){return this.postDate;}
-    public void setLocalDate(LocalDate postDate){this.postDate = postDate;}
-    public LocalDate getResolveDate(){return this.resolveDate;}
-    public void setResolveDate(LocalDate resolveDate){this.resolveDate = resolveDate;}
-    public String getFilePath(){return this.filePath;}
-    public void setFilePath(String filePath){this.filePath = filePath;}
-    public List<VersionModel> getVersions() {return versions;}
-    public void setVersions(List<VersionModel> versions){this.versions = versions;}
-
 }

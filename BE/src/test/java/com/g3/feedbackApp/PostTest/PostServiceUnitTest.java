@@ -8,6 +8,11 @@ import com.g3.feedbackApp.Services.PostService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -25,15 +30,19 @@ public class PostServiceUnitTest {
 
     @Test
     public void getPostModelWithIdSuccessfulTest(){
-        PostModel postModel = postService.getPostWithId(1);
+        PostModel modelToExpect = new PostModel(4, 1,"First Post", "code", "my first code post", LocalDate.now(), null);
+        //create list of reviewers to perform create post method
+        List<Integer> reviewersIds = new ArrayList<>();
+        reviewersIds.add(2);
 
-        assertEquals(1, postModel.getPostId());
+        postService.createPost(modelToExpect, "testFilePath", reviewersIds);
+
+        assertEquals(modelToExpect, postService.getPostWithId(4));
     }
 
     @Test
     public void getPostModelWithIdFailTest(){
         PostModel postModel = postService.getPostWithId(100);
-
         assertNull(postModel);
     }
 }

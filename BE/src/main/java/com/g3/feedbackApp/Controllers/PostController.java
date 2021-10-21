@@ -29,7 +29,8 @@ public class PostController {
     public ResponseEntity<PostDTO> getPostWithId(@PathVariable(value = "id") int id) {
         PostModel modelToGet = postService.getPostWithId(id);
         List<VersionModel> versionModelList = postService.getVersionsForPost(id);
-        PostDTO dtoToReturn = postConverter.convertPostModelToPostDTO(modelToGet, versionModelList);
+        List<Integer> reviewersIds = postService.getReviewersIdsForPost(id);
+        PostDTO dtoToReturn = postConverter.convertPostModelToPostDTO(modelToGet, versionModelList, reviewersIds);
         return ResponseEntity.ok().body(dtoToReturn);
     }
 
@@ -45,9 +46,10 @@ public class PostController {
     @PostMapping("/create")
     public ResponseEntity<PostDTO> createNewPost(@RequestBody PostDTO postDTO) {
         PostModel modelToAdd = postConverter.convertPostDTOToPostModel(postDTO);
-        if (postService.createPost(modelToAdd, postDTO.getFilePath())) {
+        if (postService.createPost(modelToAdd, postDTO.getFilePath(), postDTO.getReviewersIds())) {
             List<VersionModel> versionModelList = postService.getVersionsForPost(modelToAdd.getPostId());
-            PostDTO dtoToReturn = postConverter.convertPostModelToPostDTO(modelToAdd, versionModelList);
+            List<Integer> reviewersIds = postService.getReviewersIdsForPost(modelToAdd.getPostId());
+            PostDTO dtoToReturn = postConverter.convertPostModelToPostDTO(modelToAdd, versionModelList, reviewersIds);
             return ResponseEntity.ok().body(dtoToReturn);
         }
         String message = "Something went wrong, post not created";

@@ -7,9 +7,17 @@ import java.util.List;
 
 public interface IDataSourcePost {
 
-    public boolean createPost(PostModel postModel);
-    public boolean createVersion(int postId, String filePath);
-    public PostModel getPostWithId(int postId);
-    public VersionModel getVersionWithId(int versionId);
-    public List<VersionModel> getVersionsForPost(int postId);
+    boolean createPost(PostModel postModel);
+
+    boolean createVersion(int postId, String filePath);
+
+    boolean assignReviewers(List<Integer> reviewersIds, int postId);
+
+    PostModel getPostWithId(int postId);
+
+    VersionModel getVersionWithId(int versionId);
+
+    List<VersionModel> getVersionsForPost(int postId);
+
+    List<Integer> getReviewersIdsForPost(int postId);
 }

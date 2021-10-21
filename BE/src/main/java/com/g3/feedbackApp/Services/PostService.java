@@ -13,8 +13,13 @@ public class PostService implements IPostService {
 
     private IDataSourcePost datasource;
 
-    public PostService(IDataSourcePost datasource){
+    public PostService(IDataSourcePost datasource) {
         this.datasource = datasource;
+    }
+
+    @Override
+    public Boolean createPost(PostModel postModel, String filePath, List<Integer> reviewersIds) {
+        return datasource.createPost(postModel) && datasource.createVersion(postModel.getPostId(), filePath) && datasource.assignReviewers(reviewersIds, postModel.getPostId());
     }
 
     @Override
@@ -33,10 +38,9 @@ public class PostService implements IPostService {
     }
 
     @Override
-    public Boolean createPost(PostModel postModel, String filePath) {
-        if(datasource.createPost(postModel) && datasource.createVersion(postModel.getPostId(), filePath)){
-            return true;
-        }
-       return false;
+    public List<Integer> getReviewersIdsForPost(int postId) {
+        return datasource.getReviewersIdsForPost(postId);
     }
+
+
 }

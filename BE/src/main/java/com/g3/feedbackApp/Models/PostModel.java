@@ -1,7 +1,13 @@
 package com.g3.feedbackApp.Models;
 
-import java.time.LocalDate;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.time.LocalDate;
+import java.util.Objects;
+
+@Getter
+@Setter
 public class PostModel {
 
     private int postId;
@@ -22,18 +28,16 @@ public class PostModel {
             this.resolveDate = resolveDate;
     }
 
-    public int getPostId(){return this.postId;}
-    public void setPostId(int postId){this.postId = postId;}
-    public int getIdOP(){return this.idOP;}
-    public void setIdOP(int idOP){this.idOP = idOP;}
-    public String getTitle(){return this.title;}
-    public void setTitle(String title){this.title = title;}
-    public String getDescription(){return this.description;}
-    public void setDescription(String description){this.description = description;}
-    public String getCategory(){return this.category;}
-    public void setCategory(String category){this.category = category;}
-    public LocalDate getPostDate(){return this.postDate;}
-    public void setPostDate(LocalDate postDate){this.postDate = postDate;}
-    public LocalDate getResolveDate(){return this.resolveDate;}
-    public void setResolveDate(LocalDate resolveDate){this.resolveDate = resolveDate;}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PostModel postModel = (PostModel) o;
+        return Objects.equals(hashCode(), postModel.hashCode());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(postId);
+    }
 }

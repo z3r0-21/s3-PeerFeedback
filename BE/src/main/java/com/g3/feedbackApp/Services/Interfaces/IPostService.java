@@ -7,8 +7,10 @@ import java.util.List;
 
 public interface IPostService {
 
+    Boolean createPost(PostModel postModel, String filePath, List<Integer> reviewersIds);
     PostModel getPostWithId(int postId);
     VersionModel getVersionWithId(int versionId);
     List<VersionModel> getVersionsForPost(int postId);
-    Boolean createPost(PostModel postModel, String filePath);
+    List<Integer> getReviewersIdsForPost(int postId);
+
 }
