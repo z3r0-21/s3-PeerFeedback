@@ -5,21 +5,24 @@ import lombok.Setter;
 
 import java.util.Objects;
 
+@Getter
+@Setter
 public class UserModel {
-    @Getter
-    @Setter
-    private int Pcn;
-    @Getter
-    @Setter
-    private String Name;
-    @Getter
-    @Setter
-    private String SchoolEmail;
 
-    public UserModel(int Pcn, String Name){
-        this.Pcn = Pcn;
-        this.Name = Name;
-        this.SchoolEmail = String.valueOf(Pcn) + "@fontys.com";
+
+    private int studentNr;
+    private String firstName;
+    private String lastName;
+    private String nickName;
+    private String email;
+
+    public UserModel(int studentNr, String firstName, String lastName, String nickName, String email) {
+
+        this.studentNr = studentNr;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.nickName = nickName;
+        this.email = email;
     }
 
     @Override
@@ -27,11 +30,11 @@ public class UserModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserModel userModel = (UserModel) o;
-        return Pcn == userModel.Pcn && Objects.equals(Name, userModel.Name) && Objects.equals(SchoolEmail, userModel.SchoolEmail);
+        return studentNr == userModel.studentNr && Objects.equals(firstName, userModel.firstName) && Objects.equals(lastName, userModel.lastName) && Objects.equals(nickName, userModel.nickName) && Objects.equals(email, userModel.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(Pcn, Name, SchoolEmail);
+        return Objects.hash(studentNr, firstName, lastName, nickName, email);
     }
 }

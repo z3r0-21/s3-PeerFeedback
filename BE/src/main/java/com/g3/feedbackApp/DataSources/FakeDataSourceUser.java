@@ -1,21 +1,28 @@
 package com.g3.feedbackApp.DataSources;
 
+import com.g3.feedbackApp.DataSources.Interfaces.IDataSourceUser;
 import com.g3.feedbackApp.Models.UserModel;
 import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FakeDataSourceUser {
+public class FakeDataSourceUser implements IDataSourceUser {
     @Getter
     private final List<UserModel> userModels = new ArrayList<>();
 
+
     public FakeDataSourceUser(){
-        UserModel user1 = new UserModel(123, "Anny");
-        UserModel user2 = new UserModel( 8923,  "Danny");
-        UserModel user3 = new UserModel(9218, "Kakashi");
-        UserModel user4 = new UserModel(93818, "Yannick");
-        UserModel user5 = new UserModel(94727, "David");
+        UserModel user1 = new UserModel(1234567, "J", "C", "Jj",
+                "j.c@fontys.com" );
+        UserModel user2 = new UserModel( 8923899, "Adan", "Canakita", "Ak47",
+                "a.canakita@fontys.com");
+        UserModel user3 = new UserModel(9218907, "Marathon", "Iraniq", "Miami",
+                "m.iraniq@fontys.com");
+        UserModel user4 = new UserModel(9381890, "Donna", "Fisher", "King",
+                "d.Fisher93818@fontys.com");
+        UserModel user5 = new UserModel( 9472789, "Tianna", "Urumuqi", "Tiger",
+                "t.Urumuqi94727@fontys.com");
 
         this.userModels.add(user1);
         this.userModels.add(user2);
@@ -24,9 +31,12 @@ public class FakeDataSourceUser {
         this.userModels.add(user5);
     }
 
-    public UserModel getUserByPcn(int pcn){
+
+
+    @Override
+    public UserModel getUserByStudentNr(int studentNr){
         for (UserModel userModel : userModels) {
-            if (userModel.getPcn() == pcn)
+            if (userModel.getStudentNr() == studentNr)
                 return userModel;
         }
         return null;
@@ -34,13 +44,15 @@ public class FakeDataSourceUser {
 
     public UserModel getUserByEmail(String email){
         for (UserModel userModel : userModels) {
-            if (userModel.getSchoolEmail() == email)
+            if (userModel.getEmail() == email)
                 return userModel;
         }
         return null;
     }
-    public boolean deleteUserModel(int pcn) {
-        UserModel userModel = getUserByPcn(pcn);
+
+    @Override
+    public boolean deleteUserModel(int studentNr) {
+        UserModel userModel = getUserByStudentNr(studentNr);
         if (userModel == null){
             return false;
         }
@@ -48,20 +60,22 @@ public class FakeDataSourceUser {
         return userModels.remove(userModel);
     }
 
-    public boolean add(UserModel userModel) {
-        if (this.getUserByPcn(userModel.getPcn()) != null){
+    @Override
+    public boolean addUserModel(UserModel userModel) {
+        if (this.getUserByStudentNr(userModel.getStudentNr()) != null){
             return false;
         }
         userModels.add(userModel);
         return true;
     }
 
-    public boolean update(UserModel userModel) {
-        UserModel old = this.getUserByPcn(userModel.getPcn());
+    @Override
+    public boolean updateUserModel(UserModel userModel) {
+        UserModel old = this.getUserByStudentNr(userModel.getStudentNr());
         if (old == null) {
             return false;
         }
-        old.setPcn(userModel.getPcn());
+        old.setStudentNr(userModel.getStudentNr());
         return true;
     }
 }

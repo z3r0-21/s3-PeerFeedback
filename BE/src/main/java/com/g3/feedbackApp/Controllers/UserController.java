@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
 import java.net.URI;
 import java.util.List;
 
@@ -19,9 +18,9 @@ public class UserController {
 
 
 
-    @GetMapping("{pcn}")
-    public ResponseEntity<UserModel> getUserPath(@PathVariable(value = "pcn") int pcn) {
-        UserModel userModel = fakeDataSourceUser.getUserByPcn(pcn);
+    @GetMapping("{studentNr}")
+    public ResponseEntity<UserModel> getUserPath(@PathVariable(value = "studentNr") int studentNr) {
+        UserModel userModel = fakeDataSourceUser.getUserByStudentNr(studentNr);
 
         if(userModel != null) {
             return ResponseEntity.ok().body(userModel);
@@ -30,16 +29,16 @@ public class UserController {
         }
     }
 
-//    @GetMapping("{Email}")
-//    public ResponseEntity<UserModel> getUserPathByEmail(@PathVariable(value = "Email") String email) {
-//        UserModel userModel = fakeDataSourceUser.getUserByEmail(email);
-//
-//        if(userModel != null) {
-//            return ResponseEntity.ok().body(userModel);
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
+    @GetMapping("/email/{Email}")
+    public ResponseEntity<UserModel> getUserPathByEmail(@PathVariable(value = "Email") String email) {
+        UserModel userModel = fakeDataSourceUser.getUserByEmail(email);
+
+        if(userModel != null) {
+            return ResponseEntity.ok().body(userModel);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
     @GetMapping
     public ResponseEntity<List<UserModel>> getAllUsers() {
@@ -53,50 +52,58 @@ public class UserController {
         }
     }
 
-    @DeleteMapping("{pcn}")
-    public ResponseEntity deletePost(@PathVariable int pcn) {
-        fakeDataSourceUser.deleteUserModel(pcn);
+    @DeleteMapping("{studentNr}")
+    public ResponseEntity deletePost(@PathVariable int studentNr) {
+        fakeDataSourceUser.deleteUserModel(studentNr);
         return ResponseEntity.ok().build();
 
     }
 
+    @PostMapping()
+    public ResponseEntity<UserModel> createStudent(@RequestBody UserModel userModel) {
+        if (!fakeDataSourceUser.addUserModel(userModel)){
+            String entity =  "The user with the student number: " + userModel.getStudentNr() + " already exists.";
+            return new ResponseEntity(entity, HttpStatus.CONFLICT);
+        } else {
+            String url = "users" + "/" + userModel.getStudentNr(); // url of the created student
+            URI uri = URI.create(url);
+            return new ResponseEntity(uri,HttpStatus.CREATED);
+        }
+
+    }
+
 //    @PostMapping()
-//    public ResponseEntity<UserModel> createStudent(@RequestBody UserModel userModel) {
-//        if (!fakeDataSourceUser.add(userModel)){
-//            String entity =  "The user with the pcn: " + userModel.getPcn() + " already exists.";
+//    public ResponseEntity<UserModel> createStudentByParam(@RequestParam("studentNr") int studentNr, @RequestParam("name") String name) {
+//        UserModel userModel = new UserModel(studentNr, name);
+//        if (!fakeDataSourceUser.addUserModel(userModel)){
+//            String entity =  "The user with the studentNr: " + userModel.getPcn() + " already exists.";
 //            return new ResponseEntity(entity, HttpStatus.CONFLICT);
 //        } else {
 //            String url = "users" + "/" + userModel.getPcn(); // url of the created student
 //            URI uri = URI.create(url);
 //            return new ResponseEntity(uri,HttpStatus.CREATED);
 //        }
-//
 //    }
 
-    @PostMapping()
-    public ResponseEntity<UserModel> createStudentByParam(@RequestParam("pcn") int pcn, @RequestParam("name") String name) {
-        UserModel userModel = new UserModel(pcn, name);
-        if (!fakeDataSourceUser.add(userModel)){
-            String entity =  "The user with the pcn: " + userModel.getPcn() + " already exists.";
-            return new ResponseEntity(entity, HttpStatus.CONFLICT);
-        } else {
-            String url = "users" + "/" + userModel.getPcn(); // url of the created student
-            URI uri = URI.create(url);
-            return new ResponseEntity(uri,HttpStatus.CREATED);
-        }
-    }
+    @PutMapping("{studentNr}")
+    public ResponseEntity<UserModel> updateStudent(@PathVariable("studentNr") int studentNr,
+                                                   @RequestParam("firstName") String firstName,
+                                                   @RequestParam("lastName") String lastName,
+                                                   @RequestParam("nickName") String nickName,
+                                                   @RequestParam("email") String email
+                                                   ) {
 
-    @PutMapping("{pcn}")
-    public ResponseEntity<UserModel> updateStudent(@PathVariable("pcn") int pcn, @RequestParam("name") String name) {
-
-        UserModel userModel = fakeDataSourceUser.getUserByPcn(pcn);
+        UserModel userModel = fakeDataSourceUser.getUserByStudentNr(studentNr);
 
         if (userModel == null){
-            return new ResponseEntity("Please provide a valid pcn.",HttpStatus.NOT_FOUND);
+            return new ResponseEntity("Please provide a valid student number.",HttpStatus.NOT_FOUND);
         }
 
 
-        userModel.setName(name);
+        userModel.setEmail(email);
+        userModel.setFirstName(firstName);
+        userModel.setLastName(lastName);
+        userModel.setNickName(nickName);
         return ResponseEntity.noContent().build();
     }
 }
