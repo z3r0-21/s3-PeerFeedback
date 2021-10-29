@@ -4,6 +4,8 @@ import com.g3.feedbackApp.DataSources.Interfaces.IDataSourceReviewer;
 import com.g3.feedbackApp.Models.ReviewerModel;
 import com.g3.feedbackApp.Services.Interfaces.IReviewerService;
 
+import java.util.List;
+
 public class ReviewerService implements IReviewerService {
     IDataSourceReviewer reviewerData;
 
@@ -16,6 +18,8 @@ public class ReviewerService implements IReviewerService {
         return this.reviewerData.getReviewerById(id);
     }
 
+    @Override
+    public List<ReviewerModel> getReviewers(){ return this.reviewerData.getReviewers();}
 
     @Override
     public boolean deleteReviewerById(int id) {

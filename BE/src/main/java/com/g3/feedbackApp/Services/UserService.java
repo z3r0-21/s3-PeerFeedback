@@ -4,6 +4,8 @@ import com.g3.feedbackApp.DataSources.Interfaces.IDataSourceUser;
 import com.g3.feedbackApp.Models.UserModel;
 import com.g3.feedbackApp.Services.Interfaces.IUserService;
 
+import java.util.List;
+
 public class UserService implements IUserService {
 
     IDataSourceUser userData;
@@ -15,6 +17,11 @@ public class UserService implements IUserService {
     @Override
     public UserModel getUserByStudentNr(int studentNr) {
         return userData.getUserByStudentNr(studentNr);
+    }
+
+    @Override
+    public List<UserModel> getUserModels() {
+        return userData.getUserModels();
     }
 
     @Override

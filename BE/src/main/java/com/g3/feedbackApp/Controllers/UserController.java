@@ -2,6 +2,8 @@ package com.g3.feedbackApp.Controllers;
 
 import com.g3.feedbackApp.DataSources.FakeDataSourceUser;
 import com.g3.feedbackApp.Models.UserModel;
+import com.g3.feedbackApp.Services.ReviewerService;
+import com.g3.feedbackApp.Services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,13 +16,13 @@ import java.util.List;
 @RequestMapping("/users")
 
 public class UserController {
-    private static final FakeDataSourceUser fakeDataSourceUser = new FakeDataSourceUser();
+    private static final UserService userService = new UserService(new FakeDataSourceUser());
 
 
 
     @GetMapping("{studentNr}")
     public ResponseEntity<UserModel> getUserPath(@PathVariable(value = "studentNr") int studentNr) {
-        UserModel userModel = fakeDataSourceUser.getUserByStudentNr(studentNr);
+        UserModel userModel = userService.getUserByStudentNr(studentNr);
 
         if(userModel != null) {
             return ResponseEntity.ok().body(userModel);
@@ -31,7 +33,7 @@ public class UserController {
 
     @GetMapping("/email/{Email}")
     public ResponseEntity<UserModel> getUserPathByEmail(@PathVariable(value = "Email") String email) {
-        UserModel userModel = fakeDataSourceUser.getUserByEmail(email);
+        UserModel userModel = userService.getUserByEmail(email);
 
         if(userModel != null) {
             return ResponseEntity.ok().body(userModel);
@@ -43,7 +45,7 @@ public class UserController {
     @GetMapping
     public ResponseEntity<List<UserModel>> getAllUsers() {
 
-        List<UserModel> userModels = fakeDataSourceUser.getUserModels();
+        List<UserModel> userModels = userService.getUserModels();
 
         if(userModels != null) {
             return ResponseEntity.ok().body(userModels);
@@ -54,14 +56,14 @@ public class UserController {
 
     @DeleteMapping("{studentNr}")
     public ResponseEntity deletePost(@PathVariable int studentNr) {
-        fakeDataSourceUser.deleteUserModel(studentNr);
+        userService.deleteUserModel(studentNr);
         return ResponseEntity.ok().build();
 
     }
 
     @PostMapping()
     public ResponseEntity<UserModel> createStudent(@RequestBody UserModel userModel) {
-        if (!fakeDataSourceUser.addUserModel(userModel)){
+        if (!userService.addUserModel(userModel)){
             String entity =  "The user with the student number: " + userModel.getStudentNr() + " already exists.";
             return new ResponseEntity(entity, HttpStatus.CONFLICT);
         } else {
@@ -75,7 +77,7 @@ public class UserController {
 //    @PostMapping()
 //    public ResponseEntity<UserModel> createStudentByParam(@RequestParam("studentNr") int studentNr, @RequestParam("name") String name) {
 //        UserModel userModel = new UserModel(studentNr, name);
-//        if (!fakeDataSourceUser.addUserModel(userModel)){
+//        if (!userService.addUserModel(userModel)){
 //            String entity =  "The user with the studentNr: " + userModel.getPcn() + " already exists.";
 //            return new ResponseEntity(entity, HttpStatus.CONFLICT);
 //        } else {
@@ -93,7 +95,7 @@ public class UserController {
                                                    @RequestParam("email") String email
                                                    ) {
 
-        UserModel userModel = fakeDataSourceUser.getUserByStudentNr(studentNr);
+        UserModel userModel = userService.getUserByStudentNr(studentNr);
 
         if (userModel == null){
             return new ResponseEntity("Please provide a valid student number.",HttpStatus.NOT_FOUND);

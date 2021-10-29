@@ -3,6 +3,7 @@ package com.g3.feedbackApp.DataSources;
 import com.g3.feedbackApp.DataSources.Interfaces.IDataSourceUser;
 import com.g3.feedbackApp.Models.UserModel;
 import lombok.Getter;
+import org.apache.catalina.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +41,11 @@ public class FakeDataSourceUser implements IDataSourceUser {
                 return userModel;
         }
         return null;
+    }
+
+    @Override
+    public List<UserModel> getUserModels(){
+        return this.userModels;
     }
 
     public UserModel getUserByEmail(String email){

@@ -2,14 +2,12 @@ package com.g3.feedbackApp.DataSources;
 
 import com.g3.feedbackApp.DataSources.Interfaces.IDataSourceReviewer;
 import com.g3.feedbackApp.Models.ReviewerModel;
-import com.g3.feedbackApp.Models.UserModel;
-import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class FakeDataSourceReviewer implements IDataSourceReviewer {
-    @Getter
+
     private final List<ReviewerModel> reviewerModelList = new ArrayList<>();
 
     public FakeDataSourceReviewer() {
@@ -20,12 +18,16 @@ public class FakeDataSourceReviewer implements IDataSourceReviewer {
     @Override
     public ReviewerModel getReviewerById(int id) {
         for (ReviewerModel reviewerModel : this.reviewerModelList) {
-            if (reviewerModel.getReviewerId() == id)
+            if (reviewerModel.getUserId() == id)
                 return reviewerModel;
         }
         return null;
     }
 
+    @Override
+    public List<ReviewerModel> getReviewers() {
+        return this.reviewerModelList;
+    }
 
 
     @Override
@@ -40,7 +42,7 @@ public class FakeDataSourceReviewer implements IDataSourceReviewer {
 
     @Override
     public boolean addReviewer(ReviewerModel userModel) {
-        if (this.getReviewerById(userModel.getReviewerId()) != null){
+        if (this.getReviewerById(userModel.getUserId()) != null){
             return false;
         }
         this.reviewerModelList.add(userModel);
@@ -49,11 +51,11 @@ public class FakeDataSourceReviewer implements IDataSourceReviewer {
 
     @Override
     public boolean updateReviewer(ReviewerModel reviewer) {
-        ReviewerModel old = this.getReviewerById(reviewer.getReviewerId());
+        ReviewerModel old = this.getReviewerById(reviewer.getUserId());
         if (old == null) {
             return false;
         }
-        old.setReviewerId(reviewer.getReviewerId());
+        old.setUserId(reviewer.getUserId());
         return true;
     }
 }
