@@ -2,6 +2,7 @@ package com.g3.feedbackApp.Controllers;
 
 import com.g3.feedbackApp.DataSources.FakeDataSourceUser;
 import com.g3.feedbackApp.Models.UserModel;
+import com.g3.feedbackApp.Services.Interfaces.IUserService;
 import com.g3.feedbackApp.Services.ReviewerService;
 import com.g3.feedbackApp.Services.UserService;
 import org.springframework.http.HttpStatus;
@@ -16,8 +17,11 @@ import java.util.List;
 @RequestMapping("/users")
 
 public class UserController {
-    private static final UserService userService = new UserService(new FakeDataSourceUser());
+    private IUserService userService;
 
+    public UserController(IUserService userService){
+        this.userService = userService;
+    }
 
 
     @GetMapping("{studentNr}")

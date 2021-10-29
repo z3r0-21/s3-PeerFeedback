@@ -3,9 +3,11 @@ package com.g3.feedbackApp.Services;
 import com.g3.feedbackApp.DataSources.Interfaces.IDataSourceUser;
 import com.g3.feedbackApp.Models.UserModel;
 import com.g3.feedbackApp.Services.Interfaces.IUserService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class UserService implements IUserService {
 
     IDataSourceUser userData;

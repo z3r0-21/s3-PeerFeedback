@@ -3,6 +3,7 @@ package com.g3.feedbackApp.Controllers;
 import com.g3.feedbackApp.DataSources.FakeDataSourceReviewer;
 import com.g3.feedbackApp.Models.ReviewerModel;
 import com.g3.feedbackApp.Models.UserModel;
+import com.g3.feedbackApp.Services.Interfaces.IReviewerService;
 import com.g3.feedbackApp.Services.ReviewerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +16,11 @@ import java.util.List;
 @CrossOrigin("http://localhost:3000")
 @RequestMapping("/reviewers")
 public class ReviewerController {
-    private static final ReviewerService reviewerService = new ReviewerService(new FakeDataSourceReviewer());
+    private IReviewerService reviewerService;
 
+    public ReviewerController(IReviewerService reviewerService) {
+        this.reviewerService = reviewerService;
+    }
 
     @GetMapping("{id}")
     public ResponseEntity<ReviewerModel> getUserPath(@PathVariable(value = "id") int id) {

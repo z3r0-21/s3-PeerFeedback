@@ -3,9 +3,11 @@ package com.g3.feedbackApp.Services;
 import com.g3.feedbackApp.DataSources.Interfaces.IDataSourceReviewer;
 import com.g3.feedbackApp.Models.ReviewerModel;
 import com.g3.feedbackApp.Services.Interfaces.IReviewerService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ReviewerService implements IReviewerService {
     IDataSourceReviewer reviewerData;
 
