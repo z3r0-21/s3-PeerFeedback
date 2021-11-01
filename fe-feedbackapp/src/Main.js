@@ -2,6 +2,7 @@ import React from 'react';
 import CreatePostForm from './Components/CreatePostForm';
 import Footer from './Components/Footer';
 import NavBar from './Components/NavBar';
+import SelectReviewers from './Components/SelectReviewers';
 
 function Main(props) {
     return (

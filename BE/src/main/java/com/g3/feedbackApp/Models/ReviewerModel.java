@@ -3,17 +3,31 @@ package com.g3.feedbackApp.Models;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
+import java.util.Objects;
+
 @Setter
+@Getter
 public class ReviewerModel {
-
-    private int connId;
+    private int id;
     private int postId;
-    private int reviewerId;
+    private int userId;
 
-    public ReviewerModel(int connId, int postId, int reviewerId){
-        this.connId = connId;
+    public ReviewerModel(int id, int postId, int userId){
+        this.id = id;
         this.postId = postId;
-        this.reviewerId = reviewerId;
+        this.userId = userId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ReviewerModel that = (ReviewerModel) o;
+        return id == that.id && postId == that.postId && userId == that.userId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, postId, userId);
     }
 }

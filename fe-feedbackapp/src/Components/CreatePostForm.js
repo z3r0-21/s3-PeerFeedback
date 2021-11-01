@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from "axios";
 import { Form, Button } from 'react-bootstrap';
+import SelectReviewers from './SelectReviewers';
 
 function CreatePostForm(props) {
 
@@ -9,8 +10,9 @@ function CreatePostForm(props) {
     title: "",
     category: "",
     description: "",
-    reviewersIds: [] 
+    reviewersIds: []
   }]);
+
 
   const changeHandler = e => {
     setPost({...post, [e.target.name]: e.target.value})
@@ -29,6 +31,12 @@ function CreatePostForm(props) {
         }, (error) => {
           console.log(error);
         });
+    }
+
+
+    const saveReviewers = (reviewersList) => {
+      console.log("save reviewers");
+      setPost({...post, reviewersIds: reviewersList});
     }
 
     return (
@@ -58,7 +66,8 @@ function CreatePostForm(props) {
                     <Form.Label>Upload file</Form.Label>
                     <Form.Control type="file" name="files"/>
                 </Form.Group>
-                {/*  <SelectReviewers /> */}
+                
+                <SelectReviewers saveReviewers={saveReviewers}/>
                 <Button variant="primary" type="submit" onClick={createPost}>
                     Submit
                 </Button>
