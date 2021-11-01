@@ -9,7 +9,7 @@ const client = axios.create({
 });
 
 
-function SelectReviewers() {
+function SelectReviewers({saveReviewers}) {
     const [started, setStarted] = useState(false);
     const [users, setUsers] = useState([]);
 
@@ -17,6 +17,7 @@ function SelectReviewers() {
     const [checkAddReviewer, setCheckAddReviewer] = useState("");
     const [searchResults, setSearchResults] = useState([]);
     const [reviewers, setReviewers] = useState([]);
+    const [reviewersIds, setReviewersIds] = useState([]);
 
     const handleInputChange = (e) => {
         var inputVal = e.target.value;
@@ -48,6 +49,7 @@ function SelectReviewers() {
 
     const handleClick = (user) => {
         setReviewers([...reviewers, user]);
+        setReviewersIds([...reviewersIds, user.studentNr]);
         
         setUsers([
             ...users.filter(u => {
@@ -64,21 +66,27 @@ function SelectReviewers() {
                 return r.studentNr !== reviewer.studentNr
             })
         ]);
+        setReviewersIds([
+            ...reviewersIds.filter(r => {
+                return r !== reviewer.studentNr
+            })
+        ])
         // Add removed reviewer to people list
         setUsers([...users, reviewer]);
     }
 
-    const saveReviewers = (e) => {
-        e.preventDefault();
-        console.log("save reviewers");
+    
+    const addReviewers = () => {
+        console.log(reviewersIds);
+        saveReviewers(reviewersIds);
     }
 
     return (
         <>
-        {users.map((u) => (
+        {/* {users.map((u) => (
             <div>{u.email}</div>
-        ))}
-         <Form autoComplete="off" onSubmit={saveReviewers}>
+        ))} */}
+         
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Add searchResults</Form.Label>
                 <InputGroup className="mb-3">
@@ -99,10 +107,10 @@ function SelectReviewers() {
                 </div>
             ))}
 
-            <Button variant="primary" type="submit">
-                Submit
+            <Button variant="secondary" onClick={addReviewers}>
+                Save reviewers
             </Button>
-        </Form>   
+          
         {reviewers.map((reviewer) => (
             <div key={reviewer.studentNr} className="reviewers">
                 <SelectedReviewer reviewer={reviewer} handleRemoveReviewer={handleRemoveReviewer}/>
