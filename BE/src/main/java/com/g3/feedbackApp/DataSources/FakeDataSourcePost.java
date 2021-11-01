@@ -1,17 +1,19 @@
 package com.g3.feedbackApp.DataSources;
 
 import com.g3.feedbackApp.DataSources.Interfaces.IDataSourcePost;
+import com.g3.feedbackApp.DataSources.Interfaces.IDataSourceReviewer;
 import com.g3.feedbackApp.Models.ReviewerModel;
 import com.g3.feedbackApp.Models.PostModel;
 import com.g3.feedbackApp.Models.VersionModel;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-@Component
+@Repository
 public class FakeDataSourcePost implements IDataSourcePost {
 
     private static int postIdCounter = 4;
@@ -20,8 +22,10 @@ public class FakeDataSourcePost implements IDataSourcePost {
     private static int versionIdCounter = 4;
     List<VersionModel> versionModelList = new ArrayList<>();
 
-    private static int reviewerConnIdCounter = 4;
+    private static int reviewerConnIdCounter = 1;
     List<ReviewerModel> reviewerModelList = new ArrayList<>();
+
+    private IDataSourceReviewer dataSourceReviewer = new FakeDataSourceReviewer();
 
     public FakeDataSourcePost(){
         postModelList.add(new PostModel(1, 1,"First Post", "code", "my first code post", LocalDate.now(), null));
@@ -32,9 +36,11 @@ public class FakeDataSourcePost implements IDataSourcePost {
         versionModelList.add(new VersionModel(2, 1, "testFilePathVersion2"));
         versionModelList.add(new VersionModel(3, 1, "testFilePathVersion3"));
 
-        reviewerModelList.add(new ReviewerModel(1, 1, 2));
-        reviewerModelList.add(new ReviewerModel(2, 2, 2));
-        reviewerModelList.add(new ReviewerModel(3, 3, 2));
+//        reviewerModelList.add(new ReviewerModel(1, 1, 2));
+//        reviewerModelList.add(new ReviewerModel(2, 2, 2));
+//        reviewerModelList.add(new ReviewerModel(3, 3, 2));
+
+
     }
 
     @Override
@@ -98,7 +104,7 @@ public class FakeDataSourcePost implements IDataSourcePost {
         List<Integer> listOfIds = new ArrayList<>();
         for(ReviewerModel reviewer: reviewerModelList){
             if(reviewer.getPostId() == postId){
-                listOfIds.add(reviewer.getReviewerId());
+                listOfIds.add(reviewer.getId());
             }
         }
         return listOfIds;

@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 @CrossOrigin("http://localhost:3000")
 @RequestMapping("/post")
-public class PostController {
+public class    PostController {
 
     private IPostService postService;
     private PostConverter postConverter;
@@ -55,4 +55,6 @@ public class PostController {
         String message = "Something went wrong, post not created";
         return new ResponseEntity(message, HttpStatus.CONFLICT);
     }
+
+
 }

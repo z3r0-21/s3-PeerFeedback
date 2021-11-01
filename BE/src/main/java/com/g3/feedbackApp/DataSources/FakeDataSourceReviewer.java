@@ -2,17 +2,21 @@ package com.g3.feedbackApp.DataSources;
 
 import com.g3.feedbackApp.DataSources.Interfaces.IDataSourceReviewer;
 import com.g3.feedbackApp.Models.ReviewerModel;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class FakeDataSourceReviewer implements IDataSourceReviewer {
 
     private final List<ReviewerModel> reviewerModelList = new ArrayList<>();
+    private static int reviewerConnIdCounter = 1;
 
     public FakeDataSourceReviewer() {
-        this.reviewerModelList.add(new ReviewerModel(1, 1, 1234567));
-        this.reviewerModelList.add(new ReviewerModel(1, 1, 2345669));
+//        this.reviewerModelList.add(new ReviewerModel(1, 1, 1234567));
+//        this.reviewerModelList.add(new ReviewerModel(2, 1, 2345669));
+
     }
 
     @Override
@@ -42,10 +46,12 @@ public class FakeDataSourceReviewer implements IDataSourceReviewer {
 
     @Override
     public boolean addReviewer(ReviewerModel userModel) {
-        if (this.getReviewerById(userModel.getUserId()) != null){
+        if (this.getReviewerById(userModel.getId()) != null){
             return false;
         }
-        this.reviewerModelList.add(userModel);
+        userModel.setId(reviewerConnIdCounter);
+        reviewerModelList.add(userModel);
+        reviewerConnIdCounter++;
         return true;
     }
 

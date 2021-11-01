@@ -4,12 +4,14 @@ import com.g3.feedbackApp.DataSources.Interfaces.IDataSourceUser;
 import com.g3.feedbackApp.Models.UserModel;
 import lombok.Getter;
 import org.apache.catalina.User;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class FakeDataSourceUser implements IDataSourceUser {
-    @Getter
+
     private final List<UserModel> userModels = new ArrayList<>();
 
 
