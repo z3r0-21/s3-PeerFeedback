@@ -7,11 +7,11 @@ import com.g3.feedbackApp.Models.CommentModel;
 public class CommentConverter {
 
     public CommentModel convertCommentDTOToCommentModel(CommentDTO commentDTO){
-        return new CommentModel(commentDTO.getCommentId(), commentDTO.getVersionId(), commentDTO.getText());
+        return new CommentModel(commentDTO.getCommentId(), commentDTO.getUserId(), commentDTO.getVersionId(), commentDTO.getText());
     }
 
     public CommentDTO convertCommentModelToCommentDTO(CommentModel commentModel){
-        return new CommentDTO(commentModel.getCommentId(), commentModel.getVersionId(), commentModel.getText());
+        return new CommentDTO(commentModel.getCommentId(), commentModel.getUserId(), commentModel.getVersionId(), commentModel.getText());
     }
 
 }
