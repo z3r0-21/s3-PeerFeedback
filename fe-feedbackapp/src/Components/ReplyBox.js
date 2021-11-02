@@ -12,10 +12,10 @@ class ReplyBox extends Component {
 
 
   handleSubmit(){
-    axios.post('localhost:8080/comments', {
+    axios.post('http://localhost:8080/comments/create', {
       "versionId": 7,
       "userId": 7,
-      "text": "sec comment",
+      "text": document.getElementById("comment").value,
       "solution": false
   })
     .then(function (response) {
@@ -43,7 +43,8 @@ class ReplyBox extends Component {
           </div>
           <div className="field">
             <div className="control">
-              <textarea
+              <textarea 
+                id="comment"
                 className="textarea"
                 name="comment"
                 placeholder="Add a comment"
