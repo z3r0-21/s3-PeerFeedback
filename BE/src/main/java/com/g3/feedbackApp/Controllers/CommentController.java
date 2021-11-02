@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -28,7 +29,7 @@ public class CommentController {
 
     @PostMapping("/create")
     //POST at http://localhost:XXXX/comments/
-    public ResponseEntity<CommentDTO> createMember(@RequestBody CommentDTO commentDTO) {
+    public ResponseEntity<CommentDTO> createComment(@RequestBody CommentDTO commentDTO) {
         CommentModel commentModel = commentConverter.convertCommentDTOToCommentModel(commentDTO);
         if (commentService.createComment(commentModel)) {
             CommentDTO commentDTO1 = commentConverter.convertCommentModelToCommentDTO(commentModel);
@@ -73,4 +74,6 @@ public class CommentController {
             return ResponseEntity.notFound().build();
         }
     }
+
+
 }

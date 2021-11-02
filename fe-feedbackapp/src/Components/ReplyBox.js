@@ -12,7 +12,7 @@ class ReplyBox extends Component {
 
 
   handleSubmit(){
-    axios.post('/user', {
+    axios.post('/create', {
       firstName: 'Fred',
       lastName: 'Flintstone'
     })

@@ -36,3 +36,54 @@
     transform: rotate(360deg);
   }
 }
+
+
+.comment-section{
+  position: relative;
+  left: 50vh;
+  top: 50vh;
+}
+
+.comments{
+  border: 3px solid black;
+  max-width: 50%;
+  display: block;
+  
+}
+
+p{
+  border-bottom: 1px solid black;
+  width: auto;
+}
+
+.reply-box{
+  width: 50%;
+}
+
+textarea{
+  position: relative;
+  margin-top: 5vh;
+
+  width: 20vw;
+  height: 8vw;
+  font-size: 1.5vw;
+  background-color: #fff;
+  border: 3px solid #1b1b1b;
+  color: Black;
+  resize: none;
+
+}
+
+button{
+  position: relative;
+  margin-top: 5vh;
+  width: 20vw;
+  margin-bottom: 2vw;
+
+}
+
+.input{
+  padding: 1vh;
+  width: auto;
+}
+
