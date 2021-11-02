@@ -12,10 +12,12 @@ class ReplyBox extends Component {
 
 
   handleSubmit(){
-    axios.post('/create', {
-      firstName: 'Fred',
-      lastName: 'Flintstone'
-    })
+    axios.post('localhost:8080/comments', {
+      "versionId": 7,
+      "userId": 7,
+      "text": "sec comment",
+      "solution": false
+  })
     .then(function (response) {
       console.log(response);
     })
