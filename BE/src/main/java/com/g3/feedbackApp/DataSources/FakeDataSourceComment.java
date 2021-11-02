@@ -16,8 +16,8 @@ public class FakeDataSourceComment implements IDataSourceComment {
     List<CommentModel> commentModelList = new ArrayList<>();
 
     public FakeDataSourceComment(){
-        commentModelList.add(new CommentModel(1, 1,"First comment"));
-        commentModelList.add(new CommentModel(2, 1,"Second comment"));
+        commentModelList.add(new CommentModel(1, 1,1,"First comment"));
+        commentModelList.add(new CommentModel(2, 1,1,"Second comment"));
     }
 
     @Override

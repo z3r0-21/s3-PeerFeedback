@@ -5,7 +5,6 @@ import com.g3.feedbackApp.Models.Converters.CommentConverter;
 import com.g3.feedbackApp.Models.DTOS.CommentDTO;
 import com.g3.feedbackApp.Services.Interfaces.ICommentService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 

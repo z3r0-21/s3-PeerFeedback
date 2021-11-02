@@ -10,12 +10,14 @@ import lombok.Setter;
 public class CommentDTO {
 
     private Integer commentId;
+    private Integer userId;
     private Integer versionId;
     private String text;
     private boolean isSolution;
 
-    public CommentDTO(Integer commentId, Integer versionId, String text){
+    public CommentDTO(Integer commentId, Integer userId, Integer versionId, String text){
         this.commentId = commentId;
+        this.versionId = userId;
         this.versionId = versionId;
         this.text = text;
         this.isSolution = false;
