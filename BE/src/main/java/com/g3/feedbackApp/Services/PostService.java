@@ -6,6 +6,7 @@ import com.g3.feedbackApp.Models.VersionModel;
 import com.g3.feedbackApp.Services.Interfaces.IPostService;
 import org.springframework.stereotype.Component;
 
+import java.nio.file.Path;
 import java.util.List;
 
 @Component
@@ -18,7 +19,7 @@ public class PostService implements IPostService {
     }
 
     @Override
-    public Boolean createPost(PostModel postModel, String filePath, List<Integer> reviewersIds) {
+    public Boolean createPost(PostModel postModel, Path filePath, List<Integer> reviewersIds) {
         return datasource.createPost(postModel) && datasource.createVersion(postModel.getPostId(), filePath) && datasource.assignReviewers(reviewersIds, postModel.getPostId());
     }
 

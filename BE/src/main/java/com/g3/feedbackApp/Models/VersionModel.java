@@ -1,12 +1,14 @@
 package com.g3.feedbackApp.Models;
 
+import java.nio.file.Path;
+
 public class VersionModel {
 
     private int versionId;
     private int postId;
-    private String filePath;
+    private Path filePath;
 
-    public VersionModel(int versionId, int postId, String filePath){
+    public VersionModel(int versionId, int postId, Path filePath){
         this.versionId = versionId;
         this.postId = postId;
         this.filePath = filePath;
@@ -25,11 +27,11 @@ public class VersionModel {
         return postId;
     }
 
-    public void setFilePath(String filePath) {
+    public void setFilePath(Path filePath) {
         this.filePath = filePath;
     }
 
-    public String getFilePath() {
+    public Path getFilePath() {
         return filePath;
     }
 }

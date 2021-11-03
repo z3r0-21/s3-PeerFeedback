@@ -4,7 +4,9 @@ import com.g3.feedbackApp.Models.VersionModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -19,7 +21,8 @@ public class PostDTO {
     private String description;
     private LocalDate postDate;
     private LocalDate resolveDate;
-    private String filePath;
+    private Path filePath;
+    private MultipartFile uploadedFile;
     private List<VersionModel> versions;
     private List<Integer> reviewersIds;
 
