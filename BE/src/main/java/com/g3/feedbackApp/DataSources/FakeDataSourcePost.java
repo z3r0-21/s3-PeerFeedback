@@ -8,6 +8,7 @@ import com.g3.feedbackApp.Models.VersionModel;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,9 +33,9 @@ public class FakeDataSourcePost implements IDataSourcePost {
         postModelList.add(new PostModel(2, 1,"Second Post", "Assay", "Please check my assay", LocalDate.now(), null));
         postModelList.add(new PostModel(3, 1,"Third Post", "DB Diagrams", "The first draft", LocalDate.now(), null));
 
-        versionModelList.add(new VersionModel(1, 1, "testFilePathVersion1"));
-        versionModelList.add(new VersionModel(2, 1, "testFilePathVersion2"));
-        versionModelList.add(new VersionModel(3, 1, "testFilePathVersion3"));
+        versionModelList.add(new VersionModel(1, 1, Path.of("testFilePathVersion1")));
+        versionModelList.add(new VersionModel(2, 1, Path.of("testFilePathVersion2")));
+        versionModelList.add(new VersionModel(3, 1, Path.of("testFilePathVersion3")));
 
 //        reviewerModelList.add(new ReviewerModel(1, 1, 2));
 //        reviewerModelList.add(new ReviewerModel(2, 2, 2));
@@ -53,7 +54,7 @@ public class FakeDataSourcePost implements IDataSourcePost {
     }
 
     @Override
-    public boolean createVersion(int postId, String filePath) {
+    public boolean createVersion(int postId, Path filePath) {
         versionModelList.add(new VersionModel(versionIdCounter, postId, filePath));
         versionIdCounter++;
         return true;

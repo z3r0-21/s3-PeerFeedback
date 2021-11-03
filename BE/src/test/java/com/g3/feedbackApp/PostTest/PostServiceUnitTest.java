@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +36,7 @@ public class PostServiceUnitTest {
         List<Integer> reviewersIds = new ArrayList<>();
         reviewersIds.add(2);
 
-        postService.createPost(modelToExpect, "testFilePath", reviewersIds);
+        postService.createPost(modelToExpect, Path.of("testFilePath"), reviewersIds);
 
         assertEquals(modelToExpect, postService.getPostWithId(4));
     }
