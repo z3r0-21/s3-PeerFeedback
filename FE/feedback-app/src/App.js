@@ -1,13 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
-import Main from './Main';
+import React from 'react';
+import CreatePostForm from './Components/CreatePostForm';
+import Footer from './Components/Footer';
+import NavBar from './Components/NavBar';
 
-function App() {
+
+
+function Main(props) {
   return (
-    <>
-      <Main />
-    </>
+      <>
+        <NavBar />
+        <CreatePostForm />
+        <Footer />
+      </>
   );
 }
 
-export default App;
+export default Main;
+
