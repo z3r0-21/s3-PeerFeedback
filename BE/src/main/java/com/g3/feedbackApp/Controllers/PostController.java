@@ -35,16 +35,16 @@ public class PostController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<PostDTO> getPostWithId(@PathVariable(value = "id") int id) {
+    public ResponseEntity<PostDTO> getPostWithId(@PathVariable(value = "id") Long id) {
         PostModel modelToGet = postService.getPostWithId(id);
         List<VersionModel> versionModelList = postService.getVersionsForPost(id);
-        List<Integer> reviewersIds = postService.getReviewersIdsForPost(id);
+        List<Long> reviewersIds = postService.getReviewersIdsForPost(id.intValue());
         PostDTO dtoToReturn = postConverter.convertPostModelToPostDTO(modelToGet, versionModelList, reviewersIds);
         return ResponseEntity.ok().body(dtoToReturn);
     }
 
     @GetMapping("/version/{id}")
-    public ResponseEntity<VersionModel> getVersionWithId(@PathVariable(value = "id") int id) {
+    public ResponseEntity<VersionModel> getVersionWithId(@PathVariable(value = "id") Long id) {
         VersionModel modelToReturn = postService.getVersionWithId(id);
         if(modelToReturn != null){
             return ResponseEntity.ok().body(modelToReturn);
@@ -54,12 +54,15 @@ public class PostController {
 
     @PostMapping(value = "/create", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<PostDTO> createNewPost(@ModelAttribute PostDTO postDTO) {
+        //create the document path for the uploaded file.
         createDocumentPath(postDTO);
+        //
+        postDTO.setIdOP(0);
 
-        PostModel modelToAdd = postConverter.convertPostDTOToPostModel(postDTO);
+        PostModel modelToAdd = postConverter.convertPostDTOWithoutIdToPostModel(postDTO);
         if (postService.createPost(modelToAdd, postDTO.getFilePath(), postDTO.getReviewersIds())) {
             List<VersionModel> versionModelList = postService.getVersionsForPost(modelToAdd.getPostId());
-            List<Integer> reviewersIds = postService.getReviewersIdsForPost(modelToAdd.getPostId());
+            List<Long> reviewersIds = postService.getReviewersIdsForPost(modelToAdd.getPostId().intValue());
             PostDTO dtoToReturn = postConverter.convertPostModelToPostDTO(modelToAdd, versionModelList, reviewersIds);
             return ResponseEntity.ok().body(dtoToReturn);
         }

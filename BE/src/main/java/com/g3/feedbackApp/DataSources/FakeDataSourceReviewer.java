@@ -46,10 +46,10 @@ public class FakeDataSourceReviewer implements IDataSourceReviewer {
 
     @Override
     public boolean addReviewer(ReviewerModel userModel) {
-        if (this.getReviewerById(userModel.getId()) != null){
+        if (this.getReviewerById(userModel.getId().intValue()) != null){
             return false;
         }
-        userModel.setId(reviewerConnIdCounter);
+        userModel.setId((long) reviewerConnIdCounter);
         reviewerModelList.add(userModel);
         reviewerConnIdCounter++;
         return true;

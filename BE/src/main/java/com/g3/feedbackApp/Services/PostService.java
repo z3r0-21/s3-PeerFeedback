@@ -19,27 +19,27 @@ public class PostService implements IPostService {
     }
 
     @Override
-    public Boolean createPost(PostModel postModel, Path filePath, List<Integer> reviewersIds) {
+    public Boolean createPost(PostModel postModel, Path filePath, List<Long> reviewersIds) {
         return datasource.createPost(postModel) && datasource.createVersion(postModel.getPostId(), filePath) && datasource.assignReviewers(reviewersIds, postModel.getPostId());
     }
 
     @Override
-    public PostModel getPostWithId(int id) {
+    public PostModel getPostWithId(Long id) {
         return datasource.getPostWithId(id);
     }
 
     @Override
-    public VersionModel getVersionWithId(int versionId) {
+    public VersionModel getVersionWithId(Long versionId) {
         return datasource.getVersionWithId(versionId);
     }
 
     @Override
-    public List<VersionModel> getVersionsForPost(int postId) {
+    public List<VersionModel> getVersionsForPost(Long postId) {
         return datasource.getVersionsForPost(postId);
     }
 
     @Override
-    public List<Integer> getReviewersIdsForPost(int postId) {
+    public List<Long> getReviewersIdsForPost(int postId) {
         return datasource.getReviewersIdsForPost(postId);
     }
 

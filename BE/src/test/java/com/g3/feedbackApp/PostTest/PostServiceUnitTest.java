@@ -31,19 +31,19 @@ public class PostServiceUnitTest {
 
     @Test
     public void getPostModelWithIdSuccessfulTest(){
-        PostModel modelToExpect = new PostModel(4, 1,"First Post", "code", "my first code post", LocalDate.now(), null);
+        PostModel modelToExpect = new PostModel(4L, 1,"First Post", "code", "my first code post", LocalDate.now(), null);
         //create list of reviewers to perform create post method
-        List<Integer> reviewersIds = new ArrayList<>();
-        reviewersIds.add(2);
+        List<Long> reviewersIds = new ArrayList<>();
+        reviewersIds.add(2L);
 
         postService.createPost(modelToExpect, Path.of("testFilePath"), reviewersIds);
 
-        assertEquals(modelToExpect, postService.getPostWithId(4));
+        assertEquals(modelToExpect, postService.getPostWithId(4L));
     }
 
     @Test
     public void getPostModelWithIdFailTest(){
-        PostModel postModel = postService.getPostWithId(100);
+        PostModel postModel = postService.getPostWithId(100L);
         assertNull(postModel);
     }
 }

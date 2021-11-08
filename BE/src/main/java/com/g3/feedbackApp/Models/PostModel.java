@@ -10,7 +10,7 @@ import java.util.Objects;
 @Setter
 public class PostModel {
 
-    private int postId;
+    private Long postId;
     private int idOP;
     private String title;
     private String category;
@@ -18,7 +18,7 @@ public class PostModel {
     private LocalDate postDate;
     private LocalDate resolveDate;
 
-    public PostModel(int postID, int idOP, String title, String category, String description, LocalDate postDate, LocalDate resolveDate){
+    public PostModel(Long postID, int idOP, String title, String category, String description, LocalDate postDate, LocalDate resolveDate){
             this.postId = postID;
             this.idOP = idOP;
             this.title = title;

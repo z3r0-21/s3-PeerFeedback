@@ -6,27 +6,28 @@ import CommentSection from './CommentSection';
 
 function CreatePostForm(props) {
 
-  const [post, setPost] = useState([{
-    idOP: "",
+  const [post, setPost] = useState({
+    idOP: 0,
     title: "",
     category: "",
     description: "",
-    reviewersIds: []
-  }]);
+    reviewersIds: [],
+  });
 
+  //State for the selected file
+  const [selectedFile, setSelectedFile] = useState(null);
 
-  const changeHandler = e => {
-    setPost({ ...post, [e.target.name]: e.target.value })
-  }
+  //method to add post in BE
+  const addPostInBe = (post, file) => {
+    file.append("idOP", post.idOP)
+    file.append("title", post.title)
+    file.append("category", post.category)
+    file.append("description", post.description)
+    file.append("reviewersIds", post.reviewersIds)
 
-  function createPost() {
-    axios.post('http://localhost:8080/post/create', {
-      idOP: post.idOP,
-      title: post.title,
-      category: post.category,
-      description: post.description,
-      reviewersIds: post.reviewersIds
-    })
+    console.log(file.get("idOP"));
+    
+    axios.post('http://localhost:8080/post/create', file)
       .then((response) => {
         console.log(response);
       }, (error) => {
@@ -35,14 +36,63 @@ function CreatePostForm(props) {
   }
 
 
+  //onchange method for the file, saving it to the state
+  const onFileChange = e => {
+    setSelectedFile(e.target.files[0])
+  }
+
+  //onchange method for textfields of post
+  const changeHandler = e => {
+    setPost({
+       ...post,
+        [e.target.name]: e.target.value })
+  }
+
   const saveReviewers = (reviewersList) => {
     console.log("save reviewers");
     setPost({ ...post, reviewersIds: reviewersList });
   }
 
+  //onSubmit method for the form, calling the addInBe method
+  const createPost = e => {
+    e.preventDefault()
+
+    //Create formdata for file. Check if not null
+    let formData = new FormData()
+    if (selectedFile != null) {
+      formData.append(
+        'uploadedFile',
+        selectedFile
+      )
+    }
+    else {
+      alert("Please choose a file to upload")
+      return;
+    }
+
+    addPostInBe(post, formData)
+
+    //clear the state
+    setPost({
+      idOP: "",
+      title: "",
+      category: "",
+      description: "",
+      reviewersIds: []
+    })
+
+    //clear the state for the file
+    setSelectedFile(null)
+
+  }
+
+
+
+
+
   return (
     <>
-      <Form>
+      <Form onSubmit={createPost}>
         <Form.Group className="mb-3" controlId="title">
           <Form.Label>Title</Form.Label>
           <Form.Control size="lg" type="text" placeholder="Title" name="title" onChange={changeHandler} required />
@@ -65,11 +115,11 @@ function CreatePostForm(props) {
         </Form.Group>
         <Form.Group controlId="formFile" className="mb-3">
           <Form.Label>Upload file</Form.Label>
-          <Form.Control type="file" name="files" />
+          <Form.Control type="file" name="files" onChange={onFileChange} />
         </Form.Group>
 
         <SelectReviewers saveReviewers={saveReviewers} />
-        <Button variant="primary" type="submit" onClick={createPost}>
+        <Button variant="primary" type="submit">
           Submit
         </Button>
       </Form>

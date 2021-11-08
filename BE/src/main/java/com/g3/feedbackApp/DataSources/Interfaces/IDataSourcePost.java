@@ -1,7 +1,6 @@
 package com.g3.feedbackApp.DataSources.Interfaces;
 
 import com.g3.feedbackApp.Models.PostModel;
-import com.g3.feedbackApp.Models.ReviewerModel;
 import com.g3.feedbackApp.Models.VersionModel;
 
 import java.nio.file.Path;
@@ -11,17 +10,17 @@ public interface IDataSourcePost {
 
     boolean createPost(PostModel postModel);
 
-    boolean createVersion(int postId, Path filePath);
+    boolean createVersion(Long postId, Path filePath);
 
-    boolean assignReviewers(List<Integer> reviewersIds, int postId);
+    boolean assignReviewers(List<Long> reviewersIds, Long postId);
 
-    PostModel getPostWithId(int postId);
+    PostModel getPostWithId(Long postId);
 
-    VersionModel getVersionWithId(int versionId);
+    VersionModel getVersionWithId(Long versionId);
 
-    List<VersionModel> getVersionsForPost(int postId);
+    List<VersionModel> getVersionsForPost(Long postId);
 
-    List<Integer> getReviewersIdsForPost(int postId);
+    List<Long> getReviewersIdsForPost(int postId);
 
 
 }

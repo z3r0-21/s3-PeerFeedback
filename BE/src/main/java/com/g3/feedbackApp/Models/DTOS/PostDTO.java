@@ -9,12 +9,13 @@ import org.springframework.web.multipart.MultipartFile;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.LongSummaryStatistics;
 
 @Setter
 @Getter
 public class PostDTO {
 
-    private int postId;
+    private Long postId;
     private int idOP;
     private String title;
     private String category;
@@ -24,15 +25,15 @@ public class PostDTO {
     private Path filePath;
     private MultipartFile uploadedFile;
     private List<VersionModel> versions;
-    private List<Integer> reviewersIds;
+    private List<Long> reviewersIds;
 
-    public PostDTO(int postID, int idOP ,String title, String category, String description, LocalDate postDate, LocalDate resolveDate){
-        this.postId = postID;
-        this.idOP = idOP;
-        this.title = title;
-        this.category = category;
-        this.description = description;
-        this.postDate = postDate;
-        this.resolveDate = resolveDate;
+    public PostDTO(Long postID, int idOP ,String title, String category, String description, LocalDate postDate, LocalDate resolveDate){
+        setPostId(postID);
+        setIdOP(idOP);
+        setTitle(title);
+        setCategory(category);
+        setDescription(description);
+        setPostDate(postDate);
+        setResolveDate(resolveDate);
     }
 }

@@ -8,11 +8,11 @@ import java.util.Objects;
 @Setter
 @Getter
 public class ReviewerModel {
-    private int id;
-    private int postId;
+    private Long id;
+    private Long postId;
     private int userId;
 
-    public ReviewerModel(int id, int postId, int userId){
+    public ReviewerModel(Long id, Long postId, int userId){
         this.id = id;
         this.postId = postId;
         this.userId = userId;
