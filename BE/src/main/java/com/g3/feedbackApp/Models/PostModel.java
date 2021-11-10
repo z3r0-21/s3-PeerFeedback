@@ -3,14 +3,19 @@ package com.g3.feedbackApp.Models;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
 
 @Getter
 @Setter
+@Table(name="Posts")
 public class PostModel {
 
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
     private Long postId;
+    @Column(name="idOP")
     private int idOP;
     private String title;
     private String category;
