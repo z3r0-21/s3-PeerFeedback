@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class FakeDataSourceReviewer implements IDataSourceReviewer {
-
+public class FakeDataSourceReviewer {
+/*
     private final List<ReviewerModel> reviewerModelList = new ArrayList<>();
     private static int reviewerConnIdCounter = 1;
 
@@ -64,4 +64,6 @@ public class FakeDataSourceReviewer implements IDataSourceReviewer {
         old.setUserId(reviewer.getUserId());
         return true;
     }
+
+ */
 }

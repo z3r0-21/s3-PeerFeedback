@@ -2,6 +2,7 @@ package com.g3.feedbackApp.Services;
 
 import com.g3.feedbackApp.DataSources.Interfaces.IDataSourcePost;
 import com.g3.feedbackApp.Models.PostModel;
+import com.g3.feedbackApp.Models.ReviewerModel;
 import com.g3.feedbackApp.Models.VersionModel;
 import com.g3.feedbackApp.Services.Interfaces.IPostService;
 import org.springframework.stereotype.Component;

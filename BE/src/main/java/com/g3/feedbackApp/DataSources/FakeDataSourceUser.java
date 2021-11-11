@@ -10,8 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class FakeDataSourceUser implements IDataSourceUser {
+public class FakeDataSourceUser {
 
+    /*
     private final List<UserModel> userModels = new ArrayList<>();
 
 
@@ -86,4 +87,6 @@ public class FakeDataSourceUser implements IDataSourceUser {
         old.setStudentNr(userModel.getStudentNr());
         return true;
     }
+
+     */
 }

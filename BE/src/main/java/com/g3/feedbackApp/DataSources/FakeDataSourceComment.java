@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class    FakeDataSourceComment implements IDataSourceComment {
+public class    FakeDataSourceComment {
 
-
+/*
     private static int commentIdCounter = 3;
     List<CommentModel> commentModelList = new ArrayList<>();
 
@@ -57,6 +57,8 @@ public class    FakeDataSourceComment implements IDataSourceComment {
         }
         return comments;
     }
+
+ */
 
 
 }

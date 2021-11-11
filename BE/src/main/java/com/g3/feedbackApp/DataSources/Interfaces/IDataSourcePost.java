@@ -1,6 +1,7 @@
 package com.g3.feedbackApp.DataSources.Interfaces;
 
 import com.g3.feedbackApp.Models.PostModel;
+import com.g3.feedbackApp.Models.ReviewerModel;
 import com.g3.feedbackApp.Models.VersionModel;
 
 import java.nio.file.Path;
@@ -21,6 +22,4 @@ public interface IDataSourcePost {
     List<VersionModel> getVersionsForPost(Long postId);
 
     List<Long> getReviewersIdsForPost(int postId);
-
-
 }

@@ -1,19 +1,27 @@
 package com.g3.feedbackApp.Models;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.util.Objects;
 
 @Setter
 @Getter
+@NoArgsConstructor
+@Entity
+@Table(name ="reviewer")
 public class ReviewerModel {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(name = "postId")
     private Long postId;
+    @Column(name = "userId")
     private int userId;
 
-    public ReviewerModel(Long id, Long postId, int userId){
-        this.id = id;
+    public ReviewerModel(Long postId, int userId){
         this.postId = postId;
         this.userId = userId;
     }
