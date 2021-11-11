@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface IReviewerRepository extends JpaRepository<ReviewerModel, Long> {
 
+    ReviewerModel getReviewerModelById(Long id);
     List<ReviewerModel> getReviewerModelsByPostId(Long id);
 }
