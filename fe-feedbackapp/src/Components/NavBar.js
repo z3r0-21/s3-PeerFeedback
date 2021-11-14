@@ -1,6 +1,6 @@
 import { logDOM } from '@testing-library/dom';
 import React from 'react';
-import { Navbar, Nav, Container } from 'react-bootstrap';
+import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import {LinkContainer} from "react-router-bootstrap";
 import { BrowserRouter} from 'react-router-dom';
 import styles from "./css/Navbar.scss";
@@ -27,9 +27,25 @@ function NavBar() {
                     <LinkContainer to="#" exact>
                         <Nav.Link >Contacts</Nav.Link>
                     </LinkContainer>
-                    <LinkContainer to="#" exact className="profile-avatar">
+                    <NavDropdown title={<i className="fas fa-user-circle"/>} className="profile-avatar" id="navbarScrollingDropdown">
+                    <NavDropdown.Item >Peter Vladimirov</NavDropdown.Item>
+                    <NavDropdown.Item href="#">
+                    <div className="view-account-link">View account</div>
+                        {/* <LinkContainer to="#" exact>
+                            View account
+                        </LinkContainer> */}
+                    </NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item href="#">
+                        <div className="sign-out-link">Sign out</div>
+                        {/* <LinkContainer to="#" exact>
+                            Sign out
+                        </LinkContainer> */}
+                    </NavDropdown.Item>
+                    </NavDropdown>
+                    {/* <LinkContainer to="#" exact className="profile-avatar" id="navbarScrollingDropdown">
                         <i className="fas fa-user-circle"/>
-                    </LinkContainer>
+                    </LinkContainer> */}
                 </Nav>
             </Navbar.Collapse>
             </Container>
