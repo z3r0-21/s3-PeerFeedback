@@ -1,0 +1,39 @@
+.profile-avatar {
+    color: white;
+    font-size: 40px;
+    margin-left: 50px;
+}
+
+.navbar {
+    background-color: #636 !important;
+    padding-block: 1.5rem !important;
+}
+
+
+@media (min-width: 768px) {
+    .navbar-expand-md .navbar-collapse {
+        display: flex!important;
+        justify-content: flex-end;
+        align-self: center;
+        flex-basis: auto;
+        margin-right: 5%;
+    }
+
+    .navbar-brand {
+        margin-left: 5rem !important;
+    }
+}
+
+.nav-link {
+    color: white !important;
+    font-size: 20px;
+}
+
+.navbar-nav a {
+    margin-right: 20px;
+}
+
+.navbar-brand span {
+    font-size: 25px;
+}
+
