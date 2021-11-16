@@ -3,7 +3,6 @@ package com.g3.feedbackApp.DataSources;
 import com.g3.feedbackApp.DataSources.Interfaces.IDataSourceReviewer;
 import com.g3.feedbackApp.Models.ReviewerModel;
 import com.g3.feedbackApp.Repository.IReviewerRepository;
-import com.g3.feedbackApp.Repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -17,8 +16,8 @@ public class DataSourceReviewer implements IDataSourceReviewer {
 
 
     @Override
-    public ReviewerModel getReviewerById(int id) {
-        return reviewerRepository.getReviewerModelById(Long.valueOf(id));
+    public ReviewerModel getReviewerById(Long id) {
+        return reviewerRepository.getReviewerModelById(id);
     }
 
     @Override
@@ -28,18 +27,18 @@ public class DataSourceReviewer implements IDataSourceReviewer {
 
 
     @Override
-    public boolean deleteReviewerById(int id) {
-        reviewerRepository.delete(reviewerRepository.getReviewerModelById(Long.valueOf(id)));
-
-        if(reviewerRepository.getReviewerModelById(Long.valueOf(id)) != null)
-            return true;
-        else
-            return false;
+    public boolean deleteReviewerById(Long id) {
+        ReviewerModel modelToDelete = reviewerRepository.getReviewerModelById(id);
+        if(modelToDelete != null){
+            reviewerRepository.delete(modelToDelete);
+            return reviewerRepository.getReviewerModelById(id) == null;
+        }
+        return false;
     }
 
     @Override
     public boolean addReviewer(ReviewerModel reviewerModel) {
-        if (reviewerRepository.getReviewerModelById(reviewerModel.getId()) != null){
+        if (reviewerRepository.getReviewerModelById(reviewerModel.getId()) != null) {
             return false;
         }
         reviewerRepository.save(reviewerModel);
@@ -48,7 +47,7 @@ public class DataSourceReviewer implements IDataSourceReviewer {
 
     @Override
     public boolean updateReviewer(ReviewerModel reviewer) {
-        ReviewerModel old = this.getReviewerById(reviewer.getUserId());
+        ReviewerModel old = this.getReviewerById(reviewer.getId());
         if (old == null) {
             return false;
         }

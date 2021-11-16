@@ -16,7 +16,7 @@ public class DataSourceUser implements IDataSourceUser {
 
 
     @Override
-    public UserModel getUserByStudentNr(int studentNr){
+    public UserModel getUserByStudentNr(Long studentNr){
         return userRepository.getUserModelByStudentNr(studentNr);
     }
 
@@ -30,7 +30,7 @@ public class DataSourceUser implements IDataSourceUser {
     }
 
     @Override
-    public boolean deleteUserModel(int studentNr) {
+    public boolean deleteUserModel(Long studentNr) {
         UserModel user = userRepository.getUserModelByStudentNr(studentNr);
         if (user == null){
             return false;
@@ -53,6 +53,7 @@ public class DataSourceUser implements IDataSourceUser {
             return false;
         }
         old.setStudentNr(userModel.getStudentNr());
+        userRepository.save(old);
         return true;
     }
 }

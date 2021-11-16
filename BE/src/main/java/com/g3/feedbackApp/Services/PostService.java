@@ -5,24 +5,33 @@ import com.g3.feedbackApp.Models.PostModel;
 import com.g3.feedbackApp.Models.ReviewerModel;
 import com.g3.feedbackApp.Models.VersionModel;
 import com.g3.feedbackApp.Services.Interfaces.IPostService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Objects;
 
 @Component
 public class PostService implements IPostService {
 
+    @Autowired
     private IDataSourcePost datasource;
-
-    public PostService(IDataSourcePost datasource) {
-        this.datasource = datasource;
-    }
 
     @Override
     public Boolean createPost(PostModel postModel, Path filePath, List<Long> reviewersIds) {
-        return datasource.createPost(postModel) && datasource.createVersion(postModel.getPostId(), filePath) && datasource.assignReviewers(reviewersIds, postModel.getPostId());
+        //Check if object holds value
+        if(!Objects.equals(postModel.getTitle(), "")){
+            return datasource.createPost(postModel) && createVersion(postModel.getPostId(), filePath) && datasource.assignReviewers(reviewersIds, postModel.getPostId());
+        }
+        return false;
     }
+
+    @Override
+    public Boolean createVersion(Long postId, Path filePath) {
+        return datasource.createVersion(postId, filePath);
+    }
+
 
     @Override
     public PostModel getPostWithId(Long id) {

@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface IUserRepository extends JpaRepository<UserModel, Integer> {
 
-    UserModel getUserModelByStudentNr(int nr);
+    UserModel getUserModelByStudentNr(Long nr);
     UserModel getUserModelByEmail(String email);
 }

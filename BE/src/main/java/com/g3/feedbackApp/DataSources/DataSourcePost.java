@@ -45,7 +45,7 @@ public class DataSourcePost implements IDataSourcePost {
     @Override
     public boolean assignReviewers(List<Long> reviewersIds, Long postId) {
         for(Long id: reviewersIds){
-            reviewerRepository.save(new ReviewerModel(postId, id.intValue()));
+            reviewerRepository.save(new ReviewerModel(postId, id));
         }
         return true;
     }
@@ -67,7 +67,7 @@ public class DataSourcePost implements IDataSourcePost {
 
     @Override
     public List<Long> getReviewersIdsForPost(int postId) {
-        List<ReviewerModel> reviewers = reviewerRepository.getReviewerModelsByPostId(Long.valueOf(postId));
+        List<ReviewerModel> reviewers = reviewerRepository.getReviewerModelsByPostId((long) postId);
         List<Long> ids = new ArrayList<>();
         for(ReviewerModel reviewerModel: reviewers){
             ids.add(reviewerModel.getId());

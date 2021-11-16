@@ -16,7 +16,7 @@ public class UserModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int studentNr;
+    private Long studentNr;
     @Column(name = "firstName")
     private String firstName;
     @Column(name = "lastName")

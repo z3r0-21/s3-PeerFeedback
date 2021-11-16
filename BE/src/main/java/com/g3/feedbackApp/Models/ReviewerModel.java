@@ -19,9 +19,9 @@ public class ReviewerModel {
     @Column(name = "postId")
     private Long postId;
     @Column(name = "userId")
-    private int userId;
+    private Long userId;
 
-    public ReviewerModel(Long postId, int userId){
+    public ReviewerModel(Long postId, Long userId){
         this.postId = postId;
         this.userId = userId;
     }

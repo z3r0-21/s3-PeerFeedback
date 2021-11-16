@@ -15,17 +15,17 @@ public class CommentModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer commentId;
+    private Long commentId;
     @Column(name = "userId")
-    private Integer userId;
+    private Long userId;
     @Column(name = "versionId")
-    private Integer versionId;
+    private Long versionId;
     @Column(name = "text")
     private String text;
     @Column(name = "isSolution")
     private boolean isSolution;
 
-    public CommentModel(Integer userId, Integer versionId, String text){
+    public CommentModel(Long userId, Long versionId, String text){
         this.userId = userId;
         this.versionId = versionId;
         this.text = text;

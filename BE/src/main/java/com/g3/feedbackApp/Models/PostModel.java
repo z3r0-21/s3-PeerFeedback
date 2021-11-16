@@ -50,6 +50,6 @@ public class PostModel {
 
     @Override
     public int hashCode() {
-        return Objects.hash(postId);
+        return Objects.hash();
     }
 }

@@ -1,10 +1,8 @@
 package com.g3.feedbackApp.Controllers;
 
-import com.g3.feedbackApp.DataSources.FakeDataSourceReviewer;
 import com.g3.feedbackApp.Models.ReviewerModel;
 import com.g3.feedbackApp.Models.UserModel;
 import com.g3.feedbackApp.Services.Interfaces.IReviewerService;
-import com.g3.feedbackApp.Services.ReviewerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +22,7 @@ public class ReviewerController {
 
     @GetMapping("{id}")
     public ResponseEntity<ReviewerModel> getUserPath(@PathVariable(value = "id") int id) {
-        ReviewerModel reviewerModel = reviewerService.getReviewerById(id);
+        ReviewerModel reviewerModel = reviewerService.getReviewerById((long) id);
 
         if(reviewerModel != null) {
             return ResponseEntity.ok().body(reviewerModel);
@@ -47,7 +45,7 @@ public class ReviewerController {
 
     @DeleteMapping("{id}")
     public ResponseEntity deleteReviewer(@PathVariable int id) {
-        reviewerService.deleteReviewerById(id);
+        reviewerService.deleteReviewerById((long)id);
         return ResponseEntity.ok().build();
     }
 
@@ -67,13 +65,13 @@ public class ReviewerController {
     public ResponseEntity<UserModel> updateStudent(@PathVariable("id") int id,
                                                    @RequestParam("reviewerId") int reviewerId) {
 
-        ReviewerModel reviewerModel = reviewerService.getReviewerById(id);
+        ReviewerModel reviewerModel = reviewerService.getReviewerById((long)id);
 
         if (reviewerModel == null){
             return new ResponseEntity("Please provide a valid reviewer id.",HttpStatus.NOT_FOUND);
         }
 
-        reviewerModel.setUserId(reviewerId);
+        reviewerModel.setUserId((long)reviewerId);
         return ResponseEntity.noContent().build();
     }
 }

@@ -7,7 +7,7 @@ import com.g3.feedbackApp.Models.PostModel;
 import com.g3.feedbackApp.Models.VersionModel;
 import com.g3.feedbackApp.Services.Interfaces.IPostService;
 import org.apache.commons.io.FilenameUtils;
-import org.springframework.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,13 +24,13 @@ import java.util.Objects;
 @RequestMapping("/post")
 public class PostController {
 
-    private static String documentDirectory = System.getProperty("user.dir") + "/documents/";
+    private static final String documentDirectory = System.getProperty("user.dir") + "/documents/";
 
+    @Autowired
     private IPostService postService;
-    private PostConverter postConverter;
+    private final PostConverter postConverter;
 
     public PostController(IPostService postService) {
-        this.postService = postService;
         postConverter = new PostConverter();
     }
 
@@ -66,12 +66,11 @@ public class PostController {
             PostDTO dtoToReturn = postConverter.convertPostModelToPostDTO(modelToAdd, versionModelList, reviewersIds);
             return ResponseEntity.ok().body(dtoToReturn);
         }
-        String message = "Something went wrong, post not created";
-        return new ResponseEntity(message, HttpStatus.CONFLICT);
+        return  ResponseEntity.notFound().build();
     }
 
-    private void makeDirectoryIfNotExist(String imageDirectory) {
-        File directory = new File(imageDirectory);
+    private void makeDirectoryIfNotExist() {
+        File directory = new File(PostController.documentDirectory);
         if (!directory.exists()) {
             directory.mkdir();
         }
@@ -79,7 +78,7 @@ public class PostController {
 
     private void createDocumentPath(PostDTO postDTO) {
         //Create directory for images
-        makeDirectoryIfNotExist(documentDirectory);
+        makeDirectoryIfNotExist();
         //create file path
         Path documentPath = Paths.get(documentDirectory,
                 postDTO.getTitle().concat(".").concat(Objects.requireNonNull(FilenameUtils.getExtension(postDTO.getUploadedFile().getOriginalFilename()))));

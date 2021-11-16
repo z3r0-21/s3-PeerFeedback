@@ -16,7 +16,7 @@ public class ReviewerService implements IReviewerService {
     }
 
     @Override
-    public ReviewerModel getReviewerById(int id) {
+    public ReviewerModel getReviewerById(Long id) {
         return this.reviewerData.getReviewerById(id);
     }
 
@@ -24,7 +24,7 @@ public class ReviewerService implements IReviewerService {
     public List<ReviewerModel> getReviewers(){ return this.reviewerData.getReviewers();}
 
     @Override
-    public boolean deleteReviewerById(int id) {
+    public boolean deleteReviewerById(Long id) {
         return this.reviewerData.deleteReviewerById(id);
     }
 
