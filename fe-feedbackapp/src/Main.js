@@ -4,7 +4,6 @@ import Footer from './Components/Footer';
 import NavBar from './Components/NavBar';
 
 
-
 function Main(props) {
     return (
         <>

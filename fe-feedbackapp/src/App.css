@@ -38,33 +38,20 @@
 }
 
 
-.comment-section{
-  position: relative;
-  left: 50vh;
-  top: 50vh;
-}
-
-.comments{
-  border: 3px solid black;
-  max-width: 50%;
-  display: block;
-  
-}
-
-p{
-  border-bottom: 1px solid black;
-  width: auto;
-}
 
 .reply-box{
   width: 50%;
 }
-
+.likebtn{
+width: auto;
+}
+.thumb{
+  width: 3vh;
+}
 textarea{
   position: relative;
   margin-top: 5vh;
-
-  width: 20vw;
+  width: auto;
   height: 8vw;
   font-size: 1.5vw;
   background-color: #fff;
@@ -86,4 +73,6 @@ button{
   padding: 1vh;
   width: auto;
 }
+
+
 
