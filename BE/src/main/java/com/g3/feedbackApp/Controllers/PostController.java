@@ -56,7 +56,6 @@ public class PostController {
     public ResponseEntity<PostDTO> createNewPost(@ModelAttribute PostDTO postDTO) {
         //create the document path for the uploaded file.
         createDocumentPath(postDTO);
-        //
         postDTO.setIdOP(0);
 
         PostModel modelToAdd = postConverter.convertPostDTOWithoutIdToPostModel(postDTO);
