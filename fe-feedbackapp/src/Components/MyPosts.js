@@ -9,12 +9,21 @@ function MyPosts(){
     const Select=(a)=> {
         setSelectPost(a)
     }
+
+    
     
     return(
         <>
             <ListGroup>
                 <ListGroup.Item className="activePost" >My Post1</ListGroup.Item>
                 <ListGroup.Item className="activePost" > My Post2</ListGroup.Item>
+                <ListGroup.Item className="activePost" > My Post2</ListGroup.Item>
+                <ListGroup.Item className="activePost" > My Post2</ListGroup.Item>
+                <ListGroup.Item className="activePost" >My Post1</ListGroup.Item>
+                <ListGroup.Item className="activePost" > My Post2</ListGroup.Item>
+                <ListGroup.Item className="activePost" > My Post2</ListGroup.Item>
+                <ListGroup.Item className="activePost" > My Post2</ListGroup.Item>
+                
             </ListGroup>
         </>
     )

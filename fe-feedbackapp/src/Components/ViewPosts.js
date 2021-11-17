@@ -6,7 +6,12 @@ import ReviewingPosts from './ReviewingPosts';
 function ViewPosts() {
     const [key, setKey] = useState('myPosts');
   
+    function handleSelectedPost(currPost) {
+      
+    }
+
     return (
+      <div className="posts-tabs">
       <Tabs
         id="ViewPosts"
         activeKey={key}
@@ -21,6 +26,7 @@ function ViewPosts() {
           <ReviewingPosts/>
         </Tab>
       </Tabs>
+      </div>
     );
   }
   

@@ -9,7 +9,7 @@ function NavBar() {
     return (
         <>
         <BrowserRouter>
-            <Navbar collapseOnSelect expand="md" bg="primary" variant="dark">
+            <Navbar collapseOnSelect expand="md" bg="primary" variant="dark" className="main-navbar">
             <Container fluid>
             <Navbar.Brand>
                 

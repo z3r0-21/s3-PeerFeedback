@@ -6,7 +6,7 @@
     font-size: 30px;
 }
 
-.navbar {
+.main-navbar {
     background-color: #636 !important;
     padding-block: 1.5rem !important;
 }
@@ -26,16 +26,16 @@
     }
 }
 
-.nav-link {
+.main-navbar .nav-link {
     color: white !important;
     font-size: 20px;
 }
 
-.navbar-nav a {
+.main-navbar .navbar-nav a {
     margin-right: 20px;
 }
 
-.navbar-brand span {
+.main-navbar .navbar-brand span {
     font-size: 25px;
 }
 
