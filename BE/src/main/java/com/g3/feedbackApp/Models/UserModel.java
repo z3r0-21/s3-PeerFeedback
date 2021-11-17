@@ -11,7 +11,7 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name ="user")
+@Table(name ="userTable")
 public class UserModel {
 
     @Id
