@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import axios from "axios";
 import { Form, Button } from 'react-bootstrap';
 import SelectReviewers from './SelectReviewers';
-import CommentSection from './CommentSection';
 
 function CreatePostForm(props) {
 
@@ -123,7 +122,6 @@ function CreatePostForm(props) {
           Submit
         </Button>
       </Form>
-      <CommentSection />
     </>
   );
 }

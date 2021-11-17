@@ -1,12 +1,29 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { FloatingLabel, Form, Button, ListGroup, Badge, Image } from 'react-bootstrap';
+import { FloatingLabel, Form, Button, ListGroup, Badge, Image, FormText } from 'react-bootstrap';
 import Thumb from '../Components/Thumb.png'
 
 class Comments extends Component{
 
   state = {
     comments: []
+}
+
+
+handleSubmit(){
+  axios.post('http://localhost:8080/comments/create', {
+    "versionId": 7,
+    "userId": 7,
+    "text": document.getElementById("comment").value,
+    "solution": false
+})
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+  window.location.reload(false);
 }
 
 
@@ -18,6 +35,7 @@ class Comments extends Component{
   }
 
 render(){
+  
 return(
 
   <>
@@ -49,14 +67,16 @@ return(
           </ul>
 
   
-  <FloatingLabel controlId="floatingTextarea" label="Comments" className="mb-3">
+  
+    <FloatingLabel controlId="floatingTextarea" label="Comments" className="mb-3">
   </FloatingLabel>Sugest a solution<FloatingLabel controlId="floatingTextarea2" label="Add comment here">
-      <Form.Control
+  <Form.Control 
         as="textarea"
         placeholder="Leave a comment here"
+        id="comment"
         style={{ height: '100px' }} />
     </FloatingLabel>
-    <Button variant="outline-primary">Submit</Button>{' '}
+    <Button onClick={this.handleSubmit} variant="outline-primary">Submit</Button>{' '}
     </>
 );
 }
