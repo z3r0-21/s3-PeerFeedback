@@ -21,7 +21,7 @@ public class ReviewerController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<ReviewerModel> getUserPath(@PathVariable(value = "id") int id) {
+    public ResponseEntity<ReviewerModel> getReviewer(@PathVariable(value = "id") int id) {
         ReviewerModel reviewerModel = reviewerService.getReviewerById((long) id);
 
         if(reviewerModel != null) {

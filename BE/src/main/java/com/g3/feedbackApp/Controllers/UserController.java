@@ -56,7 +56,7 @@ public class UserController {
     }
 
     @DeleteMapping("{studentNr}")
-    public ResponseEntity deletePost(@PathVariable int studentNr) {
+    public ResponseEntity deleteUser(@PathVariable int studentNr) {
         userService.deleteUserModel((long)studentNr);
         return ResponseEntity.ok().build();
 
