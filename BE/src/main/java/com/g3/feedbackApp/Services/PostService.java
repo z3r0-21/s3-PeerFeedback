@@ -1,6 +1,7 @@
 package com.g3.feedbackApp.Services;
 
 import com.g3.feedbackApp.DataSources.Interfaces.IDataSourcePost;
+import com.g3.feedbackApp.DataSources.Interfaces.IDataSourceReviewer;
 import com.g3.feedbackApp.Models.PostModel;
 import com.g3.feedbackApp.Models.ReviewerModel;
 import com.g3.feedbackApp.Models.VersionModel;
@@ -9,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Component
 public class PostService implements IPostService {
@@ -18,6 +21,8 @@ public class PostService implements IPostService {
     @Autowired
     private IDataSourcePost datasource;
 
+    @Autowired
+    private IDataSourceReviewer dataSourceReviewers;
     @Override
     public Boolean createPost(PostModel postModel, Path filePath, List<Long> reviewersIds) {
         //Check if object holds value

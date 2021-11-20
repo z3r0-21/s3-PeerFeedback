@@ -31,9 +31,14 @@ public class PostController {
     private IPostService postService;
     private final PostConverter postConverter;
 
+
     public PostController(IPostService postService) {
         postConverter = new PostConverter();
     }
+
+//    @GetMapping("{idOP}")
+//    public ResponseEntity<PostDTO> getMyPosts(@PathVariable(value = "idOP") Long idOP) {
+//    }
 
     @GetMapping("{id}")
     public ResponseEntity<PostDTO> getPostWithId(@PathVariable(value = "id") Long id) {
