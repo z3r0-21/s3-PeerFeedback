@@ -39,6 +39,37 @@ public class PostService implements IPostService {
     }
 
     @Override
+    public List<PostModel> getPostsToReview(Long userId) {
+        List<ReviewerModel> reviewersWithUserId =  dataSourceReviewers.getReviewers().
+                stream().
+                filter(reviewerModel -> reviewerModel.getUserId() == userId).
+                collect(Collectors.toList());
+        List<PostModel> postsToReview = new ArrayList<>();
+        for (ReviewerModel reviewer : reviewersWithUserId) {
+            for (PostModel post : getAllPosts()) {
+                if(post.getPostId() == reviewer.getPostId())
+                {
+                    postsToReview.add(post);
+                }
+            }
+        }
+        return postsToReview;
+    }
+
+    @Override
+    public List<PostModel> getMyPosts(Long idOP) {
+        return getAllPosts().
+                stream().
+                filter(postModel -> postModel.getIdOP()==idOP).
+                collect(Collectors.toList());
+    }
+
+    @Override
+    public List<PostModel> getAllPosts() {
+        return datasource.getAllPosts();
+    }
+
+    @Override
     public VersionModel getVersionWithId(Long versionId) {
         return datasource.getVersionWithId(versionId);
     }
