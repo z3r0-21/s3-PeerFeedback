@@ -13,6 +13,7 @@ import java.util.LongSummaryStatistics;
 
 @Setter
 @Getter
+@NoArgsConstructor
 public class PostDTO {
 
     private Long postId;

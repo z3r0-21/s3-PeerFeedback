@@ -8,6 +8,7 @@ import com.g3.feedbackApp.Models.VersionModel;
 import com.g3.feedbackApp.Services.Interfaces.IPostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class PostService implements IPostService {
 
     @Autowired
     private IDataSourceReviewer dataSourceReviewers;
+
     @Override
     public Boolean createPost(PostModel postModel, Path filePath, List<Long> reviewersIds) {
         //Check if object holds value
