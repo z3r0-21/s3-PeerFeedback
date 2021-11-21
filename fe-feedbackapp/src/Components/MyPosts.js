@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import { ListGroup } from 'react-bootstrap';
-import styles from "./css/ViewPosts.scss";
+import  "./css/ViewPosts.scss";
 import axios from "axios";
 
 
-function MyPosts(){
+function MyPosts({openSelectedPost}){
 
     const [myPosts, setMyPosts] = useState([]);
     const [apiNotLoaded, setApiNotLoaded] = useState(false);    
@@ -28,11 +28,9 @@ function MyPosts(){
         
     }
 
-    const [selectedPost, setSelectedPost] = useState();
 
-    const openSelectedPost =(post) => {
-        setSelectedPost(post);
-        console.log(post.postId);
+    const selectPost = (post) => {
+        openSelectedPost(post);
     }
 
     return(
@@ -40,7 +38,7 @@ function MyPosts(){
             <ListGroup>
                 {myPosts.length > 0 ? (
                     myPosts.map((post) => (
-                        <ListGroup.Item className="activePost" onClick={() => openSelectedPost(post)}>
+                        <ListGroup.Item className="activePost" key={post} onClick={() => selectPost(post)}>
                             <div className="postTitle">{post.title}</div>
                             <div className="postDate post-info">Posted on: {post.postDate}</div>
                             <div className="resolveDate post-info">

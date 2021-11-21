@@ -6,8 +6,11 @@ import ReviewingPosts from './ReviewingPosts';
 function ViewPosts() {
     const [key, setKey] = useState('myPosts');
   
-    function handleSelectedPost(currPost) {
-      
+    const [selectedPost, setSelectedPost] = useState();
+
+    const openSelectedPost = (post) => {
+      setSelectedPost(post);
+      console.log(post.postId);
     }
 
     return (
@@ -18,12 +21,12 @@ function ViewPosts() {
         onSelect={(k) => setKey(k)}
         className="viewPosts"
       >
-        <Tab eventKey="myPosts" title="MyPosts">
-          <MyPosts/>
+        <Tab eventKey="myPosts" title="My Posts">
+          <MyPosts openSelectedPost={openSelectedPost}/>
         </Tab>
 
-        <Tab eventKey="othersPosts" title="OthersPosts">
-          <ReviewingPosts/>
+        <Tab eventKey="postsToReview" title="Posts to Review">
+          <ReviewingPosts openSelectedPost={openSelectedPost}/>
         </Tab>
       </Tabs>
       </div>

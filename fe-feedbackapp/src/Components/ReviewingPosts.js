@@ -1,12 +1,12 @@
 import axios from 'axios';
 import React, {useState, useEffect} from 'react';
 import { ListGroup } from 'react-bootstrap';
-import { useParams } from 'react-router';
-import styles from "./css/ViewPosts.scss";
+import "./css/ViewPosts.scss";
 
-function ReviewingPost(){
+function ReviewingPost({openSelectedPost}){
 
     const [posts, setPosts] = useState([]);
+    const [apiNotLoaded, setApiNotLoaded] = useState(false);
 
     useEffect(() =>{
         let reviewerId = 5;
@@ -23,19 +23,43 @@ function ReviewingPost(){
         }
         catch(e){
             console.log("no post find for this reviewer")
+            setApiNotLoaded(true)
         }
+    }
+
+    const selectPost = (post) => {
+        openSelectedPost(post);
     }
 
     return(
         <>
-
             <ListGroup>
-                
-                {posts.map((post)=>(
-                    <ListGroup.Item className = "activePost" >
-                        {post.title}
-                    </ListGroup.Item>
-                ))}
+                {posts.length > 0 ? (
+                    posts.map((post)=>(
+                        <ListGroup.Item className = "activePost" key={post} onClick={() => selectPost(post)}>
+                            <div className="postTitle">{post.title}</div>
+                                <div className="postDate post-info">Posted on: {post.postDate}</div>
+                                <div className="resolveDate post-info">
+                                    {post.resolveDate === "" ? 
+                                    <div>Resolved on: {post.resolveDate}</div>
+                                    :
+                                    (
+                                    <div>Not resolved</div>
+                                    )}
+                            </div>
+                        </ListGroup.Item>
+                    ))
+                ) : 
+                (
+                    apiNotLoaded ?
+                    (
+                        <p>Server error. Please reload!</p>
+                    )
+                    :
+                    (
+                        <p>You do not have any posts to review</p>
+                    )
+                )}
             </ListGroup>
         </>
     )

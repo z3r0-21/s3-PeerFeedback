@@ -1,6 +1,6 @@
 import React from 'react';
 import logo from './images/fontys-logo.png';
-import styles from "./css/Footer.scss";
+import "./css/Footer.scss";
 
 function Footer(props) {
     return (
