@@ -40,7 +40,19 @@ function MyPosts(){
             <ListGroup>
                 {myPosts.length > 0 ? (
                     myPosts.map((post) => (
-                        <ListGroup.Item className="activePost" onClick={() => openSelectedPost(post)}>{post.title} [{post.postDate}]</ListGroup.Item>
+                        <ListGroup.Item className="activePost" onClick={() => openSelectedPost(post)}>
+                            <div className="postTitle">{post.title}</div>
+                            <div className="postDate post-info">Posted on: {post.postDate}</div>
+                            <div className="resolveDate post-info">
+                                {post.resolveDate === "" ? 
+                                <div>Resolved on: {post.resolveDate}</div>
+                                :
+                                (
+                                <div>Not resolved</div>
+                                )}
+                            </div>
+                            
+                        </ListGroup.Item>
                     ))
                 ) : 
                 (
