@@ -17,20 +17,17 @@ public class CommentService implements ICommentService{
     }
 
     @Override
-    public boolean createComment(CommentModel commentModel) {
-        if(datasource.createComment(commentModel)){
-            return true;
-        }
-        return false;
+    public CommentModel createComment(CommentModel commentModel) {
+        return (datasource.createComment(commentModel));
     }
 
     @Override
-    public CommentModel getCommentWithId(int commentId){
+    public CommentModel getCommentWithId(Long commentId){
         return datasource.getCommentWithID(commentId);
     }
 
     @Override
-    public List<CommentModel> getCommentsWithVersionId(int versionId){
+    public List<CommentModel> getCommentsWithVersionId(Long versionId){
         return datasource.getCommentsWithVersionID(versionId);
     }
 

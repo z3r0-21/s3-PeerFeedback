@@ -9,7 +9,11 @@ import java.util.List;
 public interface IPostService {
 
     Boolean createPost(PostModel postModel, Path filePath, List<Long> reviewersIds);
+    Boolean createVersion(Long postId, Path filePath);
     PostModel getPostWithId(Long postId);
+    List<PostModel> getPostsToReview(Long reviewerId);
+    List<PostModel> getMyPosts(Long idOP);
+    List<PostModel> getAllPosts();
     VersionModel getVersionWithId(Long versionId);
     List<VersionModel> getVersionsForPost(Long postId);
     List<Long> getReviewersIdsForPost(int postId);
