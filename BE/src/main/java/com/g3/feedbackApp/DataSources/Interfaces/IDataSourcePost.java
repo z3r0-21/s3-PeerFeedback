@@ -17,6 +17,8 @@ public interface IDataSourcePost {
 
     PostModel getPostWithId(Long postId);
 
+    List<PostModel> getAllPosts();
+
     VersionModel getVersionWithId(Long versionId);
 
     List<VersionModel> getVersionsForPost(Long postId);

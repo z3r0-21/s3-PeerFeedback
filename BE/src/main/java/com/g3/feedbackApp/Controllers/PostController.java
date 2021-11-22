@@ -7,6 +7,8 @@ import com.g3.feedbackApp.Models.PostModel;
 import com.g3.feedbackApp.Models.VersionModel;
 import com.g3.feedbackApp.Services.Interfaces.IPostService;
 import org.apache.commons.io.FilenameUtils;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin("http://localhost:3000")
@@ -29,10 +32,48 @@ public class PostController {
     @Autowired
     private IPostService postService;
     private final PostConverter postConverter;
+    private ModelMapper modelMapper;
+
 
     public PostController(IPostService postService) {
         postConverter = new PostConverter();
+        this.modelMapper = new ModelMapper();
     }
+
+    @GetMapping()
+    public ResponseEntity<List<PostDTO>> getPosts(@RequestParam(value = "idOP") Optional<Long> idOP) {
+        List<PostModel> postModels = null;
+        if(idOP.isPresent()) {
+            postModels = postService.getMyPosts(idOP.get());
+        }
+        else{
+            postModels = postService.getAllPosts();
+        }
+
+        if(postModels != null){
+            List<PostDTO> postDTOs = modelMapper.map(postModels, new TypeToken<List<PostDTO>>() {}.getType());
+            return ResponseEntity.ok().body(postDTOs);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/postsToReview")
+    public ResponseEntity<List<PostDTO>> getPostsToReview(@RequestParam(value = "reviewerId") Optional<Long> reviewerId) {
+        List<PostModel> postModels = null;
+        if(reviewerId.isPresent()) {
+            postModels = postService.getPostsToReview(reviewerId.get());
+        }
+        else{
+            return ResponseEntity.badRequest().build();
+        }
+
+        if(postModels != null){
+            List<PostDTO> postDTOs = modelMapper.map(postModels, new TypeToken<List<PostDTO>>() {}.getType());
+            return ResponseEntity.ok().body(postDTOs);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
 
     @GetMapping("{id}")
     public ResponseEntity<PostDTO> getPostWithId(@PathVariable(value = "id") Long id) {
@@ -56,7 +97,7 @@ public class PostController {
     public ResponseEntity<PostDTO> createNewPost(@ModelAttribute PostDTO postDTO) {
         //create the document path for the uploaded file.
         createDocumentPath(postDTO);
-        postDTO.setIdOP(0);
+//        postDTO.setIdOP(0);
 
         PostModel modelToAdd = postConverter.convertPostDTOWithoutIdToPostModel(postDTO);
         if (postService.createPost(modelToAdd, postDTO.getFilePath(), postDTO.getReviewersIds())) {

@@ -56,6 +56,11 @@ public class DataSourcePost implements IDataSourcePost {
     }
 
     @Override
+    public List<PostModel> getAllPosts() {
+        return postRepository.findAll();
+    }
+
+    @Override
     public VersionModel getVersionWithId(Long versionId) {
         return versionRepository.getFirstByVersionId(versionId);
     }
