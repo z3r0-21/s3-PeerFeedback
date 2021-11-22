@@ -2,6 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.5.4'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+	id 'jacoco'
 }
 
 group = 'com.g3'
@@ -20,12 +21,33 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.apache.commons:commons-io:1.3.2'
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
+    implementation 'org.modelmapper:modelmapper-module-jsr310:1.2.2'
+	implementation 'org.modelmapper:modelmapper-module-java8:1.2.2'
+    implementation 'org.seedstack.addons.modelmapper:modelmapper:1.0.0'
+    implementation 'com.github.jmnarloch:modelmapper-spring-boot-starter:1.1.0'
+    implementation 'io.github.yoshikawaa.modelmapper.spring.boot:modelmapper-spring-boot:0.1.0'
+    annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'com.h2database:h2'
+	runtimeOnly 'com.microsoft.sqlserver:mssql-jdbc'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 }
 
 test {
 	useJUnitPlatform()
 }
+
+jacocoTestReport{
+	reports{
+		dependsOn test
+		xml.enabled true
+		csv.enabled false
+		html.enabled false
+	}
+}
+test.finalizedBy jacocoTestReport
+

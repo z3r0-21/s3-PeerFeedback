@@ -17,7 +17,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public UserModel getUserByStudentNr(int studentNr) {
+    public UserModel getUserByStudentNr(Long studentNr) {
         return userData.getUserByStudentNr(studentNr);
     }
 
@@ -32,7 +32,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public boolean deleteUserModel(int pcn) {
+    public boolean deleteUserModel(Long pcn) {
         return userData.deleteUserModel(pcn);
     }
 

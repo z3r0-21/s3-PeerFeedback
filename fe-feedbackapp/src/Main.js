@@ -2,16 +2,16 @@ import React from 'react';
 import CreatePostForm from './Components/CreatePostForm';
 import Footer from './Components/Footer';
 import NavBar from './Components/NavBar';
-import Comments from './Components/Comments';
-import VersionSelection from './Components/VersionSelection';
-import Post from './Components/Post';
+import ViewPosts from './Components/ViewPosts';
+import styles from "./Components/css/Main.scss";
 
-function Main(props) {
+
+function Main() {
     return (
         <>
-            {/* <NavBar />
-            <CreatePostForm /> */}
-            <Post postId={4}/>
+        
+            <NavBar />
+            <ViewPosts />
             <Footer />
         </>
     );

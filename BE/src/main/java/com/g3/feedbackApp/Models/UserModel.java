@@ -1,24 +1,32 @@
 package com.g3.feedbackApp.Models;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.util.Objects;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@Entity
+@Table(name ="userTable")
 public class UserModel {
 
-
-    private int studentNr;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long studentNr;
+    @Column(name = "firstName")
     private String firstName;
+    @Column(name = "lastName")
     private String lastName;
+    @Column(name = "nickName")
     private String nickName;
+    @Column(name = "email")
     private String email;
 
-    public UserModel(int studentNr, String firstName, String lastName, String nickName, String email) {
-
-        this.studentNr = studentNr;
+    public UserModel(String firstName, String lastName, String nickName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.nickName = nickName;

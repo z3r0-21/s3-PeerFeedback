@@ -9,15 +9,15 @@ import lombok.Setter;
 @Getter
 public class CommentDTO {
 
-    private Integer commentId;
-    private Integer userId;
-    private Integer versionId;
+    private Long commentId;
+    private Long userId;
+    private Long versionId;
     private String text;
     private boolean isSolution;
 
-    public CommentDTO(Integer commentId, Integer userId, Integer versionId, String text){
+    public CommentDTO(Long commentId, Long userId, Long versionId, String text){
         this.commentId = commentId;
-        this.versionId = userId;
+        this.userId = userId;
         this.versionId = versionId;
         this.text = text;
         this.isSolution = false;
