@@ -39,21 +39,21 @@ render(){
 return(
 
   <>
-   <ul className="collection">
+   <ul className="collection w-100 p-3">
             {this.state.comments.map(comment => (
               <ListGroup as="ol" numbered>
               <ListGroup.Item
                 as="li"
-                className="d-flex justify-content-between align-items-start"
+                className="d-flex justify-content-between align-items-start mb-3"
               >
                 <div className="ms-2 me-auto">
-                  <div><p>User</p></div>
+                  <div className="fw-bold">User</div>
                   <p>{comment.text}</p>
                 </div>
                 <Badge variant="primary" pill>
                   14
                 </Badge>
-                <Button className="likebtn" variant="primary" size="sm">
+                <Button className="likebtn ms-1" variant="primary" size="sm">
                Like|
                <Image className="thumb"
           roundedCircle
@@ -67,17 +67,23 @@ return(
           </ul>
 
   
-  
-    <FloatingLabel controlId="floatingTextarea" label="Comments" className="mb-3">
-  </FloatingLabel>Sugest a solution<FloatingLabel controlId="floatingTextarea2" label="Add comment here">
-  <Form.Control 
-        as="textarea"
-        placeholder="Leave a comment here"
-        id="comment"
-        style={{ height: '100px' }} />
-    </FloatingLabel>
-    <Button onClick={this.handleSubmit} variant="outline-primary">Submit</Button>{' '}
+          <div  className="p-3 pt-0" style={{background: "#f2f2f2"  }}>
+          <Form onSubmit={this.handleSubmit}>
+              <Form.Group className="mb-3" controlId="title">
+                <Form.Label className="fw-bold pt-2">Sugest a solution</Form.Label>
+                <Form.Control 
+                as="textarea"
+                placeholder="Leave a comment here"
+                id="comment"
+                style={{ height: '100px' }} />
+              </Form.Group>
+              <Button variant="outline-primary" type="submit" className="mt-0">
+                Submit
+              </Button>
+            </Form>
+            </div>
     </>
+    
 );
 }
 };
