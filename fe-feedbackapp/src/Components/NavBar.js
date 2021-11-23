@@ -4,7 +4,8 @@ import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import {LinkContainer} from "react-router-bootstrap";
 import { BrowserRouter} from 'react-router-dom';
 import styles from "./css/Navbar.scss";
-import Router from './Router';
+import Router from "./Router";
+
 
 function NavBar() {
     return (
@@ -24,7 +25,7 @@ function NavBar() {
                     <LinkContainer to="/about" exact>
                         <Nav.Link >About</Nav.Link>
                     </LinkContainer>
-                    <LinkContainer to="#" exact>
+                    <LinkContainer to="contacts" exact>
                         <Nav.Link >Contacts</Nav.Link>
                     </LinkContainer>
                     <NavDropdown title={<i className="fas fa-user-circle"/>} className="profile-avatar" id="navbarScrollingDropdown">
@@ -50,6 +51,9 @@ function NavBar() {
             </Navbar.Collapse>
             </Container>
             </Navbar>
+            <div className="container mt-3">
+                <Router/>
+            </div>
         </BrowserRouter>
         </>
     );

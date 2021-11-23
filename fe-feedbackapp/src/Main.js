@@ -11,7 +11,6 @@ function Main() {
         <>
         
             <NavBar />
-            <ViewPosts />
             <Footer />
         </>
     );
