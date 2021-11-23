@@ -5,6 +5,7 @@ import VersionSelection from './VersionSelection';
 import axios from 'axios';
 import { Card } from 'react-bootstrap';
 import FilePreviewer from 'react-file-previewer';
+import "./css/Post.scss";
 
 
 
@@ -55,12 +56,12 @@ function Post(props) {
 
     return (
         <>
-        <Card className="mt-1 mb-3" style={{background: "#d4f8ff"  }}>
+        <Card className="mt-1 mb-3 postBg">
         <Card.Body>
             <Card.Title><h1>{post.title}</h1></Card.Title>
             <Card.Subtitle className="mb-2 text-muted">{post.postDate}</Card.Subtitle>
             <p className="font-weight-light">{post.category}</p>
-            <hr className="pt-0 border rounded"/>
+            <hr className="pt-0 border-black rounded hrPostContent"/>
             <VersionSelection version={version} incr={increaseVersion} decr={decreaseVersion}/>
             <Card.Text>
             <PostContent post = {post}/>
