@@ -12,7 +12,6 @@ function NavBar() {
             <Navbar collapseOnSelect expand="md" bg="primary" variant="dark" className="main-navbar">
             <Container fluid>
             <Navbar.Brand>
-                
                 <span>Fontys Peer Review</span>
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
