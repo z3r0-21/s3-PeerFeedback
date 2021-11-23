@@ -4,6 +4,7 @@ import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import {LinkContainer} from "react-router-bootstrap";
 import { BrowserRouter} from 'react-router-dom';
 import styles from "./css/Navbar.scss";
+import Router from './Router';
 
 function NavBar() {
     return (
@@ -18,10 +19,10 @@ function NavBar() {
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav>
-                    <LinkContainer to="#" exact>
+                    <LinkContainer to="/" exact>
                         <Nav.Link >Home</Nav.Link>
                     </LinkContainer>
-                    <LinkContainer to="#" exact>
+                    <LinkContainer to="/about" exact>
                         <Nav.Link >About</Nav.Link>
                     </LinkContainer>
                     <LinkContainer to="#" exact>
