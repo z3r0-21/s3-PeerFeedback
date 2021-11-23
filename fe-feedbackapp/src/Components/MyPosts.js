@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { ListGroup } from 'react-bootstrap';
 import  "./css/ViewPosts.scss";
 import axios from "axios";
+import { Link } from 'react-router-dom';
 
 
 function MyPosts({openSelectedPost}){
@@ -38,6 +39,11 @@ function MyPosts({openSelectedPost}){
             <ListGroup>
                 {myPosts.length > 0 ? (
                     myPosts.map((post) => (
+                        <Link to={{ 
+                            pathname: "/post", 
+                            state: post.postId 
+                           }}
+                           className="text-decoration-none">
                         <ListGroup.Item className="activePost" key={post} onClick={() => selectPost(post)}>
                             <div className="postTitle">{post.title}</div>
                             <div className="postDate post-info">Posted on: {post.postDate}</div>
@@ -51,6 +57,7 @@ function MyPosts({openSelectedPost}){
                             </div>
                             
                         </ListGroup.Item>
+                        </Link>
                     ))
                 ) : 
                 (

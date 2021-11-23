@@ -51,9 +51,7 @@ function NavBar() {
             </Navbar.Collapse>
             </Container>
             </Navbar>
-            <div className="container mt-3">
-                <Router/>
-            </div>
+            <Router/>
         </BrowserRouter>
         </>
     );

@@ -8,12 +8,12 @@ import FilePreviewer from 'react-file-previewer';
 
 
 
-function Post({postId}) {
+function Post(props) {
     const [post, setPost] = React.useState([]);
     const [version, setVersion] = React.useState();
 
     React.useEffect(() => {
-        axios.get("http://localhost:8080/post/1")
+        axios.get("http://localhost:8080/post/" + props.location.state)
         .then((response) => {
             setPost(null);
             setVersion(-1);

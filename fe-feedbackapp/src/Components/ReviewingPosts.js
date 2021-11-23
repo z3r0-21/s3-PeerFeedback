@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, {useState, useEffect} from 'react';
 import { ListGroup } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import "./css/ViewPosts.scss";
 
 function ReviewingPost({openSelectedPost}){
@@ -9,7 +10,7 @@ function ReviewingPost({openSelectedPost}){
     const [apiNotLoaded, setApiNotLoaded] = useState(false);
 
     useEffect(() =>{
-        let reviewerId = 5;
+        let reviewerId = 2;
         getPosts(reviewerId);
     },[]
 
@@ -36,6 +37,11 @@ function ReviewingPost({openSelectedPost}){
             <ListGroup>
                 {posts.length > 0 ? (
                     posts.map((post)=>(
+                        <Link to={{ 
+                            pathname: "/post", 
+                            state: post.postId 
+                           }}
+                           className="text-decoration-none">
                         <ListGroup.Item className = "activePost" key={post} onClick={() => selectPost(post)}>
                             <div className="postTitle">{post.title}</div>
                                 <div className="postDate post-info">Posted on: {post.postDate}</div>
@@ -48,6 +54,7 @@ function ReviewingPost({openSelectedPost}){
                                     )}
                             </div>
                         </ListGroup.Item>
+                        </Link>
                     ))
                 ) : 
                 (
