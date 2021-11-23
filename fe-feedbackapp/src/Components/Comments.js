@@ -10,10 +10,11 @@ class Comments extends Component{
 }
 
 
-handleSubmit(){
+handleSubmit(event){
+  event.preventDefault();
   axios.post('http://localhost:8080/comments/create', {
-    "versionId": 7,
-    "userId": 7,
+    "userId": 2,
+    "versionId": 1,
     "text": document.getElementById("comment").value,
     "solution": false
 })
@@ -23,7 +24,7 @@ handleSubmit(){
   .catch(function (error) {
     console.log(error);
   });
-  window.location.reload(false);
+  
 }
 
 

@@ -11,8 +11,8 @@ function PostContent({post}) {
             <Accordion defaultActiveKey="0">
             <Accordion.Item eventKey="1">
                 <Accordion.Header>Attached file(s)</Accordion.Header>
-                <Accordion.Body>
-                <iframe src="https://ihatetomatoes.net/wp-content/uploads/2017/01/react-cheat-sheet.pdf" width="100%" height="400vh"/>
+                <Accordion.Body style={{height: '50rem'}}>
+                <iframe src="https://ihatetomatoes.net/wp-content/uploads/2017/01/react-cheat-sheet.pdf" width="100%" height="100%" />
                 </Accordion.Body>
             </Accordion.Item>
             </Accordion>

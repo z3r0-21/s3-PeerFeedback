@@ -13,7 +13,6 @@ function ReviewingPost({openSelectedPost}){
         let reviewerId = 2;
         getPosts(reviewerId);
     },[]
-
     )
 
     async function getPosts(reviewerId){
