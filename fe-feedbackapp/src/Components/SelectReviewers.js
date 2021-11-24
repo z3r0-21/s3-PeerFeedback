@@ -9,7 +9,7 @@ const client = axios.create({
 });
 
 
-function SelectReviewers({saveReviewers}) {
+function SelectReviewers({addReviewerId, removeReviewerId}) {
     const [started, setStarted] = useState(false);
     const [users, setUsers] = useState([]);
 
@@ -47,10 +47,10 @@ function SelectReviewers({saveReviewers}) {
         setUsers(response.data);
     }
 
-    const handleClick = (user) => {
+    const addReviewer = (user) => {
         setReviewers([...reviewers, user]);
-        setReviewersIds([...reviewersIds, user.studentNr]);
-        
+        // setReviewersIds([...reviewersIds, user.studentNr]);
+        addReviewerId(user.studentNr);
         setUsers([
             ...users.filter(u => {
                 return u.studentNr !== user.studentNr
@@ -59,27 +59,28 @@ function SelectReviewers({saveReviewers}) {
         setInput("");
     }
 
-    const handleRemoveReviewer = (reviewer) => {
+    const removeReviewer = (reviewer) => {
         // Remove the chosen reviewer from the reviewer list
         setReviewers([
             ...reviewers.filter(r => {
                 return r.studentNr !== reviewer.studentNr
             })
         ]);
-        setReviewersIds([
-            ...reviewersIds.filter(r => {
-                return r !== reviewer.studentNr
-            })
-        ])
+        // setReviewersIds([
+        //     ...reviewersIds.filter(r => {
+        //         return r !== reviewer.studentNr
+        //     })
+        // ]);
+        removeReviewerId(reviewer.studentNr);
         // Add removed reviewer to people list
         setUsers([...users, reviewer]);
     }
 
     
-    const addReviewers = () => {
-        console.log(reviewersIds);
-        saveReviewers(reviewersIds);
-    }
+    // const addReviewers = () => {
+    //     console.log(reviewersIds);
+    //     saveReviewers(reviewersIds);
+    // }
 
     return (
         <>
@@ -88,7 +89,7 @@ function SelectReviewers({saveReviewers}) {
         ))} */}
          
             <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Add searchResults</Form.Label>
+                <Form.Label className="create-post-lb">Add reviewers</Form.Label>
                 <InputGroup className="mb-3">
                     <FormControl
                     
@@ -103,17 +104,18 @@ function SelectReviewers({saveReviewers}) {
             </Form.Group>
             {searchResults.map((user) => (
                 <div key={user.studentNr} className="searchResults">
-                    <div onClick={() => handleClick(user)}>{user.studentNr} {user.email}</div>
+                    <span className="reviewer-email">{user.email}</span>
+                    <span onClick={() => addReviewer(user)} className="add-reviewer"><i class="fas fa-plus-circle"></i></span>
                 </div>
             ))}
 
-            <Button variant="secondary" onClick={addReviewers}>
+            {/* <Button variant="secondary" onClick={addReviewers}>
                 Save reviewers
-            </Button>
+            </Button> */}
           
         {reviewers.map((reviewer) => (
             <div key={reviewer.studentNr} className="reviewers">
-                <SelectedReviewer reviewer={reviewer} handleRemoveReviewer={handleRemoveReviewer}/>
+                <SelectedReviewer reviewer={reviewer} handleRemoveReviewer={removeReviewer}/>
             </div>
         ))}
 

@@ -10,7 +10,7 @@ function ReviewingPost({openSelectedPost}){
     const [apiNotLoaded, setApiNotLoaded] = useState(false);
 
     useEffect(() =>{
-        let reviewerId = 2;
+        let reviewerId = 6;
         getPosts(reviewerId);
     },[]
     )
