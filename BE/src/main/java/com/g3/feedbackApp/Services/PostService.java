@@ -42,7 +42,7 @@ public class PostService implements IPostService {
             lastId = 0l;
         }
         else {
-            lastId = datasource.getVersionsForPost(postId).get(versionsListSize - 1).getVersionId();
+            lastId = datasource.getVersionsForPost(postId).get(versionsListSize - 1).getVersionCounter();
         }
         return datasource.createVersion(lastId + 1, postId, filePath);
     }

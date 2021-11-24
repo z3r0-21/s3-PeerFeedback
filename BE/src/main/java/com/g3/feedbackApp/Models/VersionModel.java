@@ -15,15 +15,17 @@ import java.nio.file.Path;
 public class VersionModel {
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long versionId = 0l;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long versionId;
+    @Column(name = "versionCounter")
+    private Long versionCounter = 0l;
     @Column(name = "postId")
     private Long postId;
     @Column(name = "filePath")
     private String filePath;
 
-    public VersionModel(Long versionId, Long postId, String filePath){
-        this.versionId = versionId;
+    public VersionModel(Long versionCounter, Long postId, String filePath){
+        this.versionCounter = versionCounter;
         this.postId = postId;
         this.filePath = filePath;
     }
