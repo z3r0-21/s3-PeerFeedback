@@ -11,7 +11,7 @@ function NavBar() {
     return (
         <>
         <BrowserRouter>
-            <Navbar collapseOnSelect expand="md" bg="primary" variant="dark" className="main-navbar">
+            <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark" className="main-navbar">
             <Container fluid>
             <Navbar.Brand>
                 <span>Fontys Peer Review</span>

@@ -12,8 +12,8 @@
 }
 
 
-@media (min-width: 768px) {
-    .navbar-expand-md .navbar-collapse {
+@media (min-width: 992px) {
+    .navbar-expand-lg .navbar-collapse {
         display: flex!important;
         justify-content: flex-end;
         align-self: center;

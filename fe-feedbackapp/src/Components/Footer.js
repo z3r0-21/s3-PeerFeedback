@@ -8,11 +8,11 @@ function Footer(props) {
             <div className="footer-logo">
                 <img
                     src={logo}
-                    width="120"
-                    height="80"
+                    width="60"
+                    height="40"
                 />
             </div>
-            <div>&copy; {new Date().getFullYear()} Copyright: Fontys Peer Review</div> 
+            <div className="copyright-text">&copy; {new Date().getFullYear()} Copyright: Fontys Peer Review</div> 
         </div>
     );
 }
