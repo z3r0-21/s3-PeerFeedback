@@ -36,7 +36,15 @@ public class PostService implements IPostService {
 
     @Override
     public Boolean createVersion(Long postId, Path filePath) {
-        return datasource.createVersion(postId, filePath);
+        int versionsListSize = datasource.getVersionsForPost(postId).size();
+        Long lastId;
+        if(versionsListSize == 0) {
+            lastId = 0l;
+        }
+        else {
+            lastId = datasource.getVersionsForPost(postId).get(versionsListSize - 1).getVersionId();
+        }
+        return datasource.createVersion(lastId + 1, postId, filePath);
     }
 
 
