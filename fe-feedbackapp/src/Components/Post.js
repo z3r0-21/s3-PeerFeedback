@@ -21,7 +21,7 @@ function Post(props) {
             setPost(response.data);
 
             if(response.data.versions.length){
-                setVersion(response.data.versions[0].versionId);
+                setVersion(response.data.versions[0].versionCounter);
             }
             else{
                 setVersion(1);
