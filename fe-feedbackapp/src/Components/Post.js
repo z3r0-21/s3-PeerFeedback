@@ -17,14 +17,11 @@ function Post(props) {
         axios.get("http://localhost:8080/post/" + props.location.state)
         .then((response) => {
             setPost(null);
-            setVersion(-1);
+            setVersion(1);
             setPost(response.data);
 
             if(response.data.versions.length){
                 setVersion(response.data.versions[0].versionCounter);
-            }
-            else{
-                setVersion(1);
             }
         });
     }, []);
@@ -38,7 +35,7 @@ function Post(props) {
 
             if(version < highestVersion[0].versionId){
                 setVersion(version + 1);
-        }
+            }
         }
        
     }

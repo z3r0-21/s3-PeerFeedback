@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { FloatingLabel, Form, Button, ListGroup, Badge, Image, FormText } from 'react-bootstrap';
 import Thumb from '../Components/Thumb.png'
@@ -7,15 +7,18 @@ function Comments({version}) {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
 
+ 
+
 React.useEffect(() => {
-  axios.get(`http://localhost:8080/comments/version/` + + version)
+
+  axios.get(`http://localhost:8080/comments/version/` + version)
   .then(res => {
     setComments(res.data);
   })
   .catch(function (error) {
     console.log(error);
   });
-  }, []);
+  }, [version]);
 
   function handleSubmit(event){
     event.preventDefault();
