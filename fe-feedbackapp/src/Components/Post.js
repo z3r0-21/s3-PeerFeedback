@@ -40,7 +40,7 @@ function Post(props) {
                 setVersion(version + 1);
         }
         }
-        
+       
     }
 
     function decreaseVersion(){
@@ -51,7 +51,6 @@ function Post(props) {
                 setVersion(version - 1);
             }
         }
-        
     }
 
     return (

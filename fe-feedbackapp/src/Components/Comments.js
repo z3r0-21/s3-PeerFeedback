@@ -8,7 +8,7 @@ function Comments({version}) {
   const [newComment, setNewComment] = useState("");
 
 React.useEffect(() => {
-  axios.get(`http://localhost:8080/comments`)
+  axios.get(`http://localhost:8080/comments/version/` + + version)
   .then(res => {
     setComments(res.data);
   })
@@ -26,7 +26,7 @@ React.useEffect(() => {
       "solution": false
   })
     .then(function (response) {
-      axios.get(`http://localhost:8080/comments`)
+      axios.get(`http://localhost:8080/comments/version/` + version)
       .then(res => {
         setComments(res.data);
         setNewComment("");
