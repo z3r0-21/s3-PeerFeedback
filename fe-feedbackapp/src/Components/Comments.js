@@ -58,9 +58,13 @@ return(
                   <div className="fw-bold">User</div>
                   <p>{comment.text}</p>
                 </div>
-                <Button className="likebtn ms-1" variant="primary" size="sm">
-                <i class="fas fa-check"></i>
-                </Button>    
+                {comment.solution
+                  ? <Button className="likebtn ms-1" variant="primary" size="sm">
+                  <i class="fas fa-check"></i>
+                  </Button> 
+                  : <div></div>
+                }
+                   
               </ListGroup.Item>
             </ListGroup>
             ))}
