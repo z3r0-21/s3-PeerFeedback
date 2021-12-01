@@ -68,7 +68,7 @@ function Post(props) {
             </Card.Text>
         </Card.Body>
         </Card>
-        <Comments />
+        <Comments version = {version}/>
         </>
         
     );

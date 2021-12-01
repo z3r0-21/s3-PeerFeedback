@@ -3,7 +3,7 @@ import axios from 'axios'
 import { FloatingLabel, Form, Button, ListGroup, Badge, Image, FormText } from 'react-bootstrap';
 import Thumb from '../Components/Thumb.png'
 
-function Comments(props) { 
+function Comments({version}) { 
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
 
@@ -21,7 +21,7 @@ React.useEffect(() => {
     event.preventDefault();
     axios.post('http://localhost:8080/comments/create', {
       "userId": 2,
-      "versionId": 1,
+      "versionId": version,
       "text": newComment,
       "solution": false
   })
