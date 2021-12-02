@@ -41,13 +41,22 @@ test {
 	useJUnitPlatform()
 }
 
-jacocoTestReport{
-	reports{
+jacocoTestReport {
+	reports {
 		dependsOn test
 		xml.enabled true
 		csv.enabled false
-		html.enabled false
+		html.enabled true
+	}
+
+	afterEvaluate {
+		afterEvaluate {
+			classDirectories.setFrom(files(classDirectories.files.collect {
+				fileTree(dir: it, exclude: ['**/com/g3/feedbackApp/Controllers/*',
+											'**/com/g3/feedbackApp/Models/Converters/*',
+											'**/com/g3/feedbackApp/Models/DTOS/*'])
+			}))
+		}
 	}
 }
 test.finalizedBy jacocoTestReport
-
