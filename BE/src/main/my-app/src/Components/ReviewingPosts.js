@@ -3,6 +3,7 @@ import React, {useState, useEffect} from 'react';
 import { ListGroup } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import "./css/ViewPosts.scss";
+import * as urls from "../URL";
 
 function ReviewingPost({openSelectedPost}){
 
@@ -17,7 +18,7 @@ function ReviewingPost({openSelectedPost}){
 
     async function getPosts(reviewerId){
         try{
-          const response = await axios.get('http://localhost:8080/post/postsToReview', 
+          const response = await axios.get(urls.baseURL + 'post/postsToReview',
           {params:{reviewerId:reviewerId}})
           setPosts(response.data)
         }

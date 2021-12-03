@@ -6,6 +6,7 @@ import axios from 'axios';
 import { Card } from 'react-bootstrap';
 import FilePreviewer from 'react-file-previewer';
 import "./css/Post.scss";
+import * as urls from "./../URL"
 
 
 
@@ -14,7 +15,7 @@ function Post(props) {
     const [version, setVersion] = React.useState();
 
     React.useEffect(() => {
-        axios.get("http://localhost:8080/post/" + props.location.state)
+        axios.get(urls.baseURL + "post/" + props.location.state)
         .then((response) => {
             setPost(null);
             setVersion(1);

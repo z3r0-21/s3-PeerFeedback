@@ -3,6 +3,7 @@ import { ListGroup } from 'react-bootstrap';
 import  "./css/ViewPosts.scss";
 import axios from "axios";
 import { Link } from 'react-router-dom';
+import * as urls from "./../URL"
 
 
 function MyPosts({openSelectedPost}){
@@ -19,7 +20,7 @@ function MyPosts({openSelectedPost}){
     async function getMyPosts(idOP) {
         // get my posts with GET request from the API
         try{
-            const response = await axios.get('http://localhost:8080/post', { params: { idOP: idOP } });
+            const response = await axios.get(urls.baseURL + 'post', { params: { idOP: idOP } });
             setMyPosts(response.data);
         }
         catch(e){

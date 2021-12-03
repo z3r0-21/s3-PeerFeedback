@@ -4,6 +4,7 @@ import { Form, Button } from 'react-bootstrap';
 import SelectReviewers from './SelectReviewers';
 import "./css/CreatePost.scss";
 import { useHistory } from "react-router-dom";
+import * as urls from "./../URL"
 
 function CreatePostForm(props) {
   let history = useHistory();
@@ -32,7 +33,7 @@ function CreatePostForm(props) {
 
     console.log(file.get("idOP"));
     
-    axios.post('http://localhost:8080/post/create', file)
+    axios.post(urls.baseURL + 'post/create', file)
       .then((response) => {
         console.log(response);
       }, (error) => {

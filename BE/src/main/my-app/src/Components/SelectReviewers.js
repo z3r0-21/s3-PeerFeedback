@@ -3,9 +3,10 @@ import {Form, Button, InputGroup, FormControl} from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SelectedReviewer from './SelectedReviewer';
 import axios from 'axios';
+import * as urls from "../URL";
 
 const client = axios.create({
-    baseURL: "http://localhost:8080/" 
+    baseURL: urls.baseURL
 });
 
 

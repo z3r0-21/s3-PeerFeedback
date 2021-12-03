@@ -23,7 +23,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin("*")
 @RequestMapping("/post")
 public class PostController {
 
