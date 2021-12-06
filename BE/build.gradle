@@ -61,7 +61,7 @@ jacocoTestReport {
 	}
 }
 
-node {
+//node {
 	// Version of node to use.
 	//version = '12.16.3'
 
@@ -83,8 +83,9 @@ node {
 
 	// Set the work directory where node_modules should be located
 	//nodeModulesDir = file("${project.projectDir}/src/main/my-app")
-}
+//}
 
+/*
 task npmInstallDependencies(type: NpmTask) {
 	dependsOn 'npmSetup'
 	execOverrides {
@@ -111,4 +112,6 @@ task copyMyapptoBuild(type: Copy) {
 processResources {
 	dependsOn 'copyMyapptoBuild'
 }
+
+ */
 test.finalizedBy jacocoTestReport
