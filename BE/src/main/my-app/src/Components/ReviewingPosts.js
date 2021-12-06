@@ -38,7 +38,7 @@ function ReviewingPost({openSelectedPost}){
                 {posts.length > 0 ? (
                     posts.map((post)=>(
                         <Link to={{ 
-                            pathname: "/post", 
+                            pathname: "/fe/selectedPost",
                             state: post.postId 
                            }}
                            className="text-decoration-none">

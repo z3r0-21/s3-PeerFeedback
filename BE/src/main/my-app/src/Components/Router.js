@@ -9,8 +9,8 @@ const Routers = () => {
     return (
         <Switch>
             <Route exact path="/" component={ViewPosts} />
-            <Route path="/post" component={Post} />
-            <Route path="/createPost" component={CreatePostForm} />
+            <Route path="/fe/selectedPost" component={Post} />
+            <Route path="/fe/createPost" component={CreatePostForm} />
         </Switch>
     );
 }

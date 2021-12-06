@@ -22,7 +22,7 @@ function NavBar() {
                     <LinkContainer to="/" exact>
                         <Nav.Link >Home</Nav.Link>
                     </LinkContainer>
-                    <LinkContainer to="/createPost" exact>
+                    <LinkContainer to="/fe/createPost" exact>
                         <Nav.Link >Create post</Nav.Link>
                     </LinkContainer>
                     <LinkContainer to="/about" exact>

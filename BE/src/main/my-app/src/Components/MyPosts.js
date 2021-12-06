@@ -41,7 +41,7 @@ function MyPosts({openSelectedPost}){
                 {myPosts.length > 0 ? (
                     myPosts.map((post) => (
                         <Link to={{ 
-                            pathname: "/post", 
+                            pathname: "/fe/selectedPost",
                             state: post.postId 
                            }}
                            className="text-decoration-none">
