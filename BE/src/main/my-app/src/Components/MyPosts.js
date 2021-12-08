@@ -10,11 +10,12 @@ function MyPosts({openSelectedPost}){
 
     const [myPosts, setMyPosts] = useState([]);
     const [apiNotLoaded, setApiNotLoaded] = useState(false);    
+    const userId = localStorage.getItem("user")
 
     useEffect(() => {
-        // todo: get the logged user
-        let idOP = 1;
-        getMyPosts(idOP);
+        console.log(userId)
+        getMyPosts(userId);
+        console.log(userId)
     }, []);
 
     async function getMyPosts(idOP) {

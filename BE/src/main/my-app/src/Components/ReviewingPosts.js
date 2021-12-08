@@ -9,10 +9,11 @@ function ReviewingPost({openSelectedPost}){
 
     const [posts, setPosts] = useState([]);
     const [apiNotLoaded, setApiNotLoaded] = useState(false);
+    const userId = localStorage.getItem("user")
 
     useEffect(() =>{
-        let reviewerId = 2;
-        getPosts(reviewerId);
+        getPosts(userId);
+        console.log(userId);
     },[]
     )
 

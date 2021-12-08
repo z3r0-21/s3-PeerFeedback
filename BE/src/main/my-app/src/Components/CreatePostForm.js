@@ -8,9 +8,11 @@ import * as urls from "./../URL"
 
 function CreatePostForm(props) {
   let history = useHistory();
+  const userId = localStorage.getItem("user")
+
 
   const [post, setPost] = useState({
-    idOP: 1,
+    idOP: userId,
     title: "",
     category: "",
     description: "",

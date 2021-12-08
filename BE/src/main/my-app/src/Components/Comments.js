@@ -8,7 +8,7 @@ function Comments({version}) {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
 
- 
+  const userId = localStorage.getItem("user")
 
 React.useEffect(() => {
 
@@ -24,7 +24,7 @@ React.useEffect(() => {
   function handleSubmit(event){
     event.preventDefault();
     axios.post(urls.baseURL + 'comments/create', {
-      "userId": 2,
+      "userId": userId,
       "versionId": version,
       "text": newComment,
       "solution": false

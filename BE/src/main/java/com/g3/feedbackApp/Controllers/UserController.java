@@ -109,4 +109,9 @@ public class UserController {
         userModel.setNickName(nickName);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/identity")
+    public ResponseEntity<Integer> getMyAccount(@RequestHeader("x-ms-client-principal-name") String name){
+        return ResponseEntity.ok().body(name.hashCode());
+    }
 }
