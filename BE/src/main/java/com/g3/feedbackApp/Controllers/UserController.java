@@ -111,7 +111,7 @@ public class UserController {
     }
 
     @GetMapping("/identity")
-    public ResponseEntity<Integer> getMyAccount(@RequestHeader("x-ms-client-principal-name") String name){
-        return ResponseEntity.ok().body(name.hashCode());
+    public ResponseEntity<String> getMyAccount(@RequestHeader("x-ms-client-principal-name") String name){
+        return ResponseEntity.ok().body(name);
     }
 }

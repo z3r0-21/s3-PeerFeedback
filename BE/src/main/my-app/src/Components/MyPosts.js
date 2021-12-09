@@ -13,9 +13,7 @@ function MyPosts({openSelectedPost}){
     const userId = localStorage.getItem("user")
 
     useEffect(() => {
-        console.log(userId)
         getMyPosts(userId);
-        console.log(userId)
     }, []);
 
     async function getMyPosts(idOP) {

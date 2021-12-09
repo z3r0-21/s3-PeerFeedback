@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button, InputGroup, FormControl, Tabs, Tab } from "react-bootstrap";
+import { hashString } from "react-hash-string"
 import MyPosts from './MyPosts';
 import axios from 'axios';
 import * as urls from "./../URL"
@@ -17,19 +18,29 @@ function ViewPosts() {
     getMyId();
   }, []);
 
-  async function getMyId() {
-    // get my id, which is a hash code of my email
-    try {
-      const response = await axios.get(urls.baseURL + 'users/identity');
-      setUserId(response.data);
-    }
-    catch (e) {
+  function getMyId() {
+    // get my email
+    axios.get(urls.baseURL + 'users/identity'
+    ).then(res => {
+      //set the hashcode
+      var userId = hashString(String(res.data))
+      setUserId(userId);
+
+      //set username
+      var parts = String(res.data).split("@")
+      var username = parts[0];
+      setUsername(username);
+    }).catch(e => {
       console.log(e);
-    }
+    })
   }
 
   const setUserId = (userId) => {
     localStorage.setItem("user", userId)
+  }
+
+  const setUsername = (userName) => {
+    localStorage.setItem("username", userName)
   }
 
   const openSelectedPost = (post) => {

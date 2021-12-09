@@ -9,6 +9,7 @@ function Comments({version}) {
   const [newComment, setNewComment] = useState("");
 
   const userId = localStorage.getItem("user")
+  const username = localStorage.getItem("username")
 
 React.useEffect(() => {
 
@@ -25,6 +26,7 @@ React.useEffect(() => {
     event.preventDefault();
     axios.post(urls.baseURL + 'comments/create', {
       "userId": userId,
+      "username": username,
       "versionId": version,
       "text": newComment,
       "solution": false
@@ -56,7 +58,7 @@ return(
                 className="d-flex justify-content-between align-items-start mb-3"
               >
                 <div className="ms-2 me-auto">
-                  <div className="fw-bold">User</div>
+                  <div className="fw-bold">{comment.username}</div>
                   <p>{comment.text}</p>
                 </div>
                 {comment.solution

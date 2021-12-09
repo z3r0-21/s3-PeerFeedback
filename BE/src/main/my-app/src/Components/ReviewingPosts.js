@@ -13,7 +13,6 @@ function ReviewingPost({openSelectedPost}){
 
     useEffect(() =>{
         getPosts(userId);
-        console.log(userId);
     },[]
     )
 

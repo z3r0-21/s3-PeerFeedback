@@ -30,7 +30,7 @@ public class CommentServiceFakeTest {
     @BeforeEach
     void setUp(){
         postService.createPost(new PostModel(1,"First Post", "code", "my first code post", LocalDate.now(), null), Path.of(""), new ArrayList<>());
-        commentModel = new CommentModel(1L, 1L, "My first comment");
+        commentModel = new CommentModel(1L, "testPerson", 1L, "My first comment");
     }
 
 
@@ -43,7 +43,7 @@ public class CommentServiceFakeTest {
 
     @Test
     void createCommentInvalidVersionId(){
-        CommentModel comment = new CommentModel(1L, 500L, "Comment with invalid version");
+        CommentModel comment = new CommentModel(1L, "testPerson2",500L, "Comment with invalid version");
         CommentModel modelToBeNull = commentService.createComment(comment);
 
         Assertions.assertNull(modelToBeNull);
@@ -51,7 +51,7 @@ public class CommentServiceFakeTest {
 
     @Test
     void createCommentInvalidText(){
-        CommentModel comment = new CommentModel(1L, 1L, "");
+        CommentModel comment = new CommentModel(1L,"testPerson", 1L, "");
         CommentModel modelToBeNull = commentService.createComment(comment);
 
         Assertions.assertNull(modelToBeNull);

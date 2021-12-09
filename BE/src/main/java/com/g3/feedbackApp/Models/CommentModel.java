@@ -18,6 +18,8 @@ public class CommentModel {
     private Long commentId;
     @Column(name = "userId")
     private Long userId;
+    @Column(name = "username")
+    private String username;
     @Column(name = "versionId")
     private Long versionId;
     @Column(name = "text")
@@ -25,8 +27,9 @@ public class CommentModel {
     @Column(name = "isSolution")
     private boolean isSolution;
 
-    public CommentModel(Long userId, Long versionId, String text){
+    public CommentModel(Long userId, String username, Long versionId, String text){
         this.userId = userId;
+        this.username = username;
         this.versionId = versionId;
         this.text = text;
         this.isSolution = false;
