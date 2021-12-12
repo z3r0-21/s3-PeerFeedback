@@ -11,7 +11,7 @@ public interface IDataSourcePost {
 
     boolean createPost(PostModel postModel);
 
-    boolean createVersion(Long versionId, Long postId, Path filePath);
+    boolean createVersion(Long versionId, Long postId, String fileString);
 
     boolean assignReviewers(List<Long> reviewersIds, Long postId);
 

@@ -37,8 +37,8 @@ public class DataSourcePost implements IDataSourcePost {
     }
 
     @Override
-    public boolean createVersion(Long versionId, Long postId, Path filePath) {
-        versionRepository.save(new VersionModel(versionId, postId, filePath.toString()));
+    public boolean createVersion(Long versionId, Long postId, String filePath) {
+        versionRepository.save(new VersionModel(versionId, postId, filePath));
         return true;
     }
 

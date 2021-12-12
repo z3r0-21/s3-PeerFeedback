@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface IPostService {
 
-    Boolean createPost(PostModel postModel, Path filePath, List<Long> reviewersIds);
-    Boolean createVersion(Long postId, Path filePath);
+    Boolean createPost(PostModel postModel, String filePath, List<Long> reviewersIds);
+    Boolean createVersion(Long postId, String filePath);
     PostModel getPostWithId(Long postId);
     List<PostModel> getPostsToReview(Long reviewerId);
     List<PostModel> getMyPosts(Long idOP);

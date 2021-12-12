@@ -30,7 +30,7 @@ public class PostServiceFakeTest {
 
     @BeforeEach
     void setUp(){
-        postModel = new PostModel(1,"First Post", "code", "my first code post", LocalDate.now(), null);
+        postModel = new PostModel(1,"First Post", "code", "my first code post", LocalDate.now(), null, "");
     }
 
 
@@ -40,7 +40,7 @@ public class PostServiceFakeTest {
         List<Long> reviewersIds = new ArrayList<>();
         reviewersIds.add(1L);
 
-        postService.createPost(postModel, Path.of("testFilePath"), reviewersIds);
+        postService.createPost(postModel, reviewersIds);
 
         assertEquals(postModel, postService.getPostWithId(1L));
     }
@@ -56,7 +56,7 @@ public class PostServiceFakeTest {
         Path path = Path.of("");
         ArrayList<Long> reviewerIds = new ArrayList<>(Arrays.asList(1L,2L,3L));
 
-        postService.createPost(postModel, path, reviewerIds);
+        postService.createPost(postModel, reviewerIds);
 
         assertEquals(postModel, postService.getPostWithId(1L));
 
@@ -64,10 +64,10 @@ public class PostServiceFakeTest {
 
     @Test
     void createPostInvalidPostObjectTest(){
-        PostModel postModel = new PostModel(1,"", "code", "my first code post", LocalDate.now(), null);
+        PostModel postModel = new PostModel(1,"", "code", "my first code post", LocalDate.now(), null, "");
         ArrayList<Long> reviewerIds = new ArrayList<>(Arrays.asList(1L,2L,3L));
 
-        Boolean resultInvalidTitle = postService.createPost(postModel, Path.of(""), reviewerIds);
+        Boolean resultInvalidTitle = postService.createPost(postModel, reviewerIds);
 
         assertFalse(resultInvalidTitle);
     }
@@ -87,7 +87,7 @@ public class PostServiceFakeTest {
     @Test
     void getVersionForPostId(){
         //create new version for postModel from setUp
-        postService.createVersion(postModel.getPostId(), Path.of(""));
+        postService.createVersion(postModel.getPostId(), postModel.getFileLink());
         //Get versions for postModel in setUp method
         List<VersionModel> versionList = postService.getVersionsForPost(postModel.getPostId());
 

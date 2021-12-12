@@ -29,7 +29,7 @@ public class CommentServiceFakeTest {
 
     @BeforeEach
     void setUp(){
-        postService.createPost(new PostModel(1,"First Post", "code", "my first code post", LocalDate.now(), null), Path.of(""), new ArrayList<>());
+        postService.createPost(new PostModel(1,"First Post", "code", "my first code post", LocalDate.now(), null, ""), new ArrayList<>());
         commentModel = new CommentModel(1L, "testPerson", 1L, "My first comment");
     }
 

@@ -61,7 +61,7 @@ jacocoTestReport {
 	}
 }
 
-
+/*
 node {
 	//Version of node to use.
 	version = '12.16.3'
@@ -112,5 +112,7 @@ task copyMyapptoBuild(type: Copy) {
 processResources {
 	dependsOn 'copyMyapptoBuild'
 }
+
+ */
 
 test.finalizedBy jacocoTestReport
