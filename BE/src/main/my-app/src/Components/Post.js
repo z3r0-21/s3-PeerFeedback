@@ -61,7 +61,7 @@ function Post(props) {
             <hr className="pt-0 border-black rounded hrPostContent"/>
             <VersionSelection version={version} incr={increaseVersion} decr={decreaseVersion}/>
             <Card.Text>
-            <PostContent post = {post}/>
+            <PostContent post = {post} version={version}/>
             </Card.Text>
         </Card.Body>
         </Card>
