@@ -7,7 +7,6 @@ import * as urls from "./../URL"
 import ReviewingPosts from './ReviewingPosts';
 import { useHistory } from "react-router-dom";
 
-
 function ViewPosts() {
   const [key, setKey] = useState('myPosts');
   const [selectedPost, setSelectedPost] = useState();
