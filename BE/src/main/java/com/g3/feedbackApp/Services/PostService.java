@@ -26,7 +26,7 @@ public class PostService implements IPostService {
     private IDataSourceReviewer dataSourceReviewers;
 
     @Override
-    public Boolean createPost(PostModel postModel, Path filePath, List<Long> reviewersIds) {
+    public Boolean createPost(PostModel postModel, String filePath, List<Long> reviewersIds) {
         //Check if object holds value
         if(!Objects.equals(postModel.getTitle(), "")){
             return datasource.createPost(postModel) && createVersion(postModel.getPostId(), filePath) && datasource.assignReviewers(reviewersIds, postModel.getPostId());
@@ -35,7 +35,7 @@ public class PostService implements IPostService {
     }
 
     @Override
-    public Boolean createVersion(Long postId, Path filePath) {
+    public Boolean createVersion(Long postId, String filePath) {
         int versionsListSize = datasource.getVersionsForPost(postId).size();
         Long lastId;
         if(versionsListSize == 0) {

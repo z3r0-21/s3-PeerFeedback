@@ -10,24 +10,15 @@ import org.apache.commons.io.FilenameUtils;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/post")
 public class PostController {
-
-    private static final String documentDirectory = System.getProperty("user.dir") + "/documents/";
 
     @Autowired
     private IPostService postService;
@@ -93,11 +84,8 @@ public class PostController {
         return ResponseEntity.notFound().build();
     }
 
-    @PostMapping(value = "/create", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<PostDTO> createNewPost(@ModelAttribute PostDTO postDTO) {
-        //create the document path for the uploaded file.
-        createDocumentPath(postDTO);
-//        postDTO.setIdOP(0);
+    @PostMapping(value = "/create")
+    public ResponseEntity<PostDTO> createNewPost(@RequestBody PostDTO postDTO) {
 
         PostModel modelToAdd = postConverter.convertPostDTOWithoutIdToPostModel(postDTO);
         if (postService.createPost(modelToAdd, postDTO.getFilePath(), postDTO.getReviewersIds())) {
@@ -108,27 +96,4 @@ public class PostController {
         }
         return  ResponseEntity.notFound().build();
     }
-
-    private void makeDirectoryIfNotExist() {
-        File directory = new File(PostController.documentDirectory);
-        if (!directory.exists()) {
-            directory.mkdir();
-        }
-    }
-
-    private void createDocumentPath(PostDTO postDTO) {
-        //Create directory for images
-        makeDirectoryIfNotExist();
-        //create file path
-        Path documentPath = Paths.get(documentDirectory,
-                postDTO.getTitle().concat(".").concat(Objects.requireNonNull(FilenameUtils.getExtension(postDTO.getUploadedFile().getOriginalFilename()))));
-        //assign file to filepath
-        try {
-            Files.write(documentPath, postDTO.getUploadedFile().getBytes());
-            postDTO.setFilePath(documentPath);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
-
 }
