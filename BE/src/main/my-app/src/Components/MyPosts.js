@@ -10,23 +10,23 @@ function MyPosts({openSelectedPost}){
 
     const [myPosts, setMyPosts] = useState([]);
     const [apiNotLoaded, setApiNotLoaded] = useState(false);    
-    const userId = localStorage.getItem("user")
+    // const userId = localStorage.getItem("user");
+    const userId = 1;
 
     useEffect(() => {
         getMyPosts(userId);
     }, []);
 
-    async function getMyPosts(idOP) {
+    function getMyPosts(idOP) {
         // get my posts with GET request from the API
-        try{
-            const response = await axios.get(urls.baseURL + 'post', { params: { idOP: idOP } });
+        axios.get(urls.baseURL + 'post', { params: { idOP: idOP } }).
+        then((response) => {
             setMyPosts(response.data);
-        }
-        catch(e){
+        })
+        .catch((e) => {
             console.log(e);
             setApiNotLoaded(true);
-        }
-        
+        })
     }
 
 
