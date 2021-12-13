@@ -11,11 +11,8 @@ function MyPosts({openSelectedPost}){
     const [myPosts, setMyPosts] = useState([]);
 
     useEffect(() => {
-        setTimeout(function() {
-            const userId = localStorage.getItem("user")
-            getMyPosts(userId);    
-        }, 50);
-        
+        const userId = localStorage.getItem("user")
+        getMyPosts(userId);
     }, []);
 
     function getMyPosts(idOP) {

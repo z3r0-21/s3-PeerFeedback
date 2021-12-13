@@ -31,15 +31,38 @@ function CreatePostForm(props) {
   const [reviewersIdsList, setReviewersIdsList] = useState([]);
 
 
+  const isValidHttpUrl = (string) => {
+    let url;
+    try {
+
+        url = new URL(string);
+
+    } catch (_) {
+
+        return false;
+
+    }
+    return url.protocol === "http:" || url.protocol === "https:";
+  }
+
   //method to add post in BE
-  const addPostInBe = () => {
+  function addPostInBe() {
     console.log("Post:", post);
-    axios.post(urls.baseURL + 'post/create', post)
-      .then((response) => {
-        console.log(response);
-      }, (error) => {
-        console.log(error);
-    });
+
+    // check if URL valid
+    if (!isValidHttpUrl(post.filePath)) {
+      alert('The url is not valid. Please retry.');
+      return false;
+    }
+    else{
+      axios.post(urls.baseURL + 'post/create', post)
+        .then((response) => {
+          console.log(response);
+        }, (error) => {
+          console.log(error);
+      });
+      return true;
+    }
   }
 
 
@@ -53,19 +76,20 @@ function CreatePostForm(props) {
   //onSubmit method for the form, calling the addInBe method
   const createPost = e => {
     e.preventDefault();
-    addPostInBe();
-    //clear the state
-    setPost({
-      idOP: "",
-      title: "",
-      category: "",
-      filePath: "",
-      description: "",
-      reviewersIds: []
-    })
-
-    // redirect to Home page
-    history.push("/");
+    
+    if(addPostInBe() === true){
+      //clear the state
+      setPost({
+        idOP: "",
+        title: "",
+        category: "",
+        filePath: "",
+        description: "",
+        reviewersIds: []
+      })
+      // redirect to Home page
+      history.push("/");
+    }
   }
 
 

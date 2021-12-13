@@ -10,10 +10,8 @@ function ReviewingPost({openSelectedPost}){
     const [posts, setPosts] = useState([]);
     
     useEffect(() =>{
-        setTimeout(function() {
-            const userId = localStorage.getItem("user")
-            getPosts(userId);
-        }, 50);
+        const userId = localStorage.getItem("user")
+        getPosts(1);
         
     },[]
     )

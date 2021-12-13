@@ -8,7 +8,8 @@ function PostContent({post, version}) {
             <h6>Description</h6>
             <TextareaAutosize className="w-100 p-3 border rounded" disabled>{post.description}</TextareaAutosize>
             <br/>
-            <span>File url (to OneDrive): </span><a href={post.versions[version - 1].filePath}>{post.versions[version - 1].filePath}</a>
+            <span>File url: </span>
+            <a href={post.versions[version - 1].filePath} target="_blank">URL to OneDrive</a>
             {/* <Accordion defaultActiveKey="0">
             <Accordion.Item eventKey="1">
                 <Accordion.Header>Attached file(s)</Accordion.Header>
