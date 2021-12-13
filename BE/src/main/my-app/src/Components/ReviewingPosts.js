@@ -11,7 +11,7 @@ function ReviewingPost({openSelectedPost}){
     
     useEffect(() =>{
         const userId = localStorage.getItem("user")
-        getPosts(1);
+        getPosts(userId);
         
     },[]
     )
