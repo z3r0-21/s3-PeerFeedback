@@ -9,23 +9,23 @@ function ReviewingPost({openSelectedPost}){
 
     const [posts, setPosts] = useState([]);
     const [apiNotLoaded, setApiNotLoaded] = useState(false);
-    const userId = localStorage.getItem("user")
-
+    // const userId = localStorage.getItem("user")
+    const userId = 1;
+    
     useEffect(() =>{
         getPosts(userId);
     },[]
     )
 
-    async function getPosts(reviewerId){
-        try{
-          const response = await axios.get(urls.baseURL + 'post/postsToReview',
-          {params:{reviewerId:reviewerId}})
-          setPosts(response.data)
-        }
-        catch(e){
-            console.log("no post find for this reviewer")
-            setApiNotLoaded(true)
-        }
+    function getPosts(reviewerId){
+        axios.get(urls.baseURL + 'post/postsToReview', {params:{reviewerId:reviewerId}}).
+        then((response) => {
+            setPosts(response.data);
+        })
+        .catch((e) => {
+            console.log("no post find for this reviewer");
+            setApiNotLoaded(true);
+        });
     }
 
     const selectPost = (post) => {

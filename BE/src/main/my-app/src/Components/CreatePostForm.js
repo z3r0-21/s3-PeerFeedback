@@ -40,7 +40,7 @@ function CreatePostForm(props) {
         console.log(response);
       }, (error) => {
         console.log(error);
-      });
+    });
   }
 
 
@@ -131,10 +131,17 @@ function CreatePostForm(props) {
           <Form.Label className="create-post-lb">Description</Form.Label>
           <Form.Control as="textarea" rows={5} name="description" onChange={changeHandler} required />
         </Form.Group>
-        <Form.Group controlId="formFile" className="mb-3">
+        <Form.Group className="mb-3" controlId="filepath">
+          <Form.Label className="create-post-lb">Paste file path here</Form.Label>
+          <Form.Control size="lg" type="text" placeholder="Filepath" name="filepath" onChange={changeHandler} required />
+          <Form.Text className="text-muted">
+            One drive url required
+          </Form.Text>
+        </Form.Group>
+        {/* <Form.Group controlId="formFile" className="mb-3">
           <Form.Label className="create-post-lb">Upload file</Form.Label>
           <Form.Control type="file" name="files" onChange={onFileChange} />
-        </Form.Group>
+        </Form.Group> */}
 
         <SelectReviewers addReviewerId={addReviewerId} removeReviewerId={removeReviewerId} />
         <Button variant="primary" type="submit">
