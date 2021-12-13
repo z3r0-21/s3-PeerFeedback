@@ -3,16 +3,20 @@ import Comments from './Comments';
 import PostContent from './PostContent';
 import VersionSelection from './VersionSelection';
 import axios from 'axios';
-import { Card } from 'react-bootstrap';
+import { Card, Button } from 'react-bootstrap';
 import FilePreviewer from 'react-file-previewer';
 import "./css/Post.scss";
 import * as urls from "./../URL"
+import { useState, useEffect } from 'react';
+import MyPosts from './MyPosts';
+import { Link } from 'react-router-dom';
 
 
 
 function Post(props) {
     const [post, setPost] = React.useState([]);
     const [version, setVersion] = React.useState();
+    const [selectedPost, setSelectedPost] = useState();
 
     React.useEffect(() => {
         axios.get(urls.baseURL + "post/" + props.location.state)
@@ -30,6 +34,12 @@ function Post(props) {
     if (!post) return null;
     if (!version) return null;
 
+
+    
+  const openSelectedPost = (post) => {
+    setSelectedPost(post);
+    console.log(post.postId);
+  }
     function increaseVersion(){
         if(post.versions.length){
             const highestVersion = post.versions.sort((b,a) => (a.versionId > b.versionId) ? 1 : ((b.versionId > a.versionId) ? -1 : 0));
@@ -56,6 +66,11 @@ function Post(props) {
         <Card className="mt-1 mb-3 postBg">
         <Card.Body>
             <Card.Title><h1>{post.title}</h1></Card.Title>
+           
+            <Link to={{  pathname: "/fe/editPost",
+                            state: post.postId 
+                           }}><Button className='editPostBtn'>Edit Post</Button></Link>
+
             <Card.Subtitle className="mb-2 text-muted">{post.postDate}</Card.Subtitle>
             <p className="font-weight-light">{post.category}</p>
             <hr className="pt-0 border-black rounded hrPostContent"/>

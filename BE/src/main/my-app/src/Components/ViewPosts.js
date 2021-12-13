@@ -60,7 +60,6 @@ function ViewPosts() {
           <MyPosts
             openSelectedPost={openSelectedPost} />
         </Tab>
-
         <Tab eventKey="postsToReview" title="Posts to Review">
           <ReviewingPosts
             openSelectedPost={openSelectedPost} />

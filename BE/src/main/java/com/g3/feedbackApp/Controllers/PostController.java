@@ -79,7 +79,7 @@ public class PostController {
     public ResponseEntity<PostDTO> getPostWithId(@PathVariable(value = "id") Long id) {
         PostModel modelToGet = postService.getPostWithId(id);
         List<VersionModel> versionModelList = postService.getVersionsForPost(id);
-        List<Long> reviewersIds = postService.getReviewersIdsForPost(id.intValue());
+        List<Long> reviewersIds = postService   .getReviewersIdsForPost(id.intValue());
         PostDTO dtoToReturn = postConverter.convertPostModelToPostDTO(modelToGet, versionModelList, reviewersIds);
         return ResponseEntity.ok().body(dtoToReturn);
     }
