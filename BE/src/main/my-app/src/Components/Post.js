@@ -59,10 +59,16 @@ function Post(props) {
         <>
         <Card className="mt-1 mb-3 postBg">
         <Card.Body>
+            <div>
             <Link to={{  pathname: "/fe/editPost", state: post.postId }}>
                 <Button className='editPostBtn'>Edit Post</Button>
             </Link>
-
+            </div>
+            <div>
+            <Link to={{  pathname: "/fe/addVersion", state: post.postId }}>
+                <Button className='addNewVersionBtn mt-1'>Add new version</Button>
+            </Link>
+            </div>
             <Card.Title><h1>{post.title}</h1></Card.Title>
             <Card.Subtitle className="mb-2 text-muted">{post.postDate}</Card.Subtitle>
             <p className="font-weight-light">{post.category}</p>
