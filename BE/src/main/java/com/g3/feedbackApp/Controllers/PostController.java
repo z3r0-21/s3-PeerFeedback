@@ -106,12 +106,26 @@ public class PostController {
 
         PostModel modelToAdd = postConverter.convertPostDTOWithoutIdToPostModel(postDTO);
         if (postService.createPost(modelToAdd, postDTO.getFilePath(), postDTO.getReviewersIds())) {
-            List<VersionModel> versionModelList = postService.getVersionsForPost(modelToAdd.getPostId());
-            List<Long> reviewersIds = postService.getReviewersIdsForPost(modelToAdd.getPostId().intValue());
-            PostDTO dtoToReturn = postConverter.convertPostModelToPostDTO(modelToAdd, versionModelList, reviewersIds);
-            PostDTOToReturn postDTOToReturn = modelMapper.map(dtoToReturn, PostDTOToReturn.class);
-            return ResponseEntity.ok().body(postDTOToReturn);
+            return ResponseEntity.ok().body(preparePostDTOToReturn(modelToAdd));
         }
         return  ResponseEntity.notFound().build();
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<PostDTOToReturn> updatePost(@RequestBody PostDTO postDTO){
+        PostModel modelWithUpdates = postConverter.convertPostDTOToModelForUpdate(postDTO);
+        PostModel updatedModel = postService.updatePost(modelWithUpdates, postDTO.getReviewersIds());
+        if(updatedModel != null){
+            return ResponseEntity.ok().body(preparePostDTOToReturn(updatedModel));
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    public PostDTOToReturn preparePostDTOToReturn(PostModel model){
+        List<VersionModel> versionModelList = postService.getVersionsForPost(model.getPostId());
+        List<Long> reviewersIds = postService.getReviewersIdsForPost(model.getPostId().intValue());
+        PostDTO dtoToReturn = postConverter.convertPostModelToPostDTO(model, versionModelList, reviewersIds);
+        PostDTOToReturn postDTOToReturn = modelMapper.map(dtoToReturn, PostDTOToReturn.class);
+        return postDTOToReturn;
     }
 }

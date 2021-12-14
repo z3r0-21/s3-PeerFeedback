@@ -40,6 +40,15 @@ public class PostModel {
             this.resolveDate = resolveDate;
     }
 
+    public PostModel(Long postId, int idOP, String title, String category, String description, LocalDate postDate, LocalDate resolveDate){
+        this.postId = postId;
+        this.idOP = idOP;
+        this.title = title;
+        this.category = category;
+        this.description = description;
+        this.postDate = postDate;
+        this.resolveDate = resolveDate;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

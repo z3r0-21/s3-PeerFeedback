@@ -37,6 +37,20 @@ public class DataSourcePost implements IDataSourcePost {
     }
 
     @Override
+    public PostModel updatePost(PostModel postModel) {
+        PostModel modelToUpdate = postRepository.getFirstByPostId(postModel.getPostId());
+        if(modelToUpdate != null){
+            modelToUpdate.setTitle(postModel.getTitle());
+            modelToUpdate.setDescription(postModel.getDescription());
+            modelToUpdate.setCategory(postModel.getCategory());
+            postRepository.save(modelToUpdate);
+            return modelToUpdate;
+        }
+
+        return null;
+    }
+
+    @Override
     public boolean createVersion(Long versionId, Long postId, String filePath) {
         versionRepository.save(new VersionModel(versionId, postId, filePath));
         return true;
@@ -48,6 +62,14 @@ public class DataSourcePost implements IDataSourcePost {
             reviewerRepository.save(new ReviewerModel(postId, id));
         }
         return true;
+    }
+
+    @Override
+    public void removeAllReviewers(Long postId) {
+        List<ReviewerModel> reviewersToRemove = reviewerRepository.getReviewerModelsByPostId(postId);
+        for(ReviewerModel r: reviewersToRemove){
+            reviewerRepository.deleteById(r.getId());
+        }
     }
 
     @Override

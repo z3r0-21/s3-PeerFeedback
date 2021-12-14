@@ -19,4 +19,8 @@ public class PostConverter {
         return dtoToReturn;
     }
 
+    public PostModel convertPostDTOToModelForUpdate(PostDTO postDTO){
+        return new PostModel(postDTO.getPostId(), 0, postDTO.getTitle(), postDTO.getCategory(), postDTO.getDescription(), null, null);
+    }
+
 }

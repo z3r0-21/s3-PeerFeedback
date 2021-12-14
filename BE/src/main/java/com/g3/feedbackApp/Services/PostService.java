@@ -35,6 +35,22 @@ public class PostService implements IPostService {
     }
 
     @Override
+    public PostModel updatePost(PostModel postmodel, List<Long> reviewersIds) {
+        if(!Objects.equals(postmodel.getTitle(), "")){
+            updateReviewersIds(reviewersIds, postmodel.getPostId());
+            return datasource.updatePost(postmodel);
+        }
+        return null;
+    }
+
+    @Override
+    public void updateReviewersIds(List<Long> reviewersIds, Long postId) {
+        datasource.removeAllReviewers(postId);
+        datasource.assignReviewers(reviewersIds, postId);
+
+    }
+
+    @Override
     public Boolean createVersion(Long postId, String filePath) {
         int versionsListSize = datasource.getVersionsForPost(postId).size();
         Long lastId;
