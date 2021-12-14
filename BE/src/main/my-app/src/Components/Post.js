@@ -20,7 +20,8 @@ function Post(props) {
         .then((response) => {
             setPost(null);
             setVersion(1);
-            setVersionId(response.data.versions.versionId);
+            let size = response.data.versions.length;
+            setVersionId(response.data.versions[size - 1].versionId);
             setPost(response.data);
 
             if(response.data.versions.length){
