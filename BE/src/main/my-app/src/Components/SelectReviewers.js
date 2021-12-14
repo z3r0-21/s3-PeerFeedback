@@ -10,7 +10,7 @@ const client = axios.create({
 });
 
 
-function SelectReviewers({addReviewerId, removeReviewerId}) {
+function SelectReviewers({addReviewerId, removeReviewerId, postId}) {
     const [started, setStarted] = useState(false);
     const [users, setUsers] = useState([]);
 
@@ -26,9 +26,23 @@ function SelectReviewers({addReviewerId, removeReviewerId}) {
     }
 
     useEffect(() => {
+        console.log("Post id: ", postId);
+        getAssignedReviewers(postId);
+        
         retrieveUsers();
         console.log("here");
     }, []);
+
+    function getAssignedReviewers(postId) {
+        axios.get(urls.baseURL + "reviewers/asUsers", { params: { postId: postId } })
+        .then((response) => {
+            console.log("Reviewers as users: ", response.data);
+            
+            response.data.forEach(user => {
+                addReviewer(user);
+            });
+        }).catch((e) => console.log(e));
+    }
 
     useEffect(() => {
         console.log(users);

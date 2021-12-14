@@ -9,21 +9,15 @@ import * as urls from "./../URL"
 
 function EditPostForm(props) {
     let history = useHistory();
-    const [version, setVersion] = useState();
     const [reviewersIdsList, setReviewersIdsList] = useState([]);
-    const [filePath, setFilePath] = useState();
 
     const [postToEdit, setPostToEdit] = useState({
-        idOP: null,
+        postId:null,
         title: "",
         category: "",
         description: "",
-        versions: [],
         reviewersIds: []
     });
-
-
-    const [versionId, setVersionId] = useState();
 
     useEffect(() => {
         const userId = localStorage.getItem("user")
@@ -35,65 +29,39 @@ function EditPostForm(props) {
     function getPostData() {
         axios.get(urls.baseURL + "post/" + props.location.state)
         .then((response) => {
-            let size = response.data.versions.length;
-            setFilePath(response.data.versions[size - 1].filePath);
             setPostToEdit(response.data);
-
-            if(response.data.versions.length){
-                setVersion(response.data.versions[0].versionCounter);
-            }
         });
-    }
-
-    const isValidHttpUrl = (string) => {
-        let url;
-        try {
-    
-            url = new URL(string);
-    
-        } catch (_) {
-    
-            return false;
-    
-        }
-        return url.protocol === "http:" || url.protocol === "https:";
-    }
-
-    //method to add post in BE
-    function updatePostInBE() {
-
-        // check if URL valid
-        if (!isValidHttpUrl(postToEdit.filePath)) {
-        alert('The url is not valid. Please retry.');
-        return false;
-        }
-        else{
-        //   axios.post(urls.baseURL + 'post/create', post)
-        //     .then((response) => {
-        //       console.log(response);
-        //     }, (error) => {
-        //       console.log(error);
-        //   });
-        return true;
-        }
     }
 
     const updatePost = e => {
         e.preventDefault();
-        
-        if(updatePostInBE() === true){
+
+        const postToEditState = {
+            postId: postToEdit.postId,
+            title: postToEdit.title,
+            category: postToEdit.category,
+            description: postToEdit.description,
+            reviewersIds: reviewersIdsList
+        }
+
+        //update post here 
+        axios.put(urls.baseURL + 'post/update', postToEditState)
+        .then((response) => {
+            console.log(response);
+        }, (error) => {
+            console.log(error);
+        });
+
+        history.push({pathname: "/", state: { updatePost: postToEdit } });
         //clear the state
         setPostToEdit({
-            idOP: "",
+            postId: null,
             title: "",
             category: "",
             filePath: "",
             description: "",
             reviewersIds: []
         })
-        // redirect to Home page
-        history.push("/");
-        }
     }
 
     //onchange method for textfields of post
@@ -138,15 +106,7 @@ function EditPostForm(props) {
             <Form.Label className="create-post-lb">Description</Form.Label>
             <Form.Control as="textarea" rows={5} value={postToEdit.description} name="description" onChange={changeHandler} required />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="filepath">
-            <Form.Label className="create-post-lb">Paste file path here</Form.Label>
-            <Form.Control size="lg" type="text" placeholder="Filepath" value={filePath} required />
-            <Form.Text className="text-muted">
-                One drive url required
-            </Form.Text>
-            </Form.Group>
-
-            <SelectReviewers addReviewerId={addReviewerId} removeReviewerId={removeReviewerId} />
+            <SelectReviewers postId={props.location.state} addReviewerId={addReviewerId} removeReviewerId={removeReviewerId}/>
             <Button variant="primary" type="submit">
             Submit
             </Button>

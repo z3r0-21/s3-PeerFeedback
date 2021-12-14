@@ -6,14 +6,37 @@ import { Link } from 'react-router-dom';
 import * as urls from "./../URL"
 
 
-function MyPosts({openSelectedPost}){
+
+function MyPosts(props){
 
     const [myPosts, setMyPosts] = useState([]);
 
     useEffect(() => {
+        if(props.location)
+        {
+            if(props.location.state.createdPost){
+                setMyPosts([...myPosts, props.location.state.createdPost]);
+            }
+            else{
+                const updatedPostList = myPosts.map((post) => {
+                    if(post.postId === props.location.state.updatedPostList.postId){
+                        post.title = props.location.state.updatedPostList.title;
+                        post.category = props.location.state.updatedPostList.category;
+                        post.description = props.location.state.updatedPostList.description;
+                        post.reviewersIds = props.location.state.updatedPostList.reviewersIds;
+                    }
+                })
+            }
+            
+        }
+        
+
         const userId = localStorage.getItem("user")
         //const userId = 1;
         getMyPosts(userId);
+        
+        //localStorage.setItem("user", 1);
+        
     }, []);
 
     function getMyPosts(idOP) {
@@ -29,7 +52,7 @@ function MyPosts({openSelectedPost}){
 
 
     const selectPost = (post) => {
-        openSelectedPost(post);
+        props.openSelectedPost(post);
     }
 
     return(

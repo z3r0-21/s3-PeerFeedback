@@ -14,7 +14,9 @@ function ViewPosts() {
   let history = useHistory();
 
   useEffect(() => {
-    getMyId();
+    setTimeout(function() {
+      getMyId();
+    }, 50);
   }, []);
 
   function getMyId() {

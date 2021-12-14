@@ -19,13 +19,10 @@ function CreatePostForm(props) {
   });
 
   useEffect(() => {
-    setTimeout(function() {
       const userId = localStorage.getItem("user")
       setPost({
       ...post,
-       idOP: userId })
-    }, 50);
-    
+       idOP: userId })    
   }, [])
 
   const [reviewersIdsList, setReviewersIdsList] = useState([]);
@@ -55,7 +52,15 @@ function CreatePostForm(props) {
       return false;
     }
     else{
-      axios.post(urls.baseURL + 'post/create', post)
+      const postToSend = {
+        idOP: post.idOP,
+        title: post.title,
+        category: post.category,
+        description: post.description,
+        filePath: post.filePath,
+        reviewersIds: reviewersIdsList,
+      }
+      axios.post(urls.baseURL + 'post/create', postToSend)
         .then((response) => {
           console.log(response);
         }, (error) => {
@@ -79,6 +84,10 @@ function CreatePostForm(props) {
     
     if(addPostInBe() === true){
       //clear the state
+      
+      // redirect to Home page
+      history.push({pathname: "/", state: { createdPost: post } });
+
       setPost({
         idOP: "",
         title: "",
@@ -87,14 +96,13 @@ function CreatePostForm(props) {
         description: "",
         reviewersIds: []
       })
-      // redirect to Home page
-      history.push("/");
     }
   }
 
 
   const addReviewerId = (reviewerId) => {
     setReviewersIdsList([...reviewersIdsList, reviewerId]);
+    // setPost({...post, reviewersIds: reviewersIdsList});
   }
 
   const removeReviewerId = (reviewerId) => {
@@ -103,6 +111,7 @@ function CreatePostForm(props) {
                 return r !== reviewerId
             })
     ]);
+
   }
 
   return (

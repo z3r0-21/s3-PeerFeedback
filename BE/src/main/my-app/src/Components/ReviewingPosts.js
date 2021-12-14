@@ -5,14 +5,17 @@ import { Link } from 'react-router-dom';
 import "./css/ViewPosts.scss";
 import * as urls from "../URL";
 
-function ReviewingPost({openSelectedPost}){
+function ReviewingPost(props){
 
     const [posts, setPosts] = useState([]);
     
     useEffect(() =>{
+        if(props.location)
+        {
+            setPosts([...posts, props.location.state.createdPost]);
+        }
         const userId = localStorage.getItem("user")
         getPosts(userId);
-        
     },[]
     )
 
@@ -27,7 +30,7 @@ function ReviewingPost({openSelectedPost}){
     }
 
     const selectPost = (post) => {
-        openSelectedPost(post);
+        props.openSelectedPost(post);
     }
 
     return(
