@@ -41,6 +41,9 @@ function Post(props) {
             if(version < highestVersion[0].versionId){
                 setVersion(version + 1);
             }
+
+            console.log(version);
+            console.log(post.versions);
         }
        
     }

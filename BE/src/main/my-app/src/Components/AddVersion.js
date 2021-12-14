@@ -27,9 +27,7 @@ function AddVersion(props) {
           });
         }
     }
-        //test
-      
-
+    
     const changeHandler = e => {
         setVersion({
            ...version,

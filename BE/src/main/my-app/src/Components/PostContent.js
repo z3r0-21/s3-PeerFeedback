@@ -3,13 +3,15 @@ import React from 'react';
 import { Accordion } from 'react-bootstrap';
 
 function PostContent({post, version}) {
+    const orderedList = post.versions.sort((a,b) => (a.versionCounter > b.versionCounter) ? 1 : ((b.versionCounter > a.versionCounter) ? -1 : 0));
+    
     return (
         <div>
             <h6>Description</h6>
             <TextareaAutosize className="w-100 p-3 border rounded" disabled>{post.description}</TextareaAutosize>
             <br/>
             <span>File url: </span>
-            <a href={post.versions[version - 1].filePath} target="_blank">URL to OneDrive</a>
+            <a href={orderedList[version-1].filePath} target="_blank">URL to OneDrive</a>
             {/* <Accordion defaultActiveKey="0">
             <Accordion.Item eventKey="1">
                 <Accordion.Header>Attached file(s)</Accordion.Header>
