@@ -12,6 +12,7 @@ function MyPosts({openSelectedPost}){
 
     useEffect(() => {
         const userId = localStorage.getItem("user")
+        //const userId = 1;
         getMyPosts(userId);
     }, []);
 

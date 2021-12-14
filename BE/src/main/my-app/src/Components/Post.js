@@ -3,17 +3,18 @@ import Comments from './Comments';
 import PostContent from './PostContent';
 import VersionSelection from './VersionSelection';
 import axios from 'axios';
-import { Card } from 'react-bootstrap';
+import { Card, Button } from 'react-bootstrap';
 import FilePreviewer from 'react-file-previewer';
 import "./css/Post.scss";
 import * as urls from "./../URL"
+import { Link } from 'react-router-dom';
 
 
 
 function Post(props) {
     const [post, setPost] = React.useState([]);
     const [version, setVersion] = React.useState();
-    const [versionId, setVersionId] = useState();
+    const [versionId, setVersionId] = React.useState();
 
     React.useEffect(() => {
         axios.get(urls.baseURL + "post/" + props.location.state)
@@ -58,6 +59,10 @@ function Post(props) {
         <>
         <Card className="mt-1 mb-3 postBg">
         <Card.Body>
+            <Link to={{  pathname: "/fe/editPost", state: post.postId }}>
+                <Button className='editPostBtn'>Edit Post</Button>
+            </Link>
+
             <Card.Title><h1>{post.title}</h1></Card.Title>
             <Card.Subtitle className="mb-2 text-muted">{post.postDate}</Card.Subtitle>
             <p className="font-weight-light">{post.category}</p>
