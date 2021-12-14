@@ -43,18 +43,7 @@ public class PostController {
         else{
             postModels = postService.getAllPosts();
         }
-        if(postModels != null){
-            List<PostDTO> postDTOs = new ArrayList<>();
-            for (PostModel postModel: postModels) {
-                List<VersionModel> versionModelList = postService.getVersionsForPost(postModel.getPostId());
-                List<Long> reviewersIds = postService.getReviewersIdsForPost(postModel.getPostId().intValue());
-                PostDTO postDtoToReturn = postConverter.convertPostModelToPostDTO(postModel, versionModelList, reviewersIds);
-                postDTOs.add(postDtoToReturn);
-            }
-            List<PostDTOToReturn> postsDTO = modelMapper.map(postDTOs, new TypeToken<List<PostDTOToReturn>>() {}.getType());
-            return ResponseEntity.ok().body(postsDTO);
-        }
-        return ResponseEntity.notFound().build();
+        return getListPostDTOToReturn(postModels);
     }
 
     @GetMapping("/postsToReview")
@@ -67,15 +56,15 @@ public class PostController {
             return ResponseEntity.badRequest().build();
         }
 
+        return getListPostDTOToReturn(postModels);
+    }
+
+    private ResponseEntity<List<PostDTOToReturn>> getListPostDTOToReturn(List<PostModel> postModels) {
         if(postModels != null){
-            List<PostDTO> postDTOs = new ArrayList<>();
+            List<PostDTOToReturn> postsDTO = new ArrayList<>();
             for (PostModel postModel: postModels) {
-                List<VersionModel> versionModelList = postService.getVersionsForPost(postModel.getPostId());
-                List<Long> reviewersIds = postService.getReviewersIdsForPost(postModel.getPostId().intValue());
-                PostDTO postDtoToReturn = postConverter.convertPostModelToPostDTO(postModel, versionModelList, reviewersIds);
-                postDTOs.add(postDtoToReturn);
+                postsDTO.add(preparePostDTOToReturn(postModel));
             }
-            List<PostDTOToReturn> postsDTO = modelMapper.map(postDTOs, new TypeToken<List<PostDTOToReturn>>() {}.getType());
             return ResponseEntity.ok().body(postsDTO);
         }
         return ResponseEntity.notFound().build();
@@ -85,11 +74,7 @@ public class PostController {
     @GetMapping("{id}")
     public ResponseEntity<PostDTOToReturn> getPostWithId(@PathVariable(value = "id") Long id) {
         PostModel modelToGet = postService.getPostWithId(id);
-        List<VersionModel> versionModelList = postService.getVersionsForPost(id);
-        List<Long> reviewersIds = postService.getReviewersIdsForPost(id.intValue());
-        PostDTO dtoToReturn = postConverter.convertPostModelToPostDTO(modelToGet, versionModelList, reviewersIds);
-        PostDTOToReturn postDTOToReturn = modelMapper.map(dtoToReturn, PostDTOToReturn.class);
-        return ResponseEntity.ok().body(postDTOToReturn);
+        return ResponseEntity.ok().body(preparePostDTOToReturn(modelToGet));
     }
 
     @GetMapping("/version/{id}")
@@ -121,7 +106,7 @@ public class PostController {
         return ResponseEntity.notFound().build();
     }
 
-    public PostDTOToReturn preparePostDTOToReturn(PostModel model){
+    private PostDTOToReturn preparePostDTOToReturn(PostModel model){
         List<VersionModel> versionModelList = postService.getVersionsForPost(model.getPostId());
         List<Long> reviewersIds = postService.getReviewersIdsForPost(model.getPostId().intValue());
         PostDTO dtoToReturn = postConverter.convertPostModelToPostDTO(model, versionModelList, reviewersIds);

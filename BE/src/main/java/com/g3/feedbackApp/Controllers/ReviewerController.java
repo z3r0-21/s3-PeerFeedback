@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
@@ -33,8 +34,9 @@ public class ReviewerController {
 
     @GetMapping
     public ResponseEntity<List<ReviewerModel>> getAllReviewers() {
+        List<ReviewerModel> reviewerModels = null;
 
-        List<ReviewerModel> reviewerModels = reviewerService.getReviewers();
+        reviewerModels = reviewerService.getReviewers();
 
         if(reviewerModels != null) {
             return ResponseEntity.ok().body(reviewerModels);
@@ -42,6 +44,20 @@ public class ReviewerController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping("/asUsers")
+    public ResponseEntity<List<UserModel>> getReviewersOnPostAsUsers(@RequestParam(value = "postId") Optional<Long> postId) {
+        List<UserModel> reviewerModels = null;
+        if(postId.isPresent()) {
+            reviewerModels = reviewerService.getReviewersOnPost(postId.get());
+            return ResponseEntity.ok().body(reviewerModels);
+        }
+        else{
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
 
     @DeleteMapping("{id}")
     public ResponseEntity deleteReviewer(@PathVariable int id) {
