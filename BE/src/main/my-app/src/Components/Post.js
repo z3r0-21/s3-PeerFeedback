@@ -13,17 +13,19 @@ import * as urls from "./../URL"
 function Post(props) {
     const [post, setPost] = React.useState([]);
     const [version, setVersion] = React.useState();
+    const [versionId, setVersionId] = useState();
 
     React.useEffect(() => {
         axios.get(urls.baseURL + "post/" + props.location.state)
         .then((response) => {
             setPost(null);
             setVersion(1);
+            setVersionId(response.data.versions.versionId);
             setPost(response.data);
 
             if(response.data.versions.length){
                 setVersion(response.data.versions[0].versionCounter);
-            }
+                }
         });
     }, []);
 
@@ -65,7 +67,7 @@ function Post(props) {
             </Card.Text>
         </Card.Body>
         </Card>
-        <Comments version = {version}/>
+        <Comments version = {versionId}/>
         </>
         
     );
