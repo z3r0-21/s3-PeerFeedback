@@ -8,12 +8,11 @@ import * as urls from "../URL";
 function ReviewingPost({openSelectedPost}){
 
     const [posts, setPosts] = useState([]);
-    const [apiNotLoaded, setApiNotLoaded] = useState(false);
-    // const userId = localStorage.getItem("user")
-    const userId = 1;
     
     useEffect(() =>{
+        const userId = localStorage.getItem("user")
         getPosts(userId);
+        
     },[]
     )
 
@@ -23,8 +22,7 @@ function ReviewingPost({openSelectedPost}){
             setPosts(response.data);
         })
         .catch((e) => {
-            console.log("no post find for this reviewer");
-            setApiNotLoaded(true);
+            console.log("no posts find for this reviewer!");
         });
     }
 
@@ -58,14 +56,7 @@ function ReviewingPost({openSelectedPost}){
                     ))
                 ) : 
                 (
-                    apiNotLoaded ?
-                    (
-                        <p>Server error. Please reload!</p>
-                    )
-                    :
-                    (
-                        <p>You do not have any posts to review</p>
-                    )
+                    <p>You do not have any posts to review</p>
                 )}
             </ListGroup>
         </>

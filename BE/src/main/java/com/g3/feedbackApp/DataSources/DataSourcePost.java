@@ -75,7 +75,7 @@ public class DataSourcePost implements IDataSourcePost {
         List<ReviewerModel> reviewers = reviewerRepository.getReviewerModelsByPostId((long) postId);
         List<Long> ids = new ArrayList<>();
         for(ReviewerModel reviewerModel: reviewers){
-            ids.add(reviewerModel.getId());
+            ids.add(reviewerModel.getUserId());
         }
         return ids;
     }

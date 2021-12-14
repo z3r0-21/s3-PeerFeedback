@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import { Form, Button } from 'react-bootstrap';
 import SelectReviewers from './SelectReviewers';
@@ -8,46 +8,63 @@ import * as urls from "./../URL"
 
 function CreatePostForm(props) {
   let history = useHistory();
-  const userId = localStorage.getItem("user")
-
 
   const [post, setPost] = useState({
-    idOP: userId,
+    idOP: null,
     title: "",
     category: "",
     description: "",
+    filePath: "",
     reviewersIds: [],
   });
 
+  useEffect(() => {
+    setTimeout(function() {
+      const userId = localStorage.getItem("user")
+      setPost({
+      ...post,
+       idOP: userId })
+    }, 50);
+    
+  }, [])
+
   const [reviewersIdsList, setReviewersIdsList] = useState([]);
 
-  //State for the selected file
-  const [selectedFile, setSelectedFile] = useState(null);
+
+  const isValidHttpUrl = (string) => {
+    let url;
+    try {
+
+        url = new URL(string);
+
+    } catch (_) {
+
+        return false;
+
+    }
+    return url.protocol === "http:" || url.protocol === "https:";
+  }
 
   //method to add post in BE
-  const addPostInBe = (post, file) => {
-    console.log(reviewersIdsList);
-    file.append("idOP", post.idOP)
-    file.append("title", post.title)
-    file.append("category", post.category)
-    file.append("description", post.description)
-    file.append("reviewersIds", reviewersIdsList)
+  function addPostInBe() {
+    console.log("Post:", post);
 
-    console.log(file.get("idOP"));
-    
-    axios.post(urls.baseURL + 'post/create', file)
-      .then((response) => {
-        console.log(response);
-      }, (error) => {
-        console.log(error);
-    });
+    // check if URL valid
+    if (!isValidHttpUrl(post.filePath)) {
+      alert('The url is not valid. Please retry.');
+      return false;
+    }
+    else{
+      axios.post(urls.baseURL + 'post/create', post)
+        .then((response) => {
+          console.log(response);
+        }, (error) => {
+          console.log(error);
+      });
+      return true;
+    }
   }
 
-
-  //onchange method for the file, saving it to the state
-  const onFileChange = e => {
-    setSelectedFile(e.target.files[0])
-  }
 
   //onchange method for textfields of post
   const changeHandler = e => {
@@ -56,43 +73,23 @@ function CreatePostForm(props) {
         [e.target.name]: e.target.value })
   }
 
-  const saveReviewers = (reviewersList) => {
-    console.log("save reviewers");
-    // setPost({ ...post, reviewersIds: reviewersList });
-  }
-
   //onSubmit method for the form, calling the addInBe method
   const createPost = e => {
     e.preventDefault();
-    //Create formdata for file. Check if not null
-    let formData = new FormData()
-    if (selectedFile != null) {
-      formData.append(
-        'uploadedFile',
-        selectedFile
-      )
+    
+    if(addPostInBe() === true){
+      //clear the state
+      setPost({
+        idOP: "",
+        title: "",
+        category: "",
+        filePath: "",
+        description: "",
+        reviewersIds: []
+      })
+      // redirect to Home page
+      history.push("/");
     }
-    else {
-      alert("Please choose a file to upload")
-      return;
-    }
-
-    addPostInBe(post, formData)
-
-    //clear the state
-    setPost({
-      idOP: "",
-      title: "",
-      category: "",
-      description: "",
-      reviewersIds: []
-    })
-
-    //clear the state for the file
-    setSelectedFile(null)
-
-    // redirect to Home page
-    history.push("/");
   }
 
 
@@ -133,7 +130,7 @@ function CreatePostForm(props) {
         </Form.Group>
         <Form.Group className="mb-3" controlId="filepath">
           <Form.Label className="create-post-lb">Paste file path here</Form.Label>
-          <Form.Control size="lg" type="text" placeholder="Filepath" name="filepath" onChange={changeHandler} required />
+          <Form.Control size="lg" type="text" placeholder="Filepath" name="filePath" onChange={changeHandler} required />
           <Form.Text className="text-muted">
             One drive url required
           </Form.Text>

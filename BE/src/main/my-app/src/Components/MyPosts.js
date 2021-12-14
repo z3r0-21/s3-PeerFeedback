@@ -9,11 +9,9 @@ import * as urls from "./../URL"
 function MyPosts({openSelectedPost}){
 
     const [myPosts, setMyPosts] = useState([]);
-    const [apiNotLoaded, setApiNotLoaded] = useState(false);    
-    // const userId = localStorage.getItem("user");
-    const userId = 1;
 
     useEffect(() => {
+        const userId = localStorage.getItem("user")
         getMyPosts(userId);
     }, []);
 
@@ -24,8 +22,7 @@ function MyPosts({openSelectedPost}){
             setMyPosts(response.data);
         })
         .catch((e) => {
-            console.log(e);
-            setApiNotLoaded(true);
+            console.log("no post found for this user!");
         })
     }
 
@@ -61,14 +58,7 @@ function MyPosts({openSelectedPost}){
                     ))
                 ) : 
                 (
-                    apiNotLoaded ?
-                    (
-                        <p>Server error. Please reload!</p>
-                    )
-                    :
-                    (
-                        <p>You do not have any created posts</p>
-                    )
+                    <p>You do not have any created posts</p>
                 )}
                 
             </ListGroup>

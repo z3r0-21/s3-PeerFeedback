@@ -13,17 +13,20 @@ import * as urls from "./../URL"
 function Post(props) {
     const [post, setPost] = React.useState([]);
     const [version, setVersion] = React.useState();
+    const [versionId, setVersionId] = useState();
 
     React.useEffect(() => {
         axios.get(urls.baseURL + "post/" + props.location.state)
         .then((response) => {
             setPost(null);
             setVersion(1);
+            let size = response.data.versions.length;
+            setVersionId(response.data.versions[size - 1].versionId);
             setPost(response.data);
 
             if(response.data.versions.length){
                 setVersion(response.data.versions[0].versionCounter);
-            }
+                }
         });
     }, []);
 
@@ -61,11 +64,11 @@ function Post(props) {
             <hr className="pt-0 border-black rounded hrPostContent"/>
             <VersionSelection version={version} incr={increaseVersion} decr={decreaseVersion}/>
             <Card.Text>
-            <PostContent post = {post}/>
+            <PostContent post = {post} version={version}/>
             </Card.Text>
         </Card.Body>
         </Card>
-        <Comments version = {version}/>
+        <Comments version = {versionId}/>
         </>
         
     );
