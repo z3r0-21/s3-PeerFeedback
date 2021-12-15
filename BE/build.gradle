@@ -29,6 +29,7 @@ dependencies {
     implementation 'org.seedstack.addons.modelmapper:modelmapper:1.0.0'
     implementation 'com.github.jmnarloch:modelmapper-spring-boot-starter:1.1.0'
     implementation 'io.github.yoshikawaa.modelmapper.spring.boot:modelmapper-spring-boot:0.1.0'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 

@@ -2,8 +2,10 @@ package com.g3.feedbackApp.Controllers;
 
 
 import com.g3.feedbackApp.Models.Converters.PostConverter;
+import com.g3.feedbackApp.Models.Converters.VersionConverter;
 import com.g3.feedbackApp.Models.DTOS.PostDTO;
 import com.g3.feedbackApp.Models.DTOS.PostDTOToReturn;
+import com.g3.feedbackApp.Models.DTOS.VersionDTO;
 import com.g3.feedbackApp.Models.PostModel;
 import com.g3.feedbackApp.Models.VersionModel;
 import com.g3.feedbackApp.Services.Interfaces.IPostService;
@@ -26,11 +28,13 @@ public class PostController {
     @Autowired
     private IPostService postService;
     private final PostConverter postConverter;
+    private final VersionConverter versionConverter;
     private ModelMapper modelMapper;
 
 
     public PostController(IPostService postService) {
         postConverter = new PostConverter();
+        versionConverter = new VersionConverter();
         this.modelMapper = new ModelMapper();
     }
 
@@ -112,5 +116,19 @@ public class PostController {
         PostDTO dtoToReturn = postConverter.convertPostModelToPostDTO(model, versionModelList, reviewersIds);
         PostDTOToReturn postDTOToReturn = modelMapper.map(dtoToReturn, PostDTOToReturn.class);
         return postDTOToReturn;
+        }
+    @PostMapping(value = "/addVersion")
+    public ResponseEntity<PostDTOToReturn> createAddNewVersion(@RequestBody VersionDTO versionDTO) {
+        VersionModel modelToAdd = versionConverter.convertVersionDTOWithoutIdToVersionModel(versionDTO);
+        PostModel postModel = postService.getPostWithId(modelToAdd.getPostId());
+
+        if (postService.createVersion(modelToAdd.getPostId(), modelToAdd.getFilePath())) {
+            List<VersionModel> versionModelList = postService.getVersionsForPost(modelToAdd.getPostId());
+            List<Long> reviewersIds = postService.getReviewersIdsForPost(modelToAdd.getPostId().intValue());
+            PostDTO dtoToReturn = postConverter.convertPostModelToPostDTO(postModel, versionModelList, reviewersIds);
+            PostDTOToReturn postDTOToReturn = modelMapper.map(dtoToReturn, PostDTOToReturn.class);
+            return ResponseEntity.ok().body(postDTOToReturn);
+        }
+        return  ResponseEntity.notFound().build();
     }
 }
