@@ -16,6 +16,7 @@ React.useEffect(() => {
   axios.get(urls.baseURL + `comments/version/` + version)
   .then(res => {
     setComments(res.data);
+    console.log(version);
   })
   .catch(function (error) {
     console.log(error);

@@ -16,34 +16,43 @@ function Post(props) {
     const [version, setVersion] = React.useState();
     const [versionId, setVersionId] = React.useState();
 
+  
+
     React.useEffect(() => {
         axios.get(urls.baseURL + "post/" + props.location.state)
         .then((response) => {
             setPost(null);
             setVersion(1);
             let size = response.data.versions.length;
-            setVersionId(response.data.versions[size - 1].versionId);
             setPost(response.data);
 
             if(response.data.versions.length){
                 setVersion(response.data.versions[0].versionCounter);
-                }
+                setVersionId(response.data.versions[0].versionId);
+            }
+
+            // changeVersionID(response.data);
         });
     }, []);
+    
+    React.useEffect(() => {
+        if(version && post){
+            setVersionId(post.versions[version - 1].versionId);
+        }
+    }, [version]);
 
     if (!post) return null;
     if (!version) return null;
+
 
     function increaseVersion(){
         if(post.versions.length){
             const highestVersion = post.versions.sort((b,a) => (a.versionId > b.versionId) ? 1 : ((b.versionId > a.versionId) ? -1 : 0));
 
-            if(version < highestVersion[0].versionId){
+            if(version < highestVersion[0].versionCounter){
                 setVersion(version + 1);
+                console.log(version);
             }
-
-            console.log(version);
-            console.log(post.versions);
         }
        
     }
@@ -51,10 +60,11 @@ function Post(props) {
     function decreaseVersion(){
         if(post.versions.length){
             const lowestVersion = post.versions.sort((a,b) => (a.versionId > b.versionId) ? 1 : ((b.versionId > a.versionId) ? -1 : 0));
-
-            if(version > lowestVersion[0].versionId){
+            if(version > lowestVersion[0].versionCounter){
                 setVersion(version - 1);
+                console.log(version);
             }
+
         }
     }
 
