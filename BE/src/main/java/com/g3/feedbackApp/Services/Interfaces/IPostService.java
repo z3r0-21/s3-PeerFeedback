@@ -9,6 +9,8 @@ import java.util.List;
 public interface IPostService {
 
     Boolean createPost(PostModel postModel, String filePath, List<Long> reviewersIds);
+    PostModel updatePost(PostModel postmodel, List<Long> reviewersIds);
+    void updateReviewersIds(List<Long> reviewersIds, Long postId);
     Boolean createVersion(Long postId, String filePath);
     PostModel getPostWithId(Long postId);
     List<PostModel> getPostsToReview(Long reviewerId);

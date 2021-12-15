@@ -1,18 +1,24 @@
 package com.g3.feedbackApp.Services;
 
 import com.g3.feedbackApp.DataSources.Interfaces.IDataSourceReviewer;
+import com.g3.feedbackApp.DataSources.Interfaces.IDataSourceUser;
 import com.g3.feedbackApp.Models.ReviewerModel;
+import com.g3.feedbackApp.Models.UserModel;
 import com.g3.feedbackApp.Services.Interfaces.IReviewerService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ReviewerService implements IReviewerService {
     IDataSourceReviewer reviewerData;
+    IDataSourceUser userData;
 
-    public ReviewerService(IDataSourceReviewer reviewerData) {
+    public ReviewerService(IDataSourceReviewer reviewerData, IDataSourceUser userData) {
         this.reviewerData = reviewerData;
+        this.userData = userData;
     }
 
     @Override
@@ -22,6 +28,19 @@ public class ReviewerService implements IReviewerService {
 
     @Override
     public List<ReviewerModel> getReviewers(){ return this.reviewerData.getReviewers();}
+
+    @Override
+    public List<UserModel> getReviewersOnPost(Long postId) {
+        List<ReviewerModel> reviewerModels = getReviewers().stream().
+                filter(reviewerModel -> reviewerModel.getPostId().equals(postId)).
+                collect(Collectors.toList());
+        List<UserModel> userModels = new ArrayList<>();
+        for (ReviewerModel reviewerModel:reviewerModels){
+            userModels.add(userData.getUserByStudentNr(reviewerModel.getUserId()));
+        }
+        return userModels;
+    }
+
 
     @Override
     public boolean deleteReviewerById(Long id) {
