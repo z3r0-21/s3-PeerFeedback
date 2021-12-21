@@ -31,9 +31,14 @@ function MyPosts(props){
         }
         
 
-        const userId = localStorage.getItem("user")
+        
         //const userId = 1;
-        getMyPosts(userId);
+        setTimeout(function() {
+            const userId = localStorage.getItem("user")
+            console.log(userId)
+            getMyPosts(userId);
+        }, 500);
+        
         
         //localStorage.setItem("user", 1);
         

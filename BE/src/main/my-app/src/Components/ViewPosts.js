@@ -14,9 +14,7 @@ function ViewPosts() {
   let history = useHistory();
 
   useEffect(() => {
-    setTimeout(function() {
       getMyId();
-    }, 50);
   }, []);
 
   function getMyId() {
@@ -24,6 +22,7 @@ function ViewPosts() {
     axios.get(urls.baseURL + 'users/identity'
     ).then(res => {
       //set the hashcode
+      console.log("here");
       var userId = hashString(String(res.data))
       setUserId(userId);
 
@@ -59,7 +58,7 @@ function ViewPosts() {
       >
         <Tab eventKey="myPosts" title="My Posts">
           <MyPosts
-            openSelectedPost={openSelectedPost} />
+            openSelectedPost={openSelectedPost}/>
         </Tab>
 
         <Tab eventKey="postsToReview" title="Posts to Review">
