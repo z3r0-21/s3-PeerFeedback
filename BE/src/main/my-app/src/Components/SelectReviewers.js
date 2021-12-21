@@ -10,7 +10,7 @@ const client = axios.create({
 });
 
 
-function SelectReviewers({addReviewerId, removeReviewerId, postId}) {
+function SelectReviewers({addReviewerId, removeReviewerId, postId, editPost}) {
     const [started, setStarted] = useState(false);
     const [users, setUsers] = useState([]);
 
@@ -20,6 +20,8 @@ function SelectReviewers({addReviewerId, removeReviewerId, postId}) {
     const [reviewers, setReviewers] = useState([]);
     const [reviewersIds, setReviewersIds] = useState([]);
 
+    const [userID, setUserID] = React.useState();
+
     const handleInputChange = (e) => {
         var inputVal = e.target.value;
         setInput(inputVal);
@@ -28,8 +30,18 @@ function SelectReviewers({addReviewerId, removeReviewerId, postId}) {
     useEffect(() => {
         console.log("Post id: ", postId);
         getAssignedReviewers(postId);
-        
-        retrieveUsers();
+        setTimeout(function() {
+            setUserID(localStorage.getItem("user"));
+            if(editPost)
+            {
+                retrieveUsersEditPost(parseInt(localStorage.getItem("user")), postId);
+            }
+            else{
+                retrieveUsers(parseInt(localStorage.getItem("user")));
+            }
+
+        }, 500);
+
         console.log("here");
     }, []);
 
@@ -57,9 +69,24 @@ function SelectReviewers({addReviewerId, removeReviewerId, postId}) {
 
     }, [input]);
 
-    async function retrieveUsers() {
-        const response = await client.get("/users");
-        setUsers(response.data);
+    function retrieveUsers(userId) {
+        client.get("/users", { params: { userId: userId } })
+        .then((response) => {
+            setUsers(response.data);
+        })
+        .catch((e) => {
+            console.log(e);
+        })
+    }
+
+    function retrieveUsersEditPost(userId, postId) {
+        client.get("/users", { params: { userId: userId, postId: postId } })
+            .then((response) => {
+                setUsers(response.data);
+            })
+            .catch((e) => {
+                console.log(e);
+            })
     }
 
     const addReviewer = (user) => {

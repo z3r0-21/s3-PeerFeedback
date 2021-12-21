@@ -15,10 +15,12 @@ function Post(props) {
     const [post, setPost] = React.useState([]);
     const [version, setVersion] = React.useState();
     const [versionId, setVersionId] = React.useState();
-
-  
+    const [userID, setUserID] = React.useState();
 
     React.useEffect(() => {
+        setTimeout(function() {
+            setUserID(parseInt(localStorage.getItem("user")));
+        }, 50);
         axios.get(urls.baseURL + "post/" + props.location.state)
         .then((response) => {
             setPost(null);
@@ -73,9 +75,11 @@ function Post(props) {
         <Card className="mt-1 mb-3 postBg">
         <Card.Body>
             <div>
-            <Link to={{  pathname: "/fe/editPost", state: post.postId }}>
-                <Button className='editPostBtn'>Edit Post</Button>
-            </Link>
+                {post.idOP === userID &&
+                <Link to={{  pathname: "/fe/editPost", state: post.postId }}>
+                    <Button className='editPostBtn'>Edit Post</Button>
+                </Link>
+                }
             </div>
             <div>
             <Link to={{  pathname: "/fe/addVersion", state: post.postId }}>

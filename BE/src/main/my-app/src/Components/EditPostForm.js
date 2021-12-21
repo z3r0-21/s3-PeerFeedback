@@ -106,7 +106,7 @@ function EditPostForm(props) {
             <Form.Label className="create-post-lb">Description</Form.Label>
             <Form.Control as="textarea" rows={5} value={postToEdit.description} name="description" onChange={changeHandler} required />
             </Form.Group>
-            <SelectReviewers postId={props.location.state} addReviewerId={addReviewerId} removeReviewerId={removeReviewerId}/>
+            <SelectReviewers postId={props.location.state} edit addReviewerId={addReviewerId} removeReviewerId={removeReviewerId} editPost={true}/>
             <Button variant="primary" type="submit">
             Submit
             </Button>

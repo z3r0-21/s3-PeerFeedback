@@ -19,8 +19,8 @@ function ReviewingPost(props){
     },[]
     )
 
-    function getPosts(reviewerId){
-        axios.get(urls.baseURL + 'post/postsToReview', {params:{reviewerId:reviewerId}}).
+    function getPosts(userId){
+        axios.get(urls.baseURL + 'post/postsToReview', {params:{userId:userId}}).
         then((response) => {
             setPosts(response.data);
         })

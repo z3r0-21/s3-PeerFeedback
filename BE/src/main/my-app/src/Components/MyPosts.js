@@ -39,9 +39,6 @@ function MyPosts(props){
             getMyPosts(userId);
         }, 500);
         
-        
-        //localStorage.setItem("user", 1);
-        
     }, []);
 
     function getMyPosts(idOP) {

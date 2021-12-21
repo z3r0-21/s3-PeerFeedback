@@ -2,8 +2,10 @@ package com.g3.feedbackApp.Services;
 
 import com.g3.feedbackApp.DataSources.Interfaces.IDataSourcePost;
 import com.g3.feedbackApp.DataSources.Interfaces.IDataSourceReviewer;
+import com.g3.feedbackApp.DataSources.Interfaces.IDataSourceUser;
 import com.g3.feedbackApp.Models.PostModel;
 import com.g3.feedbackApp.Models.ReviewerModel;
+import com.g3.feedbackApp.Models.UserModel;
 import com.g3.feedbackApp.Models.VersionModel;
 import com.g3.feedbackApp.Services.Interfaces.IPostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,6 +117,13 @@ public class PostService implements IPostService {
         return datasource.getReviewersIdsForPost(postId);
     }
 
+    @Override
+    public List<UserModel> getAvailableUsersExistingPost(Long postId){
+        PostModel toEdit = datasource.getPostWithId(postId);
+        //todo
+        // all users - op - currently assigned reviewers
 
+        return null;
+    }
 
 }

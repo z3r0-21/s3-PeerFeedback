@@ -1,6 +1,7 @@
 package com.g3.feedbackApp.Services.Interfaces;
 
 import com.g3.feedbackApp.Models.PostModel;
+import com.g3.feedbackApp.Models.UserModel;
 import com.g3.feedbackApp.Models.VersionModel;
 
 import java.nio.file.Path;
@@ -19,5 +20,5 @@ public interface IPostService {
     VersionModel getVersionWithId(Long versionId);
     List<VersionModel> getVersionsForPost(Long postId);
     List<Long> getReviewersIdsForPost(int postId);
-
+    List<UserModel> getAvailableUsersExistingPost(Long postId);
 }
