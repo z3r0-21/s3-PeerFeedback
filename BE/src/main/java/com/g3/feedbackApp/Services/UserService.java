@@ -4,6 +4,7 @@ import com.g3.feedbackApp.DataSources.Interfaces.IDataSourcePost;
 import com.g3.feedbackApp.DataSources.Interfaces.IDataSourceReviewer;
 import com.g3.feedbackApp.DataSources.Interfaces.IDataSourceUser;
 import com.g3.feedbackApp.Models.PostModel;
+import com.g3.feedbackApp.Models.ReviewerModel;
 import com.g3.feedbackApp.Models.UserModel;
 import com.g3.feedbackApp.Services.Interfaces.IUserService;
 import org.springframework.stereotype.Service;
@@ -41,9 +42,9 @@ public class UserService implements IUserService {
     @Override
     public List<UserModel> getAvailableUsersEditPost(Long postId, Long userId) {
         List<UserModel> availableUsersEditPost = getAvailableUsersNewPost(userId);
-        List<Long> reviewersIdsForPost = postData.getReviewersIdsForPost(postId.intValue());
-        for (int i=0;i<reviewersIdsForPost.size() - 1;i++){
-            availableUsersEditPost.remove(getUserByStudentNr(reviewersIdsForPost.get(i)));
+        List<ReviewerModel> reviewersForPost = postData.getReviewersForPost(postId.intValue());
+        for (int i=0;i<reviewersForPost.size();i++){
+            availableUsersEditPost.remove(getUserByStudentNr(reviewersForPost.get(i).getUserId()));
         }
         return availableUsersEditPost;
     }

@@ -28,4 +28,5 @@ public interface IDataSourcePost {
     List<VersionModel> getVersionsForPost(Long postId);
 
     List<Long> getReviewersIdsForPost(int postId);
+    List<ReviewerModel> getReviewersForPost(int postId);
 }
