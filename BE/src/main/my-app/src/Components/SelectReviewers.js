@@ -32,6 +32,7 @@ function SelectReviewers({addReviewerId, removeReviewerId, postId, editPost}) {
         getAssignedReviewers(postId);
         setTimeout(function() {
             setUserID(localStorage.getItem("user"));
+            console.log("EditPost", editPost);
             if(editPost)
             {
                 retrieveUsersEditPost(parseInt(localStorage.getItem("user")), postId);
@@ -50,14 +51,17 @@ function SelectReviewers({addReviewerId, removeReviewerId, postId, editPost}) {
         .then((response) => {
             console.log("Reviewers as users: ", response.data);
             
-            response.data.forEach(user => {
-                addReviewer(user);
-            });
+            setReviewers(response.data);
+            setReviewersIds(response);
+            // response.data.forEach(user => {
+            //     console.log("User", user);
+            //     addReviewerId(user.studentNr);
+            // });
         }).catch((e) => console.log(e));
     }
 
     useEffect(() => {
-        console.log(users);
+        //console.log(users);
         const results = users.filter(user =>
           user.email.split("@")[0].toLowerCase().includes(input)
         );
@@ -83,6 +87,7 @@ function SelectReviewers({addReviewerId, removeReviewerId, postId, editPost}) {
         client.get("/users", { params: { userId: userId, postId: postId } })
             .then((response) => {
                 setUsers(response.data);
+                console.log("Users", response.data);
             })
             .catch((e) => {
                 console.log(e);

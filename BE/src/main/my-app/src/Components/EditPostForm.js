@@ -30,6 +30,8 @@ function EditPostForm(props) {
         axios.get(urls.baseURL + "post/" + props.location.state)
         .then((response) => {
             setPostToEdit(response.data);
+            setReviewersIdsList(response.data.reviewersIds);
+            console.log("Post", response.data);
         });
     }
 
