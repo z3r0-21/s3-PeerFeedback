@@ -5,6 +5,7 @@ import SelectReviewers from './SelectReviewers';
 import "./css/CreatePost.scss";
 import { useHistory } from "react-router-dom";
 import * as urls from "./../URL"
+import toast, { Toaster } from 'react-hot-toast';
 
 
 function EditPostForm(props) {
@@ -12,7 +13,7 @@ function EditPostForm(props) {
     const [reviewersIdsList, setReviewersIdsList] = useState([]);
 
     const [postToEdit, setPostToEdit] = useState({
-        postId:null,
+        postId: null,
         title: "",
         category: "",
         description: "",
@@ -23,18 +24,21 @@ function EditPostForm(props) {
         const userId = localStorage.getItem("user")
         //const userId = 1;
         getPostData();
-        
+
     }, []);
 
     function getPostData() {
         axios.get(urls.baseURL + "post/" + props.location.state)
-        .then((response) => {
-            setPostToEdit(response.data);
-        });
+            .then((response) => {
+                setPostToEdit(response.data);
+            });
     }
 
-    const updatePost = e => {
+    async function updatePost(e) {
         e.preventDefault();
+        toast.loading("Your request is being processed", {
+            duration: 5000
+        })
 
         const postToEditState = {
             postId: postToEdit.postId,
@@ -45,14 +49,21 @@ function EditPostForm(props) {
         }
 
         //update post here 
-        axios.put(urls.baseURL + 'post/update', postToEditState)
-        .then((response) => {
-            console.log(response);
-        }, (error) => {
-            console.log(error);
-        });
+        await axios.put(urls.baseURL + 'post/update', postToEditState)
+            .then(response => {
+                console.log(response);
+            }).catch(error => {
+                if (error != null) {
+                    alert("Something when wrong while updating your post. " + error)
+                }
+                else {
+                    alert("Something went wrong while updating your post!")
+                    return false
+                }
 
-        history.push({pathname: "/", state: { updatePost: postToEdit } });
+            });
+
+        history.push({ pathname: "/", state: { updatePost: postToEdit } });
         //clear the state
         setPostToEdit({
             postId: null,
@@ -67,8 +78,9 @@ function EditPostForm(props) {
     //onchange method for textfields of post
     const changeHandler = e => {
         setPostToEdit({
-        ...postToEdit,
-            [e.target.name]: e.target.value })
+            ...postToEdit,
+            [e.target.name]: e.target.value
+        })
     }
 
     const addReviewerId = (reviewerId) => {
@@ -77,40 +89,41 @@ function EditPostForm(props) {
 
     const removeReviewerId = (reviewerId) => {
         setReviewersIdsList([
-                ...reviewersIdsList.filter(r => {
-                    return r !== reviewerId
-                })
+            ...reviewersIdsList.filter(r => {
+                return r !== reviewerId
+            })
         ]);
     }
 
     return (
         <>
-        <Form onSubmit={updatePost} className="create-post-form">
-            <Form.Group className="mb-3" controlId="title">
-            <Form.Label className="create-post-lb">Title</Form.Label>
-            <Form.Control size="lg" type="text" placeholder="Title" value={postToEdit.title} name="title" onChange={changeHandler} required />
-            <Form.Text className="text-muted">
-                Make sure to choose a descriptive title.
-            </Form.Text>
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="category">
-            <Form.Label className="create-post-lb">Category</Form.Label>
-            <Form.Select name="category" onChange={changeHandler} required>
-                <option value={postToEdit.category}>{postToEdit.category}</option>
-                <option value="Software">Software</option>
-                <option value="Media">Media</option>
-                <option value="Infrastructure">Infrastructure</option>
-            </Form.Select>
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="description">
-            <Form.Label className="create-post-lb">Description</Form.Label>
-            <Form.Control as="textarea" rows={5} value={postToEdit.description} name="description" onChange={changeHandler} required />
-            </Form.Group>
-            <SelectReviewers postId={props.location.state} addReviewerId={addReviewerId} removeReviewerId={removeReviewerId}/>
-            <Button variant="primary" type="submit">
-            Submit
-            </Button>
-        </Form>
+            <div><Toaster /></div>
+            <Form onSubmit={updatePost} className="create-post-form">
+                <Form.Group className="mb-3" controlId="title">
+                    <Form.Label className="create-post-lb">Title</Form.Label>
+                    <Form.Control size="lg" type="text" placeholder="Title" value={postToEdit.title} name="title" onChange={changeHandler} required />
+                    <Form.Text className="text-muted">
+                        Make sure to choose a descriptive title.
+                    </Form.Text>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="category">
+                    <Form.Label className="create-post-lb">Category</Form.Label>
+                    <Form.Select name="category" onChange={changeHandler} required>
+                        <option value={postToEdit.category}>{postToEdit.category}</option>
+                        <option value="Software">Software</option>
+                        <option value="Media">Media</option>
+                        <option value="Infrastructure">Infrastructure</option>
+                    </Form.Select>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="description">
+                    <Form.Label className="create-post-lb">Description</Form.Label>
+                    <Form.Control as="textarea" rows={5} value={postToEdit.description} name="description" onChange={changeHandler} required />
+                </Form.Group>
+                <SelectReviewers postId={props.location.state} addReviewerId={addReviewerId} removeReviewerId={removeReviewerId} />
+                <Button variant="primary" type="submit">
+                    Submit
+                </Button>
+            </Form>
         </>
     );
 }

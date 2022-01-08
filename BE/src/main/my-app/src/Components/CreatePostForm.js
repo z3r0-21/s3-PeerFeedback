@@ -5,6 +5,7 @@ import SelectReviewers from './SelectReviewers';
 import "./css/CreatePost.scss";
 import { useHistory } from "react-router-dom";
 import * as urls from "./../URL"
+import toast, { Toaster } from 'react-hot-toast';
 
 function CreatePostForm(props) {
   let history = useHistory();
@@ -19,10 +20,11 @@ function CreatePostForm(props) {
   });
 
   useEffect(() => {
-      const userId = localStorage.getItem("user")
-      setPost({
+    const userId = localStorage.getItem("user")
+    setPost({
       ...post,
-       idOP: userId })    
+      idOP: userId
+    })
   }, [])
 
   const [reviewersIdsList, setReviewersIdsList] = useState([]);
@@ -32,62 +34,69 @@ function CreatePostForm(props) {
     let url;
     try {
 
-        url = new URL(string);
+      url = new URL(string);
 
     } catch (_) {
 
-        return false;
+      return false;
 
     }
     return url.protocol === "http:" || url.protocol === "https:";
   }
 
   //method to add post in BE
-  function addPostInBe() {
-    console.log("Post:", post);
-
+  async function addPostInBe() {
+    toast.loading("Your request is being processed",{
+      duration: 5000
+    })
+    var returnValue = null;
     // check if URL valid
     if (!isValidHttpUrl(post.filePath)) {
       alert('The url is not valid. Please retry.');
       return false;
     }
-    else{
-      const postToSend = {
-        idOP: post.idOP,
-        title: post.title,
-        category: post.category,
-        description: post.description,
-        filePath: post.filePath,
-        reviewersIds: reviewersIdsList,
-      }
-      axios.post(urls.baseURL + 'post/create', postToSend)
-        .then((response) => {
-          console.log(response);
-        }, (error) => {
-          console.log(error);
-      });
-      return true;
-    }
-  }
 
+    const postToSend = {
+      idOP: post.idOP,
+      title: post.title,
+      category: post.category,
+      description: post.description,
+      filePath: post.filePath,
+      reviewersIds: reviewersIdsList,
+    }
+    await axios.post(urls.baseURL + 'post/create', postToSend
+    ).then(response => {
+      if (response.data) {
+        console.log(response.data)
+        returnValue = true;
+      }
+    }).catch(error => {
+      console.log(error);
+      if (error != null) {
+        alert("Something when wrong when creating your post. " + error)
+      }
+      else {
+        alert("Something went wrong and your post is not created!")
+        return false;
+      }
+    });
+    return returnValue;
+  }
 
   //onchange method for textfields of post
   const changeHandler = e => {
     setPost({
-       ...post,
-        [e.target.name]: e.target.value })
+      ...post,
+      [e.target.name]: e.target.value
+    })
   }
 
   //onSubmit method for the form, calling the addInBe method
-  const createPost = e => {
+  async function createPost(e) {
     e.preventDefault();
-    
-    if(addPostInBe() === true){
-      //clear the state
-      
-      // redirect to Home page
-      history.push({pathname: "/", state: { createdPost: post } });
 
+    if (await addPostInBe() === true) {
+      //clear the state
       setPost({
         idOP: "",
         title: "",
@@ -96,6 +105,8 @@ function CreatePostForm(props) {
         description: "",
         reviewersIds: []
       })
+      // redirect to Home page
+      history.push({ pathname: "/", state: { createdPost: post } });
     }
   }
 
@@ -107,15 +118,16 @@ function CreatePostForm(props) {
 
   const removeReviewerId = (reviewerId) => {
     setReviewersIdsList([
-            ...reviewersIdsList.filter(r => {
-                return r !== reviewerId
-            })
+      ...reviewersIdsList.filter(r => {
+        return r !== reviewerId
+      })
     ]);
 
   }
 
   return (
     <>
+      <div><Toaster /></div>
       <Form onSubmit={createPost} className="create-post-form">
         <Form.Group className="mb-3" controlId="title">
           <Form.Label className="create-post-lb">Title</Form.Label>
