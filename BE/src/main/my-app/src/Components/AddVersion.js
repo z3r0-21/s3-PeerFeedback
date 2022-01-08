@@ -15,7 +15,7 @@ function AddVersion(props) {
   const versionPOST = e => {
     e.preventDefault();
     toast.loading("Your request is being processed", {
-      duration: 5000
+      duration: 2000
     })
     if (!isValidHttpUrl(version.filePath)) {
       alert('The url is not valid. Please retry.');
@@ -23,6 +23,9 @@ function AddVersion(props) {
     else {
       axios.post(urls.baseURL + 'post/addVersion', version)
         .then((response) => {
+          toast.success("New version is created successfuly",{
+            duration: 5000
+          })
           setRedirect(true);
         }, (error) => {
           if (error != null) {

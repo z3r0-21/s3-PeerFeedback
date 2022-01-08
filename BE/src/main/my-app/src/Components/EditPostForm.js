@@ -37,7 +37,7 @@ function EditPostForm(props) {
     async function updatePost(e) {
         e.preventDefault();
         toast.loading("Your request is being processed", {
-            duration: 5000
+            duration: 2000
         })
 
         const postToEditState = {
@@ -52,6 +52,9 @@ function EditPostForm(props) {
         await axios.put(urls.baseURL + 'post/update', postToEditState)
             .then(response => {
                 console.log(response);
+                toast.success("Your update is processed successfuly",{
+                    duration: 5000
+                  })
             }).catch(error => {
                 if (error != null) {
                     alert("Something when wrong while updating your post. " + error)

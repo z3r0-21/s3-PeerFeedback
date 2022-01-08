@@ -43,7 +43,7 @@ function CreatePostForm(props) {
     }
     return url.protocol === "http:" || url.protocol === "https:";
   }
-
+  
   //method to add post in BE
   async function addPostInBe() {
     toast.loading("Your request is being processed",{
@@ -67,6 +67,9 @@ function CreatePostForm(props) {
     await axios.post(urls.baseURL + 'post/create', postToSend
     ).then(response => {
       if (response.data) {
+        toast.success("Your new post is created successfuly",{
+          duration: 2000
+        })
         console.log(response.data)
         returnValue = true;
       }

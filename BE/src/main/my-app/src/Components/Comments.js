@@ -26,7 +26,7 @@ function Comments({ version }) {
   function handleSubmit(event) {
     event.preventDefault();
     toast.loading("Your request is being processed", {
-      duration: 5000
+      duration: 2000
     })
     axios.post(urls.baseURL + 'comments/create', {
       "userId": userId,
@@ -40,6 +40,9 @@ function Comments({ version }) {
           .then(res => {
             setComments(res.data);
             setNewComment("");
+            toast.success("Your comment is added successfuly",{
+              duration: 5000
+            })
           })
       })
       .catch(error => {
