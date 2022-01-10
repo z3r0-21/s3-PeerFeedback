@@ -164,7 +164,7 @@ function CreatePostForm(props) {
           <Form.Control type="file" name="files" onChange={onFileChange} />
         </Form.Group> */}
 
-        <SelectReviewers addReviewerId={addReviewerId} removeReviewerId={removeReviewerId} />
+        <SelectReviewers addReviewerId={addReviewerId} removeReviewerId={removeReviewerId} editPost={false}/>
         <Button variant="primary" type="submit">
           Submit
         </Button>

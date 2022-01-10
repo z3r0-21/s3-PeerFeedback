@@ -93,6 +93,11 @@ public class DataSourcePost implements IDataSourcePost {
     }
 
     @Override
+    public List<ReviewerModel> getReviewersForPost(int postId) {
+        return reviewerRepository.getReviewerModelsByPostId((long) postId);
+    }
+
+    @Override
     public List<Long> getReviewersIdsForPost(int postId) {
         List<ReviewerModel> reviewers = reviewerRepository.getReviewerModelsByPostId((long) postId);
         List<Long> ids = new ArrayList<>();

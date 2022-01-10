@@ -51,10 +51,10 @@ public class PostController {
     }
 
     @GetMapping("/postsToReview")
-    public ResponseEntity<List<PostDTOToReturn>> getPostsToReview(@RequestParam(value = "reviewerId") Optional<Long> reviewerId) {
+    public ResponseEntity<List<PostDTOToReturn>> getPostsToReview(@RequestParam(value = "userId") Optional<Long> userId) {
         List<PostModel> postModels = null;
-        if(reviewerId.isPresent()) {
-            postModels = postService.getPostsToReview(reviewerId.get());
+        if(userId.isPresent()) {
+            postModels = postService.getPostsToReview(userId.get());
         }
         else{
             return ResponseEntity.badRequest().build();

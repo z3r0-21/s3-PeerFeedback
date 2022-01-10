@@ -1,6 +1,8 @@
 package com.g3.feedbackApp.Controllers;
 
+import com.g3.feedbackApp.Models.PostModel;
 import com.g3.feedbackApp.Models.UserModel;
+import com.g3.feedbackApp.Services.Interfaces.IPostService;
 import com.g3.feedbackApp.Services.Interfaces.IUserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
@@ -44,16 +47,25 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<List<UserModel>> getAllUsers() {
-
-        List<UserModel> userModels = userService.getUserModels();
-
-        if(userModels != null) {
-            return ResponseEntity.ok().body(userModels);
-        } else {
-            return ResponseEntity.notFound().build();
+    public ResponseEntity<List<UserModel>> getAllUsers(
+            @RequestParam(value = "userId") Optional<Long> userId,
+            @RequestParam(value = "postId") Optional<Long> postId) {
+        List<UserModel> userModels = null;
+        if(userId.isPresent()) {
+            if(postId.isPresent())
+            {
+                userModels = userService.getAvailableUsersEditPost(postId.get(), userId.get());
+            }
+            else {
+                userModels = userService.getAvailableUsersNewPost(userId.get());
+            }
         }
+        else{
+            userModels = userService.getUserModels();
+        }
+        return ResponseEntity.ok().body(userModels);
     }
+
 
     @DeleteMapping("{studentNr}")
     public ResponseEntity deleteUser(@PathVariable int studentNr) {

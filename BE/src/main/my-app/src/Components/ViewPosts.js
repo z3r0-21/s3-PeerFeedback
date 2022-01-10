@@ -14,7 +14,9 @@ function ViewPosts() {
   let history = useHistory();
 
   useEffect(() => {
+      //localStorage.setItem("user", 2);
       getMyId();
+
   }, []);
 
   function getMyId() {

@@ -11,4 +11,7 @@ public interface IUserService {
     public boolean deleteUserModel(Long studentNr);
     public boolean addUserModel(UserModel userModel);
     public boolean updateUserModel(UserModel userModel);
+    public List<UserModel> getAvailableUsersNewPost(Long userId);
+    List<UserModel> getAvailableUsersEditPost(Long postId, Long userId);
+
 }
