@@ -4,6 +4,7 @@ import com.g3.feedbackApp.DataSources.Interfaces.IDataSourcePost;
 import com.g3.feedbackApp.DataSources.Interfaces.IDataSourceReviewer;
 import com.g3.feedbackApp.Models.PostModel;
 import com.g3.feedbackApp.Models.ReviewerModel;
+import com.g3.feedbackApp.Models.UserModel;
 import com.g3.feedbackApp.Models.VersionModel;
 import com.g3.feedbackApp.Repository.IPostRepository;
 import com.g3.feedbackApp.Repository.IReviewerRepository;
@@ -105,5 +106,16 @@ public class DataSourcePost implements IDataSourcePost {
             ids.add(reviewerModel.getUserId());
         }
         return ids;
+    }
+
+    @Override
+    public boolean deletePostModel(Long postId) {
+        PostModel post = postRepository.getFirstByPostId(postId);
+        if (post == null){
+            return false;
+        }
+
+        postRepository.delete(post);
+        return true;
     }
 }

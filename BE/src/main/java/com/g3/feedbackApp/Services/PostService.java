@@ -126,4 +126,9 @@ public class PostService implements IPostService {
         return null;
     }
 
+    @Override
+    public boolean deletePostModel(Long postId) {
+        return datasource.deletePostModel(postId);
+    }
+
 }

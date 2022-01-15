@@ -29,4 +29,6 @@ public interface IDataSourcePost {
 
     List<Long> getReviewersIdsForPost(int postId);
     List<ReviewerModel> getReviewersForPost(int postId);
+
+    boolean deletePostModel(Long postId);
 }

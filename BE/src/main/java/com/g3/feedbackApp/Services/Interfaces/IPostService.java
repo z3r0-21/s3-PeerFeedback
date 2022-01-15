@@ -21,4 +21,5 @@ public interface IPostService {
     List<VersionModel> getVersionsForPost(Long postId);
     List<Long> getReviewersIdsForPost(int postId);
     List<UserModel> getAvailableUsersExistingPost(Long postId);
+    boolean deletePostModel(Long postId);
 }
