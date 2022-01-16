@@ -5,17 +5,31 @@ import {LinkContainer} from "react-router-bootstrap";
 import { BrowserRouter} from 'react-router-dom';
 import styles from "./css/Navbar.scss";
 import Router from "./Router";
-
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
 function NavBar() {
     const [username, setUsername] = useState();
-    
+    const [userId, setUserId] = useState();
+
     useEffect(() => {
         setTimeout(function() {
-            const localStorageUsername = localStorage.getItem("username")
-            setUsername(localStorageUsername);
+            const localStorageUserId = localStorage.getItem("user")
+            setUserId(localStorageUserId);
         }, 500);
     }, [])
+
+    const handleDelete = (userId) => {
+    
+        console.log(userId)
+        if (window.confirm('Are you sure to delete this profile?')){
+          axios.delete(`http://localhost:8080/users/${userId}`)
+    
+          toast("The profile has been deleted")
+          setTimeout(() => { window.location.href = "/"; }, 1000);
+        }
+      }
+
 
     return (
         <>
@@ -45,6 +59,12 @@ function NavBar() {
                     <NavDropdown.Divider />
                     <NavDropdown.Item href="#">
                         <div className="sign-out-link">Sign out</div>
+                        {/* <LinkContainer to="#" exact>
+                            Sign out
+                        </LinkContainer> */}
+                    </NavDropdown.Item>
+                    <NavDropdown.Item href="#">
+                        <div className="sign-out-link" onClick={() => handleDelete(userId)}>Delete Account</div>
                         {/* <LinkContainer to="#" exact>
                             Sign out
                         </LinkContainer> */}
