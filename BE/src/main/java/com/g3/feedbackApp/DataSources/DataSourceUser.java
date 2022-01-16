@@ -25,10 +25,6 @@ public class DataSourceUser implements IDataSourceUser {
         return userRepository.findAll();
     }
 
-    public UserModel getUserByEmail(String email){
-        return userRepository.getUserModelByEmail(email);
-    }
-
     @Override
     public boolean deleteUserModel(Long studentNr) {
         UserModel user = userRepository.getUserModelByStudentNr(studentNr);

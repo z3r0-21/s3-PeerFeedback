@@ -11,5 +11,4 @@ public interface IDataSourceUser {
     public boolean deleteUserModel(Long studentNr);
     public boolean addUserModel(UserModel userModel);
     public boolean updateUserModel(UserModel userModel);
-    public UserModel getUserByEmail(String email);
 }

@@ -35,6 +35,13 @@ function ViewPosts() {
     }).catch(e => {
       console.log(e);
     })
+
+    axios.post(
+      urls.baseURL + 'users',
+      {
+        studentNr: localStorage.getItem('user'),
+        username: localStorage.getItem('username')
+      })
   }
 
   const setUserId = (userId) => {

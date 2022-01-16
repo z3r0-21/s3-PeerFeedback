@@ -49,12 +49,6 @@ public class UserService implements IUserService {
         return availableUsersEditPost;
     }
 
-
-    @Override
-    public UserModel getUserByEmail(String email) {
-        return userData.getUserByEmail(email);
-    }
-
     @Override
     public boolean deleteUserModel(Long pcn) {
         return userData.deleteUserModel(pcn);

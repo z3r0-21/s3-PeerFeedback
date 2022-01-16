@@ -21,7 +21,7 @@ public class UserServiceFakeTest {
 
     @BeforeEach
     void setUp(){
-        user = new UserModel("Maarten", "Hormes", "Martie", "maarten@gmail.com");
+        user = new UserModel(1L,"Maarten");
         userService.addUserModel(user);
     }
 
@@ -33,13 +33,6 @@ public class UserServiceFakeTest {
     @Test
     void getUserByStudentNmr(){
         UserModel model = userService.getUserByStudentNr(user.getStudentNr());
-
-        Assertions.assertEquals(user, model);
-    }
-
-    @Test
-    void getUserByEmail(){
-        UserModel model = userService.getUserByEmail(user.getEmail());
 
         Assertions.assertEquals(user, model);
     }
