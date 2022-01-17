@@ -27,8 +27,8 @@ function ViewPosts() {
       console.log("here");
       var userId = hashString(String(res.data))
       setUserId(userId);
-
-      //set username
+      
+      //set usernasme
       var parts = String(res.data).split("@")
       var username = parts[0];
       setUsername(username);

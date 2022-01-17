@@ -9,7 +9,7 @@ function SelectedReviewer({reviewer, handleRemoveReviewer}) {
 
     return (
         <div className="reviewer">
-            <span className="reviewer-email">{reviewer.id} {reviewer.email} </span>
+            <span className="reviewer-email">{reviewer.username} </span>
             <span onClick={handleClick} className="remove-reviewer"><i class="fas fa-window-close"></i></span>
         </div>
     );

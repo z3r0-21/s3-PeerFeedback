@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {Form, Button, InputGroup, FormControl} from "react-bootstrap";
+import React, { useState, useEffect } from 'react';
+import { Form, Button, InputGroup, FormControl } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SelectedReviewer from './SelectedReviewer';
 import axios from 'axios';
@@ -10,7 +10,7 @@ const client = axios.create({
 });
 
 
-function SelectReviewers({addReviewerId, removeReviewerId, postId, editPost}) {
+function SelectReviewers({ addReviewerId, removeReviewerId, postId, editPost }) {
     const [started, setStarted] = useState(false);
     const [users, setUsers] = useState([]);
 
@@ -30,14 +30,13 @@ function SelectReviewers({addReviewerId, removeReviewerId, postId, editPost}) {
     useEffect(() => {
         console.log("Post id: ", postId);
         getAssignedReviewers(postId);
-        setTimeout(function() {
+        setTimeout(function () {
             setUserID(localStorage.getItem("user"));
             console.log("EditPost", editPost);
-            if(editPost)
-            {
+            if (editPost) {
                 retrieveUsersEditPost(parseInt(localStorage.getItem("user")), postId);
             }
-            else{
+            else {
                 retrieveUsers(parseInt(localStorage.getItem("user")));
             }
 
@@ -48,26 +47,29 @@ function SelectReviewers({addReviewerId, removeReviewerId, postId, editPost}) {
 
     function getAssignedReviewers(postId) {
         axios.get(urls.baseURL + "reviewers/asUsers", { params: { postId: postId } })
-        .then((response) => {
-            console.log("Reviewers as users: ", response.data);
-            
-            setReviewers(response.data);
-            setReviewersIds(response);
-            // response.data.forEach(user => {
-            //     console.log("User", user);
-            //     addReviewerId(user.studentNr);
-            // });
-        }).catch((e) => console.log(e));
+            .then((response) => {
+                console.log("Reviewers as users: ", response.data);
+
+                setReviewers(response.data);
+                setReviewersIds(response);
+                // response.data.forEach(user => {
+                //     console.log("User", user);
+                //     addReviewerId(user.studentNr);
+                // });
+            }).catch((e) => console.log(e));
     }
 
     useEffect(() => {
         //console.log(users);
-        const results = users.filter(user =>
-          user.email.split("@")[0].toLowerCase().includes(input)
-        );
-        if(input !== ""){
+        let results = [];
+        if (users) {
+            results = users.filter(user =>
+                user.username
+            );
+        }
+        if (input !== "") {
             setSearchResults(results);
-        }else{
+        } else {
             setSearchResults([]);
         }
 
@@ -75,12 +77,12 @@ function SelectReviewers({addReviewerId, removeReviewerId, postId, editPost}) {
 
     function retrieveUsers(userId) {
         client.get("/users", { params: { userId: userId } })
-        .then((response) => {
-            setUsers(response.data);
-        })
-        .catch((e) => {
-            console.log(e);
-        })
+            .then((response) => {
+                setUsers(response.data);
+            })
+            .catch((e) => {
+                console.log(e);
+            })
     }
 
     function retrieveUsersEditPost(userId, postId) {
@@ -123,7 +125,7 @@ function SelectReviewers({addReviewerId, removeReviewerId, postId, editPost}) {
         setUsers([...users, reviewer]);
     }
 
-    
+
     // const addReviewers = () => {
     //     console.log(reviewersIds);
     //     saveReviewers(reviewersIds);
@@ -131,20 +133,20 @@ function SelectReviewers({addReviewerId, removeReviewerId, postId, editPost}) {
 
     return (
         <>
-        {/* {users.map((u) => (
+            {/* {users.map((u) => (
             <div>{u.email}</div>
         ))} */}
-         
+
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label className="create-post-lb">Add reviewers</Form.Label>
                 <InputGroup className="mb-3">
                     <FormControl
-                    
-                    placeholder="Select searchResults..."
-                    aria-label="Select searchResults..."
-                    aria-describedby="basic-addon2"
-                    onChange={handleInputChange}
-                    value={input}
+
+                        placeholder="Select searchResults..."
+                        aria-label="Select searchResults..."
+                        aria-describedby="basic-addon2"
+                        onChange={handleInputChange}
+                        value={input}
                     />
                     <InputGroup.Text id="basic-addon2">@student.fontys.nl</InputGroup.Text>
                 </InputGroup>
@@ -159,12 +161,12 @@ function SelectReviewers({addReviewerId, removeReviewerId, postId, editPost}) {
             {/* <Button variant="secondary" onClick={addReviewers}>
                 Save reviewers
             </Button> */}
-          
-        {reviewers.map((reviewer) => (
-            <div key={reviewer.studentNr} className="reviewers">
-                <SelectedReviewer reviewer={reviewer} handleRemoveReviewer={removeReviewer}/>
-            </div>
-        ))}
+
+            {reviewers.map((reviewer) => (
+                <div key={reviewer.studentNr} className="reviewers">
+                    <SelectedReviewer reviewer={reviewer} handleRemoveReviewer={removeReviewer} />
+                </div>
+            ))}
 
         </>
     );
