@@ -8,6 +8,7 @@ import Router from "./Router";
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import Cookies from 'universal-cookie';
+import * as urls from "./../URL"
 
 function NavBar() {
     const [username, setUsername] = useState();
@@ -17,6 +18,9 @@ function NavBar() {
         setTimeout(function () {
             const localStorageUsername = localStorage.getItem("username")
             setUsername(localStorageUsername);
+
+            const localStorageUserId = localStorage.getItem("user")
+            setUserId(localStorageUserId);
         }, 500);
     }, [])
 
@@ -24,19 +28,17 @@ function NavBar() {
 
         console.log(userId)
         if (window.confirm('Are you sure to delete this profile?')) {
-            axios.delete(`http://localhost:8080/users/${userId}`)
+            console.log("User id: ", userId);
+            axios.delete(`${urls.baseURL}/users/${userId}`)
 
             toast("The profile has been deleted")
-            setTimeout(() => { window.location.href = "/"; }, 1000);
+            window.location.href="https://login.windows.net/common/oauth2/logout";
+            
         }
     }
 
     const handleSignOut = () => {
-        const cookies = new Cookies();
-        cookies.remove('ARRAffinitySameSite', { path: '/' });
-        cookies.remove('AppServiceAuthSession', { path: '/' });
-        cookies.remove('ARRAffinity', { path: '/' });
-        setTimeout(() => { window.location.href = "/"; }, 1000);
+        window.location.href="https://login.windows.net/common/oauth2/logout";
     }
 
     return (
@@ -66,7 +68,7 @@ function NavBar() {
                                     <NavDropdown.Item >{username}</NavDropdown.Item>
                                     <NavDropdown.Divider />
                                     <NavDropdown.Item href="#">
-                                        <div className="sign-out-link" onClick={() => handleSignOut}>Sign out</div>
+                                        <div className="sign-out-link" onClick={handleSignOut}>Sign out</div>
                                         {/* <LinkContainer to="#" exact>
                             Sign out
                         </LinkContainer> */}

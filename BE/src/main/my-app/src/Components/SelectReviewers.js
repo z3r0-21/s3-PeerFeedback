@@ -153,7 +153,7 @@ function SelectReviewers({ addReviewerId, removeReviewerId, postId, editPost }) 
             </Form.Group>
             {searchResults.map((user) => (
                 <div key={user.studentNr} className="searchResults">
-                    <span className="reviewer-email">{user.email}</span>
+                    <span className="reviewer-email">{user.username}</span>
                     <span onClick={() => addReviewer(user)} className="add-reviewer"><i class="fas fa-plus-circle"></i></span>
                 </div>
             ))}
