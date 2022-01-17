@@ -6,4 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface IPostRepository extends JpaRepository<PostModel, Long> {
 
     PostModel getFirstByPostId(Long id);
+    void deleteAllByIdOP(int idOp);
 }
