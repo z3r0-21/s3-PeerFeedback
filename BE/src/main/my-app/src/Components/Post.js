@@ -76,7 +76,7 @@ function Post(props) {
     
         console.log(post)
         if (window.confirm('Are you sure to delete this post?')){
-          axios.delete(`${urls.baseURL}post/${post.postId}`)
+          axios.delete(`${urls.baseURL}deleteData/post/${post.postId}`)
     
           toast("The post has been deleted")
           setTimeout(() => { window.location.href = "/"; }, 1000);

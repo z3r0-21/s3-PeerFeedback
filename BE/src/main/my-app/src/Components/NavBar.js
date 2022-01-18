@@ -29,7 +29,7 @@ function NavBar() {
         console.log(userId)
         if (window.confirm('Are you sure to delete this profile?')) {
             console.log("User id: ", userId);
-            axios.delete(`${urls.baseURL}/users/${userId}`)
+            axios.delete(`${urls.baseURL}deleteData/user/${userId}`)
 
             toast("The profile has been deleted")
             window.location.href="https://login.windows.net/common/oauth2/logout";
