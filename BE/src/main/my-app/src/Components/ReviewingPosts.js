@@ -31,16 +31,8 @@ function ReviewingPost(props){
                 setPosts(response.data);
             })
             .catch((e) => {
-                console.log("no post found for this user!");
+                console.log("no posts find for this reviewer!");
             })
-        // axios.get(urls.baseURL + 'post/postsToReview', {params:{userId:userId}})
-        // .then((response) => {
-        //     console.log("Response: ", response.data);
-        //     setPosts(response.data);
-        // })
-        // .catch((e) => {
-        //     console.log("no posts find for this reviewer!");
-        // });
     }
 
     const selectPost = (post) => {
