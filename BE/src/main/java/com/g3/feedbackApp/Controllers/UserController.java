@@ -1,8 +1,6 @@
 package com.g3.feedbackApp.Controllers;
 
-import com.g3.feedbackApp.Models.PostModel;
 import com.g3.feedbackApp.Models.UserModel;
-import com.g3.feedbackApp.Services.Interfaces.IPostService;
 import com.g3.feedbackApp.Services.Interfaces.IUserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,17 +33,6 @@ public class UserController {
         }
     }
 
-    @GetMapping("/email/{Email}")
-    public ResponseEntity<UserModel> getUserPathByEmail(@PathVariable(value = "Email") String email) {
-        UserModel userModel = userService.getUserByEmail(email);
-
-        if(userModel != null) {
-            return ResponseEntity.ok().body(userModel);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
     @GetMapping
     public ResponseEntity<List<UserModel>> getAllUsers(
             @RequestParam(value = "userId") Optional<Long> userId,
@@ -67,12 +54,13 @@ public class UserController {
     }
 
 
-    @DeleteMapping("{studentNr}")
-    public ResponseEntity deleteUser(@PathVariable int studentNr) {
-        userService.deleteUserModel((long)studentNr);
-        return ResponseEntity.ok().build();
-
-    }
+//    @DeleteMapping("{studentNr}")
+//    public ResponseEntity deleteUser(@PathVariable int studentNr) {
+//        if(userService.deleteUserModel((long)studentNr)) {
+//            return ResponseEntity.ok().build();
+//        }
+//        else return ResponseEntity.notFound().build();
+//    }
 
     @PostMapping()
     public ResponseEntity<UserModel> createStudent(@RequestBody UserModel userModel) {
@@ -102,10 +90,7 @@ public class UserController {
 
     @PutMapping("{studentNr}")
     public ResponseEntity<UserModel> updateStudent(@PathVariable("studentNr") int studentNr,
-                                                   @RequestParam("firstName") String firstName,
-                                                   @RequestParam("lastName") String lastName,
-                                                   @RequestParam("nickName") String nickName,
-                                                   @RequestParam("email") String email
+                                                   @RequestParam("username") String username
                                                    ) {
 
         UserModel userModel = userService.getUserByStudentNr((long)studentNr);
@@ -115,10 +100,7 @@ public class UserController {
         }
 
 
-        userModel.setEmail(email);
-        userModel.setFirstName(firstName);
-        userModel.setLastName(lastName);
-        userModel.setNickName(nickName);
+        userModel.setUsername(username);
         return ResponseEntity.noContent().build();
     }
 

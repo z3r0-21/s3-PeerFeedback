@@ -15,6 +15,8 @@ public interface IDataSourcePost {
 
     boolean createVersion(Long versionId, Long postId, String fileString);
 
+    void deleteAllVersionsByPostId(Long postId);
+
     boolean assignReviewers(List<Long> reviewersIds, Long postId);
 
     void removeAllReviewers(Long postId);
@@ -29,4 +31,8 @@ public interface IDataSourcePost {
 
     List<Long> getReviewersIdsForPost(int postId);
     List<ReviewerModel> getReviewersForPost(int postId);
+
+    boolean deletePostModel(Long postId);
+
+    List<PostModel> getAllByIdOp(Long idOP);
 }

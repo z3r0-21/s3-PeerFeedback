@@ -10,4 +10,6 @@ public interface IVersionRepository extends JpaRepository<VersionModel, Long> {
     VersionModel getFirstByVersionId(Long id);
 
     List<VersionModel> getVersionModelsByPostId(Long id);
+
+    void deleteAllByPostId(Long postId);
 }

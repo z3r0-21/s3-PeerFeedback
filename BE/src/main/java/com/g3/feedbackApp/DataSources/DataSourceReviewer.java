@@ -54,4 +54,9 @@ public class DataSourceReviewer implements IDataSourceReviewer {
         old.setUserId(reviewer.getUserId());
         return true;
     }
+
+    @Override
+    public void deleteAllReviewersByPostId(Long postId) {
+        reviewerRepository.deleteAllByPostId(postId);
+    }
 }

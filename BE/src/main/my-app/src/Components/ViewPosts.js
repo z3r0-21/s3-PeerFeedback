@@ -14,7 +14,9 @@ function ViewPosts() {
   let history = useHistory();
 
   useEffect(() => {
-      //localStorage.setItem("user", 2);
+
+      // localStorage.setItem("user", -1);
+      // localStorage.setItem("username", "abu");
       getMyId();
 
   }, []);
@@ -27,14 +29,21 @@ function ViewPosts() {
       console.log("here");
       var userId = hashString(String(res.data))
       setUserId(userId);
-
-      //set username
+      
+      //set usernasme
       var parts = String(res.data).split("@")
       var username = parts[0];
       setUsername(username);
     }).catch(e => {
       console.log(e);
     })
+
+    axios.post(
+      urls.baseURL + 'users',
+      {
+        studentNr: localStorage.getItem('user'),
+        username: localStorage.getItem('username')
+      })
   }
 
   const setUserId = (userId) => {

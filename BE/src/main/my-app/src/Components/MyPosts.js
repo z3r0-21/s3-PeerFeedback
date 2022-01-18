@@ -1,25 +1,22 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { ListGroup } from 'react-bootstrap';
-import  "./css/ViewPosts.scss";
+import "./css/ViewPosts.scss";
 import axios from "axios";
 import { Link } from 'react-router-dom';
 import * as urls from "./../URL"
 
-
-
-function MyPosts(props){
+function MyPosts(props) {
 
     const [myPosts, setMyPosts] = useState([]);
 
     useEffect(() => {
-        if(props.location)
-        {
-            if(props.location.state.createdPost){
+        if (props.location) {
+            if (props.location.state.createdPost) {
                 setMyPosts([...myPosts, props.location.state.createdPost]);
             }
-            else{
+            else {
                 const updatedPostList = myPosts.map((post) => {
-                    if(post.postId === props.location.state.updatedPostList.postId){
+                    if (post.postId === props.location.state.updatedPostList.postId) {
                         post.title = props.location.state.updatedPostList.title;
                         post.category = props.location.state.updatedPostList.category;
                         post.description = props.location.state.updatedPostList.description;
@@ -27,29 +24,29 @@ function MyPosts(props){
                     }
                 })
             }
-            
-        }
-        
 
-        
+        }
+
+
+
         //const userId = 1;
-        setTimeout(function() {
+        setTimeout(function () {
             const userId = localStorage.getItem("user")
             console.log(userId)
             getMyPosts(userId);
         }, 500);
-        
+
     }, []);
 
     function getMyPosts(idOP) {
         // get my posts with GET request from the API
         axios.get(urls.baseURL + 'post', { params: { idOP: idOP } }).
-        then((response) => {
-            setMyPosts(response.data);
-        })
-        .catch((e) => {
-            console.log("no post found for this user!");
-        })
+            then((response) => {
+                setMyPosts(response.data);
+            })
+            .catch((e) => {
+                console.log("no post found for this user!");
+            })
     }
 
 
@@ -57,36 +54,35 @@ function MyPosts(props){
         props.openSelectedPost(post);
     }
 
-    return(
+    return (
         <>
             <ListGroup>
                 {myPosts.length > 0 ? (
                     myPosts.map((post) => (
-                        <Link to={{ 
+                        <Link to={{
                             pathname: "/fe/selectedPost",
-                            state: post.postId 
-                           }}
-                           className="text-decoration-none">
-                        <ListGroup.Item className="activePost" key={post} onClick={() => selectPost(post)}>
-                            <div className="postTitle">{post.title}</div>
-                            <div className="postDate post-info">Posted on: {post.postDate}</div>
-                            <div className="resolveDate post-info">
-                                {post.resolveDate === "" ? 
-                                <div>Resolved on: {post.resolveDate}</div>
-                                :
-                                (
-                                <div>Not resolved</div>
-                                )}
-                            </div>
-                            
-                        </ListGroup.Item>
+                            state: post.postId
+                        }}
+                            className="text-decoration-none">
+                            <ListGroup.Item className="activePost" key={post} onClick={() => selectPost(post)}>
+                                <div className="postTitle">{post.title}</div>
+                                <div className="postDate post-info">Posted on: {post.postDate}</div>
+                                <div className="resolveDate post-info">
+                                    {post.resolveDate === "" ?
+                                        <div>Resolved on: {post.resolveDate}</div>
+                                        :
+                                        (
+                                            <div>Not resolved</div>
+                                        )}
+                                </div>
+                            </ListGroup.Item>
                         </Link>
                     ))
-                ) : 
-                (
-                    <p>You do not have any created posts</p>
-                )}
-                
+                ) :
+                    (
+                        <p>You do not have any created posts</p>
+                    )}
+
             </ListGroup>
         </>
     )

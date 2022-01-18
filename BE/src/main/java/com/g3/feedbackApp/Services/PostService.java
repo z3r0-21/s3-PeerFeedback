@@ -1,5 +1,6 @@
 package com.g3.feedbackApp.Services;
 
+import com.g3.feedbackApp.DataSources.Interfaces.IDataSourceComment;
 import com.g3.feedbackApp.DataSources.Interfaces.IDataSourcePost;
 import com.g3.feedbackApp.DataSources.Interfaces.IDataSourceReviewer;
 import com.g3.feedbackApp.DataSources.Interfaces.IDataSourceUser;
@@ -11,6 +12,7 @@ import com.g3.feedbackApp.Services.Interfaces.IPostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -26,6 +28,9 @@ public class PostService implements IPostService {
 
     @Autowired
     private IDataSourceReviewer dataSourceReviewers;
+
+    @Autowired
+    private IDataSourceComment dataSourceComments;
 
     @Override
     public Boolean createPost(PostModel postModel, String filePath, List<Long> reviewersIds) {
@@ -63,6 +68,12 @@ public class PostService implements IPostService {
             lastId = datasource.getVersionsForPost(postId).get(versionsListSize - 1).getVersionCounter();
         }
         return datasource.createVersion(lastId + 1, postId, filePath);
+    }
+
+    @Override
+    @Transactional
+    public void deleteAllVersionsByPostId(Long postId) {
+        datasource.deleteAllVersionsByPostId(postId);
     }
 
 
@@ -124,6 +135,25 @@ public class PostService implements IPostService {
         // all users - op - currently assigned reviewers
 
         return null;
+    }
+
+    @Override
+    public boolean deletePostModel(Long postId) {
+        return datasource.deletePostModel(postId);
+    }
+
+    @Override
+    @Transactional
+    public void deleteAllCommentsByPostId(Long postId) {
+        List<VersionModel> versions = getVersionsForPost(postId);
+        for (int i = 0; i < versions.size(); i++) {
+            dataSourceComments.deleteAllByVersionId(versions.get(i).getVersionId());
+        }
+    }
+
+    @Override
+    public List<PostModel> getAllPostsByIdOp(Long idOp) {
+        return datasource.getAllByIdOp(idOp);
     }
 
 }

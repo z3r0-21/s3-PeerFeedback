@@ -15,22 +15,13 @@ import java.util.Objects;
 public class UserModel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long studentNr;
-    @Column(name = "firstName")
-    private String firstName;
-    @Column(name = "lastName")
-    private String lastName;
-    @Column(name = "nickName")
-    private String nickName;
-    @Column(name = "email")
-    private String email;
+    @Column(name = "username")
+    private String username;
 
-    public UserModel(String firstName, String lastName, String nickName, String email) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.nickName = nickName;
-        this.email = email;
+    public UserModel(Long studentNr, String username) {
+        this.studentNr = studentNr;
+        this.username = username;
     }
 
     @Override
@@ -38,11 +29,11 @@ public class UserModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserModel userModel = (UserModel) o;
-        return studentNr == userModel.studentNr && Objects.equals(firstName, userModel.firstName) && Objects.equals(lastName, userModel.lastName) && Objects.equals(nickName, userModel.nickName) && Objects.equals(email, userModel.email);
+        return studentNr == userModel.studentNr && Objects.equals(username, userModel.username);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(studentNr, firstName, lastName, nickName, email);
+        return Objects.hash(studentNr, username);
     }
 }

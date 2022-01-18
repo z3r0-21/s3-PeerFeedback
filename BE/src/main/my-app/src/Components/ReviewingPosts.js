@@ -14,19 +14,25 @@ function ReviewingPost(props){
         {
             setPosts([...posts, props.location.state.createdPost]);
         }
-        const userId = localStorage.getItem("user")
-        getPosts(userId);
+        
+
+        setTimeout(function () {
+            const userId = localStorage.getItem("user");
+            console.log("User id: ", userId);
+            getPosts(userId);
+        }, 500);
     },[]
     )
 
-    function getPosts(userId){
-        axios.get(urls.baseURL + 'post/postsToReview', {params:{userId:userId}}).
-        then((response) => {
-            setPosts(response.data);
-        })
-        .catch((e) => {
-            console.log("no posts find for this reviewer!");
-        });
+    function getPosts(idOP){
+        console.log(idOP);
+        axios.get(urls.baseURL + 'post/postsToReview', { params: { userId: idOP } }).
+            then((response) => {
+                setPosts(response.data);
+            })
+            .catch((e) => {
+                console.log("no posts find for this reviewer!");
+            })
     }
 
     const selectPost = (post) => {
