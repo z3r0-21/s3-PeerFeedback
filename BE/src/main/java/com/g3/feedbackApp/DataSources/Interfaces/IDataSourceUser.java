@@ -6,10 +6,9 @@ import java.util.List;
 
 public interface IDataSourceUser {
 
-    public UserModel getUserByStudentNr(int studentNr);
+    public UserModel getUserByStudentNr(Long studentNr);
     public List<UserModel> getUserModels();
-    public boolean deleteUserModel(int studentNr);
+    public boolean deleteUserModel(Long studentNr);
     public boolean addUserModel(UserModel userModel);
     public boolean updateUserModel(UserModel userModel);
-    public UserModel getUserByEmail(String email);
 }

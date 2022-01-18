@@ -6,8 +6,9 @@ import java.util.List;
 
 public interface ICommentService {
 
-    boolean createComment(CommentModel commentModel);
+    CommentModel createComment(CommentModel commentModel);
     List<CommentModel> getComments();
-    CommentModel getCommentWithId(int commentId);
-    List<CommentModel> getCommentsWithVersionId(int versionId);
+    CommentModel getCommentWithId(Long commentId);
+    List<CommentModel> getCommentsWithVersionId(Long versionId);
+
 }

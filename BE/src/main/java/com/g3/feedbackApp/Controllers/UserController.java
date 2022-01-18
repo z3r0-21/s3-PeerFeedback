@@ -1,19 +1,17 @@
 package com.g3.feedbackApp.Controllers;
 
-import com.g3.feedbackApp.DataSources.FakeDataSourceUser;
 import com.g3.feedbackApp.Models.UserModel;
 import com.g3.feedbackApp.Services.Interfaces.IUserService;
-import com.g3.feedbackApp.Services.ReviewerService;
-import com.g3.feedbackApp.Services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin("*")
 @RequestMapping("/users")
 
 public class UserController {
@@ -26,18 +24,7 @@ public class UserController {
 
     @GetMapping("{studentNr}")
     public ResponseEntity<UserModel> getUserPath(@PathVariable(value = "studentNr") int studentNr) {
-        UserModel userModel = userService.getUserByStudentNr(studentNr);
-
-        if(userModel != null) {
-            return ResponseEntity.ok().body(userModel);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    @GetMapping("/email/{Email}")
-    public ResponseEntity<UserModel> getUserPathByEmail(@PathVariable(value = "Email") String email) {
-        UserModel userModel = userService.getUserByEmail(email);
+        UserModel userModel = userService.getUserByStudentNr((long)studentNr);
 
         if(userModel != null) {
             return ResponseEntity.ok().body(userModel);
@@ -47,23 +34,33 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<List<UserModel>> getAllUsers() {
-
-        List<UserModel> userModels = userService.getUserModels();
-
-        if(userModels != null) {
-            return ResponseEntity.ok().body(userModels);
-        } else {
-            return ResponseEntity.notFound().build();
+    public ResponseEntity<List<UserModel>> getAllUsers(
+            @RequestParam(value = "userId") Optional<Long> userId,
+            @RequestParam(value = "postId") Optional<Long> postId) {
+        List<UserModel> userModels = null;
+        if(userId.isPresent()) {
+            if(postId.isPresent())
+            {
+                userModels = userService.getAvailableUsersEditPost(postId.get(), userId.get());
+            }
+            else {
+                userModels = userService.getAvailableUsersNewPost(userId.get());
+            }
         }
+        else{
+            userModels = userService.getUserModels();
+        }
+        return ResponseEntity.ok().body(userModels);
     }
 
-    @DeleteMapping("{studentNr}")
-    public ResponseEntity deletePost(@PathVariable int studentNr) {
-        userService.deleteUserModel(studentNr);
-        return ResponseEntity.ok().build();
 
-    }
+//    @DeleteMapping("{studentNr}")
+//    public ResponseEntity deleteUser(@PathVariable int studentNr) {
+//        if(userService.deleteUserModel((long)studentNr)) {
+//            return ResponseEntity.ok().build();
+//        }
+//        else return ResponseEntity.notFound().build();
+//    }
 
     @PostMapping()
     public ResponseEntity<UserModel> createStudent(@RequestBody UserModel userModel) {
@@ -93,23 +90,22 @@ public class UserController {
 
     @PutMapping("{studentNr}")
     public ResponseEntity<UserModel> updateStudent(@PathVariable("studentNr") int studentNr,
-                                                   @RequestParam("firstName") String firstName,
-                                                   @RequestParam("lastName") String lastName,
-                                                   @RequestParam("nickName") String nickName,
-                                                   @RequestParam("email") String email
+                                                   @RequestParam("username") String username
                                                    ) {
 
-        UserModel userModel = userService.getUserByStudentNr(studentNr);
+        UserModel userModel = userService.getUserByStudentNr((long)studentNr);
 
         if (userModel == null){
             return new ResponseEntity("Please provide a valid student number.",HttpStatus.NOT_FOUND);
         }
 
 
-        userModel.setEmail(email);
-        userModel.setFirstName(firstName);
-        userModel.setLastName(lastName);
-        userModel.setNickName(nickName);
+        userModel.setUsername(username);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/identity")
+    public ResponseEntity<String> getMyAccount(@RequestHeader("x-ms-client-principal-name") String name){
+        return ResponseEntity.ok().body(name);
     }
 }

@@ -6,8 +6,9 @@ import java.util.List;
 
 public interface IDataSourceComment {
 
-    boolean createComment(CommentModel commentModel);
-    CommentModel getCommentWithID(int ID);
-    List<CommentModel> getCommentsWithVersionID(int ID);
+    CommentModel createComment(CommentModel commentModel);
+    CommentModel getCommentWithID(Long ID);
+    List<CommentModel> getCommentsWithVersionID(Long ID);
     List<CommentModel> getComments();
+    void deleteAllByVersionId(Long versionId);
 }

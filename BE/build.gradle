@@ -2,6 +2,8 @@ plugins {
 	id 'org.springframework.boot' version '2.5.4'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+	id 'jacoco'
+	id 'com.moowork.node' version '1.3.1'
 }
 
 group = 'com.g3'
@@ -20,12 +22,95 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.apache.commons:commons-io:1.3.2'
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
+    implementation 'org.modelmapper:modelmapper-module-jsr310:1.2.2'
+	implementation 'org.modelmapper:modelmapper-module-java8:1.2.2'
+    implementation 'org.seedstack.addons.modelmapper:modelmapper:1.0.0'
+    implementation 'com.github.jmnarloch:modelmapper-spring-boot-starter:1.1.0'
+    implementation 'io.github.yoshikawaa.modelmapper.spring.boot:modelmapper-spring-boot:0.1.0'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'com.h2database:h2'
+	runtimeOnly 'com.microsoft.sqlserver:mssql-jdbc'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 }
 
 test {
 	useJUnitPlatform()
 }
+
+jacocoTestReport {
+	reports {
+		dependsOn test
+		xml.enabled true
+		csv.enabled false
+		html.enabled true
+	}
+
+	afterEvaluate {
+		afterEvaluate {
+			classDirectories.setFrom(files(classDirectories.files.collect {
+				fileTree(dir: it, exclude: ['**/com/g3/feedbackApp/Controllers/*',
+											'**/com/g3/feedbackApp/Models/Converters/*',
+											'**/com/g3/feedbackApp/Models/DTOS/*'])
+			}))
+		}
+	}
+}
+
+test.finalizedBy jacocoTestReport
+
+//node {
+//	//Version of node to use.
+//	version = '12.16.3'
+//
+//	// Version of npm to use.
+//	npmVersion = '6.14.4'
+//
+//	 //Base URL for fetching node distributions (change if you have a mirror).
+//	 distBaseUrl = 'https://nodejs.org/dist'
+//
+//	 //If true, it will download node using above parameters.
+//	 //If false, it will try to use globally installed node.
+//	download = false
+//
+//	 //Set the work directory for unpacking node
+//	workDir = file("${project.buildDir}/src/main/my-app/nodejs")
+//
+//	 //Set the work directory for NPM
+//	npmWorkDir = file("${project.buildDir}/src/main/my-app/npm")
+//
+//	 //Set the work directory where node_modules should be located
+//	nodeModulesDir = file("${project.projectDir}/src/main/my-app")
+//}
+//
+//task npmInstallDependencies(type: NpmTask) {
+//	dependsOn 'npmSetup'
+//	execOverrides {
+//		it.ignoreExitValue = true
+//		it.workingDir = 'src/main/my-app'
+//	}
+//	args = ['install']
+//}
+//
+//task npmBuild(type: NpmTask) {
+//	dependsOn 'npmInstallDependencies'
+//	execOverrides {
+//		it.workingDir = 'src/main/my-app'
+//	}
+//	args = ['run', 'build']
+//}
+//
+//task copyMyapptoBuild(type: Copy) {
+//	dependsOn 'npmBuild'
+//	from "$projectDir/src/main/my-app/build/"
+//	into "$buildDir/resources/main/static"
+//}
+//
+//processResources {
+//	dependsOn 'copyMyapptoBuild'
+//}

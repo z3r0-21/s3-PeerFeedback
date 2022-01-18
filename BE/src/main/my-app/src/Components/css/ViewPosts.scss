@@ -1,0 +1,43 @@
+
+.posts-tabs {
+    height: 100%;
+    overflow-x: scroll;
+    margin-block: 2%;
+    margin-inline: 2%;
+}
+.activePost:hover{
+    background-color: rgba(200, 28, 255, 0.1);
+}
+
+.viewPosts button {
+    border: none;
+}
+
+.viewPosts .nav-link.active {
+    background-color: rgba(83, 31, 185, 0.5);
+    color: white;
+    font-weight: 700;
+}
+
+.viewPosts li {
+    width: 50%;
+}
+.viewPosts .nav-link {
+    width: 100%;
+    border: 1px solid black;
+}
+
+.postTitle {
+    font-size: 20px;
+    font-weight: 500;
+    border-bottom: 2px solid black;
+    margin-block: 5px;
+    padding-bottom: 3px;
+}
+
+.post-info {
+    font-size: 12px;
+}
+.postDate {
+    margin-right: 20px;
+}

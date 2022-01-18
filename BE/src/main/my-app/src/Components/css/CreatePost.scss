@@ -1,0 +1,29 @@
+.create-post-form {
+    border: 5px solid purple;
+    padding: 30px;
+    width: 70%;
+    display: block;
+    margin-inline: auto;
+    margin-block: 50px;
+}
+
+.create-post-lb {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.searchResults, .reviewer {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.reviewer-email {
+    margin-right: 10px;
+    
+    font-weight: 500;
+    font-family:sans-serif;
+}
+
+.add-reviewer, .remove-reviewer {
+    color: purple;
+}

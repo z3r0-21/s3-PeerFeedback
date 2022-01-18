@@ -13,12 +13,12 @@ import java.util.Map;
 
 
 @RestController
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin("*")
 @RequestMapping("/comments")
 public class CommentController {
 
-    private ICommentService commentService;
-    private CommentConverter commentConverter;
+    private final ICommentService commentService;
+    private final CommentConverter commentConverter;
 
     public CommentController(ICommentService commentService) {
 
@@ -30,7 +30,7 @@ public class CommentController {
     //POST at http://localhost:XXXX/comments/
     public ResponseEntity<CommentDTO> createComment(@RequestBody CommentDTO commentDTO) {
         CommentModel commentModel = commentConverter.convertCommentDTOToCommentModel(commentDTO);
-        if (commentService.createComment(commentModel)) {
+        if (commentService.createComment(commentModel) != null) {
             CommentDTO commentDTO1 = commentConverter.convertCommentModelToCommentDTO(commentModel);
             return ResponseEntity.ok().body(commentDTO1);
         }
@@ -40,7 +40,7 @@ public class CommentController {
 
     @GetMapping("{id}")
     public ResponseEntity<CommentDTO> getCommentWithId(@PathVariable(value = "id") int id) {
-        CommentModel modelToGet = commentService.getCommentWithId(id);
+        CommentModel modelToGet = commentService.getCommentWithId((long)id);
         CommentDTO dtoToReturn = commentConverter.convertCommentModelToCommentDTO(modelToGet);
 
         if (modelToGet != null) {
@@ -52,7 +52,7 @@ public class CommentController {
 
     @GetMapping("/version/{id}")
     public ResponseEntity<List<CommentModel>> getCommentWithVersionId(@PathVariable(value = "id") int id) {
-        List<CommentModel> comments = commentService.getCommentsWithVersionId(id);
+        List<CommentModel> comments = commentService.getCommentsWithVersionId((long) id);
 
 
         if (comments != null) {

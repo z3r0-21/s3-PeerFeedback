@@ -1,28 +1,27 @@
 package com.g3.feedbackApp.Models;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.util.Objects;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@Entity
+@Table(name ="userTable")
 public class UserModel {
 
+    @Id
+    private Long studentNr;
+    @Column(name = "username")
+    private String username;
 
-    private int studentNr;
-    private String firstName;
-    private String lastName;
-    private String nickName;
-    private String email;
-
-    public UserModel(int studentNr, String firstName, String lastName, String nickName, String email) {
-
+    public UserModel(Long studentNr, String username) {
         this.studentNr = studentNr;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.nickName = nickName;
-        this.email = email;
+        this.username = username;
     }
 
     @Override
@@ -30,11 +29,11 @@ public class UserModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserModel userModel = (UserModel) o;
-        return studentNr == userModel.studentNr && Objects.equals(firstName, userModel.firstName) && Objects.equals(lastName, userModel.lastName) && Objects.equals(nickName, userModel.nickName) && Objects.equals(email, userModel.email);
+        return studentNr == userModel.studentNr && Objects.equals(username, userModel.username);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(studentNr, firstName, lastName, nickName, email);
+        return Objects.hash(studentNr, username);
     }
 }

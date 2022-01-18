@@ -13,6 +13,7 @@ import java.util.LongSummaryStatistics;
 
 @Setter
 @Getter
+@NoArgsConstructor
 public class PostDTO {
 
     private Long postId;
@@ -22,8 +23,7 @@ public class PostDTO {
     private String description;
     private LocalDate postDate;
     private LocalDate resolveDate;
-    private Path filePath;
-    private MultipartFile uploadedFile;
+    private String filePath;
     private List<VersionModel> versions;
     private List<Long> reviewersIds;
 

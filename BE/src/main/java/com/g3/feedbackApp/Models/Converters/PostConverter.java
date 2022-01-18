@@ -9,7 +9,7 @@ import java.util.List;
 public class PostConverter {
 
     public PostModel convertPostDTOWithoutIdToPostModel(PostDTO postDTO){
-        return new PostModel(0L, postDTO.getIdOP(), postDTO.getTitle(), postDTO.getCategory(), postDTO.getDescription(), postDTO.getPostDate(), postDTO.getResolveDate());
+        return new PostModel(postDTO.getIdOP(), postDTO.getTitle(), postDTO.getCategory(), postDTO.getDescription(), postDTO.getPostDate(), postDTO.getResolveDate());
     }
 
     public PostDTO convertPostModelToPostDTO(PostModel postModel, List<VersionModel> versionModelList, List<Long> reviewersIds){
@@ -18,4 +18,9 @@ public class PostConverter {
         dtoToReturn.setReviewersIds(reviewersIds);
         return dtoToReturn;
     }
+
+    public PostModel convertPostDTOToModelForUpdate(PostDTO postDTO){
+        return new PostModel(postDTO.getPostId(), 0, postDTO.getTitle(), postDTO.getCategory(), postDTO.getDescription(), null, null);
+    }
+
 }
