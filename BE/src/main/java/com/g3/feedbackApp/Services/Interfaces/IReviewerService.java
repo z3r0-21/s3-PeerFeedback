@@ -13,4 +13,5 @@ public interface IReviewerService {
         public boolean deleteReviewerById(Long id);
         public boolean addReviewer(ReviewerModel reviewer);
         public boolean updateReviewer(ReviewerModel reviewer);
+        void deleteAllReviewersByPostId(Long postId);
 }

@@ -36,8 +36,8 @@ public class DataSourceUser implements IDataSourceUser {
         if (user == null){
             return false;
         }
-        int idop = studentNr.intValue();
-        postRepository.deleteAllByIdOP(idop);
+//        int idop = studentNr.intValue();
+//        postRepository.deleteAllByIdOP(idop);
         userRepository.delete(user);
         return true;
     }

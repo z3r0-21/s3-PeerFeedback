@@ -132,9 +132,9 @@ public class PostController {
         return  ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping("{postId}")
-    public ResponseEntity deletePost(@PathVariable int postId) {
-        postService.deletePostModel((long)postId);
-        return ResponseEntity.ok().build();
-    }
+//    @DeleteMapping("{postId}")
+//    public ResponseEntity deletePost(@PathVariable int postId) {
+//        postService.deletePostModel((long)postId);
+//        return ResponseEntity.ok().build();
+//    }
 }

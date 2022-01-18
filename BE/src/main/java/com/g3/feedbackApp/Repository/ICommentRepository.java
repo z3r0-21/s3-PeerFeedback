@@ -9,4 +9,6 @@ public interface ICommentRepository extends JpaRepository<CommentModel, Long> {
 
     CommentModel getFirstByCommentId(Long id);
     List<CommentModel> getCommentModelsByVersionId(Long id);
+    void deleteAllByVersionId(Long versionId);
+
 }

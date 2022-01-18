@@ -6,6 +6,7 @@ import com.g3.feedbackApp.Models.ReviewerModel;
 import com.g3.feedbackApp.Models.UserModel;
 import com.g3.feedbackApp.Services.Interfaces.IReviewerService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,5 +56,11 @@ public class ReviewerService implements IReviewerService {
     @Override
     public boolean updateReviewer(ReviewerModel reviewer) {
         return this.reviewerData.updateReviewer(reviewer);
+    }
+
+    @Override
+    @Transactional
+    public void deleteAllReviewersByPostId(Long postId) {
+        reviewerData.deleteAllReviewersByPostId(postId);
     }
 }

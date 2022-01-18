@@ -10,4 +10,5 @@ public interface ICommentService {
     List<CommentModel> getComments();
     CommentModel getCommentWithId(Long commentId);
     List<CommentModel> getCommentsWithVersionId(Long versionId);
+
 }

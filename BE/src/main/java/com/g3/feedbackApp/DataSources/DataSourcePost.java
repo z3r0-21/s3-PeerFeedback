@@ -58,6 +58,12 @@ public class DataSourcePost implements IDataSourcePost {
     }
 
     @Override
+    public void deleteAllVersionsByPostId(Long postId) {
+        versionRepository.deleteAllByPostId(postId);
+    }
+
+
+    @Override
     public boolean assignReviewers(List<Long> reviewersIds, Long postId) {
         for(Long id: reviewersIds){
             reviewerRepository.save(new ReviewerModel(postId, id));
@@ -117,5 +123,10 @@ public class DataSourcePost implements IDataSourcePost {
 
         postRepository.delete(post);
         return true;
+    }
+
+    @Override
+    public List<PostModel> getAllByIdOp(Long idOP) {
+        return postRepository.getAllByIdOP(idOP.intValue());
     }
 }

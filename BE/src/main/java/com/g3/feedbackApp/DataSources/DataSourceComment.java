@@ -41,4 +41,9 @@ public class DataSourceComment implements IDataSourceComment {
     public List<CommentModel> getComments() {
         return commentRepository.findAll();
     }
+
+    @Override
+    public void deleteAllByVersionId(Long versionId) {
+        commentRepository.deleteAllByVersionId(versionId);
+    }
 }

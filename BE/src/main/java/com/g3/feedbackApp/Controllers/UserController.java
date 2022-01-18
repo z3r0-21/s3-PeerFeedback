@@ -54,13 +54,13 @@ public class UserController {
     }
 
 
-    @DeleteMapping("{studentNr}")
-    public ResponseEntity deleteUser(@PathVariable int studentNr) {
-        if(userService.deleteUserModel((long)studentNr)) {
-            return ResponseEntity.ok().build();
-        }
-        else return ResponseEntity.notFound().build();
-    }
+//    @DeleteMapping("{studentNr}")
+//    public ResponseEntity deleteUser(@PathVariable int studentNr) {
+//        if(userService.deleteUserModel((long)studentNr)) {
+//            return ResponseEntity.ok().build();
+//        }
+//        else return ResponseEntity.notFound().build();
+//    }
 
     @PostMapping()
     public ResponseEntity<UserModel> createStudent(@RequestBody UserModel userModel) {

@@ -13,6 +13,7 @@ public interface IPostService {
     PostModel updatePost(PostModel postmodel, List<Long> reviewersIds);
     void updateReviewersIds(List<Long> reviewersIds, Long postId);
     Boolean createVersion(Long postId, String filePath);
+    void deleteAllVersionsByPostId(Long postId);
     PostModel getPostWithId(Long postId);
     List<PostModel> getPostsToReview(Long reviewerId);
     List<PostModel> getMyPosts(Long idOP);
@@ -22,4 +23,7 @@ public interface IPostService {
     List<Long> getReviewersIdsForPost(int postId);
     List<UserModel> getAvailableUsersExistingPost(Long postId);
     boolean deletePostModel(Long postId);
+
+    void deleteAllCommentsByPostId(Long postId);
+    List<PostModel> getAllPostsByIdOp(Long idOp);
 }

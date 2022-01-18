@@ -10,4 +10,5 @@ public interface IDataSourceComment {
     CommentModel getCommentWithID(Long ID);
     List<CommentModel> getCommentsWithVersionID(Long ID);
     List<CommentModel> getComments();
+    void deleteAllByVersionId(Long versionId);
 }
