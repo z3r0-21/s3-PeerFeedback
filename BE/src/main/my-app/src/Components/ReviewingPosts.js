@@ -28,6 +28,7 @@ function ReviewingPost(props){
         console.log(idOP);
         axios.get(urls.baseURL + 'post/postsToReview', { params: { userId: idOP } }).
             then((response) => {
+                console.log(response.data);
                 setPosts(response.data);
             })
             .catch((e) => {

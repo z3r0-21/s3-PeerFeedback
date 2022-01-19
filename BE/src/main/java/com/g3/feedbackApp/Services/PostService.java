@@ -84,10 +84,21 @@ public class PostService implements IPostService {
 
     @Override
     public List<PostModel> getPostsToReview(Long userId) {
-        List<ReviewerModel> reviewersWithUserId =  dataSourceReviewers.getReviewers().
-                stream().
-                filter(reviewerModel -> reviewerModel.getUserId() == userId).
-                collect(Collectors.toList());
+        List<ReviewerModel> reviewers = dataSourceReviewers.getReviewers();
+
+        List<ReviewerModel> reviewersWithUserId = new ArrayList<>();
+//        List<ReviewerModel> reviewersWithUserId =  reviewers.
+//                stream().
+//                filter(reviewerModel -> reviewerModel.getUserId().equals(userId)).
+//                collect(Collectors.toList());
+
+        for (ReviewerModel reviewerModel: reviewers) {
+            if(reviewerModel.getUserId().equals(userId)){
+                reviewersWithUserId.add(reviewerModel);
+            }
+        }
+
+
         List<PostModel> postsToReview = new ArrayList<>();
         for (ReviewerModel reviewer : reviewersWithUserId) {
             for (PostModel post : getAllPosts()) {

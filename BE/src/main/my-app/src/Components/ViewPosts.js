@@ -15,8 +15,8 @@ function ViewPosts() {
 
   useEffect(() => {
 
-      // localStorage.setItem("user", -1);
-      // localStorage.setItem("username", "abu");
+      // localStorage.setItem("user", -1236026766);
+      // localStorage.setItem("username", "a.takev");
       getMyId();
 
   }, []);
